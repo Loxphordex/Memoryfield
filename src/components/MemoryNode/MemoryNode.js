@@ -14,22 +14,18 @@ export default function MemoryNode({
   setActiveNode,
   speed
 }) {
-  useEffect(() => {
-    if (activeNode === playOrder) {
-      console.log(`Node ${playOrder} identifies as active node `, activeNode, playOrder)
-      setTimeout(() => {
-        setActiveNode(activeNode + 1);
-      }, speed);
-    }
-  }, [activeNode]);
   return (
     <div
       key={playOrder}
-      className={`memory-node memory-node-${shape} ${active(activeNode, playOrder, color)}`}
+      className={`memory-node memory-node-${shape} ${active(
+        activeNode,
+        playOrder,
+        color
+      )}`}
     />
   );
 }
 
 function active(activeNode, playOrder, color) {
-  return activeNode === playOrder ? color : ''
+  return activeNode === playOrder ? color : "";
 }

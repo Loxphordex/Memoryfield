@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MemoryField from './components/MemoryField/MemoryField'
-import levelUp from './levels/levelDetails'
+import { getLevel } from './levels/levelDetails'
 import './styles/node.css'
 import './styles/field.css'
 // import synth from './synth'
@@ -8,19 +8,27 @@ import './styles/field.css'
 function App() {
 
   const [currentLevel, setCurrentLevel] = useState(4)
-  const [speed, setSpeed] = useState(3000)
+  const [nodes, setNodes] = useState(getLevel(currentLevel))
+  const [speed, setSpeed] = useState(2000)
   const [activeNode, setActiveNode] = useState(-1)
 
   useEffect(() => {
-    setTimeout(() => {
-      setActiveNode(0)
-    }, 3000)
-  }, [currentLevel])
+    console.log('activeNode ', activeNode)
+    let timeout = setTimeout(() => {
+      let nextNode = activeNode + 1
+      setActiveNode(nextNode)
+    }, speed)
+
+    if (activeNode >= currentLevel) {
+      console.log('interval cleared')
+      clearTimeout(timeout)
+    }
+  }, [activeNode])
 
   return (
     <div className="App">
       <MemoryField 
-        currentLevel={currentLevel} 
+        nodes={nodes}
         activeNode={activeNode}
         setActiveNode={setActiveNode}
       />

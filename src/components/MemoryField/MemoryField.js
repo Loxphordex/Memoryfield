@@ -3,8 +3,7 @@ import { getLevel } from "../../levels/levelDetails";
 import GenerateNodes from "../MemoryNode/GenerateNodes";
 
 // Presents memory nodes and level info
-export default function MemoryField({currentLevel, activeNode, setActiveNode}) {
-  const nodes = getLevel(currentLevel);
+export default function MemoryField({nodes, activeNode, setActiveNode}) {
   // console.log('currentLevel:', currentLevel)
   // console.log('activeNode:', activeNode)
   return (
