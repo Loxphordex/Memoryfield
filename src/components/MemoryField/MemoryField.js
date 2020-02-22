@@ -4,8 +4,6 @@ import GenerateNodes from "../MemoryNode/GenerateNodes";
 
 // Presents memory nodes and level info
 export default function MemoryField({nodes, activeNode, setActiveNode}) {
-  // console.log('currentLevel:', currentLevel)
-  // console.log('activeNode:', activeNode)
   return (
     <section className="memory-field">
       <GenerateNodes 

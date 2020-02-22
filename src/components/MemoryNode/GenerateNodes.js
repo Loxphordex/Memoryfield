@@ -1,10 +1,10 @@
 import React from "react";
 import MemoryNode from "./MemoryNode";
 
-export default function GenerateNodes(container) {
+export default function GenerateNodes(props) {
   return (
     <>
-      {container.nodes.map(node => {
+      {props.nodes.map(node => {
         return (
           <MemoryNode
             shape={node.shape}
@@ -13,8 +13,8 @@ export default function GenerateNodes(container) {
             color={node.color}
             texture={node.texture}
             sound={node.sound}
-            activeNode={container.activeNode}
-            setActiveNode={container.setActiveNode}
+            activeNode={props.activeNode}
+            setActiveNode={props.setActiveNode}
           />
         );
       })}

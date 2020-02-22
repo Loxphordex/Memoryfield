@@ -1,3 +1,7 @@
+/**
+ * All experimental algorithms go here. Use Node to test.
+ */
+
 let arr = [1, 2, 3, 4];
 // arr.splice(Math.floor(Math.random() * arr.length - 1), 1);
 function playSequenceNumbers(order, speed) {

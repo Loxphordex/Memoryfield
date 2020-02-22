@@ -1,86 +1,20 @@
 // all data for levels
 // each node gets shape, playOrder, position, color, texture, and sound
 
-// dummy data
-export const levelData = {
-  // level 1
-  1: {
-    nodes: [
-      {
-        shape: "square",
-        playOrder: 2,
-        position: null,
-        color: "green",
-        texture: null,
-        sound: null
-      },
-      {
-        shape: "circle",
-        playOrder: 1,
-        position: null,
-        color: "purple",
-        texture: null,
-        sound: null
-      },
-      {
-        shape: "square",
-        playOrder: 3,
-        position: null,
-        color: "red",
-        texture: null,
-        sound: null
-      }
-    ]
-  },
-  2: {
-    nodes: [
-      {
-        shape: "square",
-        playOrder: 2,
-        position: null,
-        color: "green",
-        texture: null,
-        sound: null
-      },
-      {
-        shape: "circle",
-        playOrder: 1,
-        position: null,
-        color: "purple",
-        texture: null,
-        sound: null
-      },
-      {
-        shape: "square",
-        playOrder: 3,
-        position: null,
-        color: "red",
-        texture: null,
-        sound: null
-      },
-      {
-        shape: "circle",
-        playOrder: 4,
-        position: null,
-        color: "red",
-        texture: null,
-        sound: null
-      }
-    ]
-  }
-};
-
+// All possible shapes
 const shapes = [
   'square',
   'circle'
 ]
 
+// All possible colors
 const colors = [
   'red',
   'purple',
   'green'
 ]
 
+// Creates random nodes
 export function generateRandomLevel(nodeCount) {
   let nodes = []
   let order = getOrderNums(nodeCount)
@@ -88,6 +22,8 @@ export function generateRandomLevel(nodeCount) {
   for (let i = 0; i < nodeCount; i++) {
     let shape = randomShape()
     let color = randomColor()
+
+    // Each playOrder is a unique value
     let playOrder = order.splice(Math.floor(Math.random() * order.length - 1), 1)
 
     playOrder = playOrder[0]

@@ -13,14 +13,14 @@ function App() {
   const [activeNode, setActiveNode] = useState(-1)
 
   useEffect(() => {
-    console.log('activeNode ', activeNode)
+    // Light next node in order in intervals set by 'speed'
     let timeout = setTimeout(() => {
       let nextNode = activeNode + 1
       setActiveNode(nextNode)
     }, speed)
 
+    // End play sequence
     if (activeNode >= currentLevel) {
-      console.log('interval cleared')
       clearTimeout(timeout)
     }
   }, [activeNode])
