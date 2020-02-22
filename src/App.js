@@ -7,7 +7,7 @@ import './styles/field.css'
 
 function App() {
 
-  const [currentLevel, setCurrentLevel] = useState(1)
+  const [currentLevel, setCurrentLevel] = useState(4)
 
   return (
     <div className="App">

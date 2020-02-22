@@ -5,6 +5,7 @@ export default function GenerateNodes(container) {
   return (
     <>
       {container.nodes.map(node => {
+        console.log(node)
         return (
           <MemoryNode
             shape={node.shape}
