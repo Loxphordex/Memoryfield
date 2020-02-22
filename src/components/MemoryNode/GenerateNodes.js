@@ -5,7 +5,6 @@ export default function GenerateNodes(container) {
   return (
     <>
       {container.nodes.map(node => {
-        console.log(node)
         return (
           <MemoryNode
             shape={node.shape}
@@ -14,6 +13,8 @@ export default function GenerateNodes(container) {
             color={node.color}
             texture={node.texture}
             sound={node.sound}
+            activeNode={container.activeNode}
+            setActiveNode={container.setActiveNode}
           />
         );
       })}
