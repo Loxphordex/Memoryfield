@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 // Single "button" for memory game
 // presentational component containing all styles for current button
@@ -12,16 +12,25 @@ export default function MemoryNode({
   sound,
   activeNode,
   setActiveNode,
-  speed
+  speed,
+  userSelection,
+  setUserSelection,
+  correctSelection,
+  setCorrectSelection,
+  select
 }) {
   return (
     <div
       key={playOrder}
+      onClick={e =>
+        select(e, setUserSelection, correctSelection, setCorrectSelection)
+      }
       className={`memory-node memory-node-${shape} ${active(
         activeNode,
         playOrder,
         color
       )}`}
+      id={playOrder}
     />
   );
 }

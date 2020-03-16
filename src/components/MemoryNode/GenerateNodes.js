@@ -1,5 +1,6 @@
 import React from "react";
 import MemoryNode from "./MemoryNode";
+import select from '../../user/userSelect/userSelect'
 
 export default function GenerateNodes(props) {
   return (
@@ -15,6 +16,11 @@ export default function GenerateNodes(props) {
             sound={node.sound}
             activeNode={props.activeNode}
             setActiveNode={props.setActiveNode}
+            userSelection={props.userSelection}
+            setUserSelection={props.setUserSelection}
+            correctSelection={props.correctSelection}
+            setCorrectSelection={props.setCorrectSelection}
+            select={select}
           />
         );
       })}

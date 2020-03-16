@@ -3,7 +3,6 @@ import MemoryField from './components/MemoryField/MemoryField'
 import { getLevel } from './levels/levelDetails'
 import './styles/node.css'
 import './styles/field.css'
-// import synth from './synth'
 
 function App() {
 
@@ -11,6 +10,10 @@ function App() {
   const [nodes, setNodes] = useState(getLevel(currentLevel))
   const [speed, setSpeed] = useState(2000)
   const [activeNode, setActiveNode] = useState(-1)
+
+  // user' guesses
+  const [userSelection, setUserSelection] = useState(-1)
+  const [correctSelection, setCorrectSelection] = useState(0)
 
   useEffect(() => {
     // Light next node in order in intervals set by 'speed'
@@ -23,7 +26,7 @@ function App() {
     if (activeNode >= currentLevel) {
       clearTimeout(timeout)
     }
-  }, [activeNode])
+  }, [activeNode, currentLevel, speed])
 
   return (
     <div className="App">
@@ -31,6 +34,10 @@ function App() {
         nodes={nodes}
         activeNode={activeNode}
         setActiveNode={setActiveNode}
+        userSelection={userSelection}
+        setUserSelection={setUserSelection}
+        correctSelection={correctSelection}
+        setCorrectSelection={setCorrectSelection}
       />
     </div>
   )
