@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import MemoryField from './components/MemoryField/MemoryField'
 import { getLevel } from './levels/levelDetails'
 import ControlPanel from './components/ControlPanel/ControlPanel'
+import './styles/container.css'
+import './styles/control.css'
 import './styles/node.css'
 import './styles/field.css'
 
@@ -9,7 +11,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [activeNode, setActiveNode] = useState(-1)
   const [currentLevel, setCurrentLevel] = useState(10)
-  const [nodes, setNodes] = useState(getLevel(currentLevel))
+  const [nodes, setNodes] = useState(null)
   const [speed, setSpeed] = useState(100)
 
   // user' guesses
@@ -33,20 +35,27 @@ function App() {
     }
   }, [activeNode, currentLevel, speed, isPlaying])
 
+  function randomize() {
+    setNodes(getLevel(currentLevel))
+  }
+
   return (
     <div className="App">
-      <ControlPanel 
-        play={setIsPlaying}
-      />
-      <MemoryField 
-        nodes={nodes}
-        activeNode={activeNode}
-        setActiveNode={setActiveNode}
-        userSelection={userSelection}
-        setUserSelection={setUserSelection}
-        correctSelection={correctSelection}
-        setCorrectSelection={setCorrectSelection}
-      />
+      <section className='app-container'>
+        <ControlPanel 
+          play={setIsPlaying}
+          randomize={randomize}
+        />
+        <MemoryField 
+          nodes={nodes}
+          activeNode={activeNode}
+          setActiveNode={setActiveNode}
+          userSelection={userSelection}
+          setUserSelection={setUserSelection}
+          correctSelection={correctSelection}
+          setCorrectSelection={setCorrectSelection}
+        />
+      </section>
     </div>
   )
 }
