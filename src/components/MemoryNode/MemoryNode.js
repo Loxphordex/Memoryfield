@@ -22,9 +22,9 @@ export default function MemoryNode({
 }) {
 
   useEffect(() => {
-    if (activeNode == playOrder) {
+    if (activeNode === playOrder) {
       let frequency = Math.floor(Math.random() * 1000)
-      synth(1, frequency, 0.1)
+      synth(0.2, frequency, 0.1)
     }
   }, [activeNode, playOrder])
 

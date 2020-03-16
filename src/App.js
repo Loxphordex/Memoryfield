@@ -19,19 +19,23 @@ function App() {
   const [correctSelection, setCorrectSelection] = useState(0)
 
   useEffect(() => {
+    let timeout
     if (isPlaying) {
       // Light next node in order in intervals set by 'speed'
-      let timeout = setTimeout(() => {
-        let nextNode = activeNode + 1
-        setActiveNode(nextNode)
+      timeout = setTimeout(() => {
+        if (activeNode >= currentLevel) {
+          // clearTimeout(timeout)
+          // setIsPlaying(false)
+          setActiveNode(0)
+        } else {
+          let nextNode = activeNode + 1
+          setActiveNode(nextNode)
+        }
       }, speed)
   
-      // End play sequence
-      if (activeNode >= currentLevel) {
-        clearTimeout(timeout)
-        setIsPlaying(false)
-        setActiveNode(-1)
-      }
+    } else {
+      clearTimeout(timeout)
+      setActiveNode(-1)
     }
   }, [activeNode, currentLevel, speed, isPlaying])
 
@@ -46,7 +50,7 @@ function App() {
           play={setIsPlaying}
           randomize={randomize}
         />
-        <MemoryField 
+        { nodes && <MemoryField 
           nodes={nodes}
           activeNode={activeNode}
           setActiveNode={setActiveNode}
@@ -54,7 +58,7 @@ function App() {
           setUserSelection={setUserSelection}
           correctSelection={correctSelection}
           setCorrectSelection={setCorrectSelection}
-        />
+        /> }
       </section>
     </div>
   )
