@@ -1,8 +1,10 @@
 .memory-node {
-    min-width: 200px;
-    min-height: 200px;
+    min-width: 50px;
+    min-height: 50px;
     display: inline-block;
+    margin: 5px;
     background-color: beige;
+    border-radius: 3px;
 }
 
 .memory-node-circle {
