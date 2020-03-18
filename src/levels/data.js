@@ -22,12 +22,19 @@ export function generateRandomLevel(nodeCount) {
   for (let i = 0; i < nodeCount; i++) {
     let shape = randomShape()
     let color = randomColor()
+    let filterFrequency = randomFrequency()
+    let endtime = 0.8
 
     // Each playOrder is a unique value
     let playOrder = order.splice(Math.floor(Math.random() * order.length - 1), 1)
 
     playOrder = playOrder[0]
-    let node = { shape, color, playOrder }
+    let node = { 
+      shape, 
+      color, 
+      playOrder, 
+      filterFrequency,
+      endtime }
     nodes.push(node)
   }
   return nodes
@@ -45,6 +52,10 @@ function randomShape() {
 
 function randomColor() {
   return colors[Math.floor(Math.random() * colors.length)]
+}
+
+function randomFrequency() {
+  return Math.floor(Math.random() * 1000)
 }
 
 function getOrderNums(count) {

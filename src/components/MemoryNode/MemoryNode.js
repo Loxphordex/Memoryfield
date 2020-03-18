@@ -21,12 +21,12 @@ export default function MemoryNode({
   select
 }) {
 
-  useEffect(() => {
-    if (activeNode === playOrder) {
-      let frequency = Math.floor(Math.random() * 1000)
-      synth(0.2, frequency, 0.1)
-    }
-  }, [activeNode, playOrder])
+  // useEffect(() => {
+  //   if (activeNode === playOrder) {
+  //     let frequency = Math.floor(Math.random() * 1000)
+  //     synth(0.2, frequency, 0.1, ctx)
+  //   }
+  // }, [activeNode, playOrder, ctx])
 
   return (
     <div

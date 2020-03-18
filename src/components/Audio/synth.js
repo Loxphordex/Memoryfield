@@ -1,10 +1,10 @@
 import { waveforms } from "./constants";
 
-export default function synth(outputLevel, filterFrequency, endTime) {
+export default function synth(outputLevel, filterFrequency, endTime, ctx) {
   let AudioContext = window.AudioContext || window.webkitAudioContext || null;
 
   if (AudioContext) {
-    let ctx = new AudioContext();
+    // let ctx = new AudioContext();
     let sine = ctx.createOscillator();
     let saw = ctx.createOscillator();
     let square = ctx.createOscillator();
