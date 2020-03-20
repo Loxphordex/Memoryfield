@@ -1,6 +1,11 @@
 .app-container {
     width: 800px;
-    margin: auto;
+    min-height: 400px;
+    margin: 25px auto;
+    padding: 10px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    background-color: rgb(38, 38, 43);
+    border: 2px solid rgb(49, 48, 51);
+    border-radius: 3px;
 }

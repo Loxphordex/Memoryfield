@@ -18,6 +18,8 @@ export default function MemoryNode({
   setUserSelection,
   correctSelection,
   setCorrectSelection,
+  nodeEditor,
+  setNodeEditor,
   select
 }) {
 
@@ -31,9 +33,7 @@ export default function MemoryNode({
   return (
     <div
       key={playOrder}
-      onClick={e =>
-        select(e, setUserSelection, correctSelection, setCorrectSelection)
-      }
+      onClick={() => setNodeEditor(playOrder)}
       className={`memory-node memory-node-${shape} ${active(
         activeNode,
         playOrder,

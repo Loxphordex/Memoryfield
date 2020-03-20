@@ -1,5 +1,5 @@
 export const waveforms = { 
-    sine: 'sine',
-    sawtooth: 'sawtooth',
-    square: 'square'
+  sine: 'sine',
+  sawtooth: 'sawtooth',
+  square: 'square'
 }

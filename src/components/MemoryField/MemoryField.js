@@ -9,7 +9,9 @@ export default function MemoryField({
   userSelection,
   setUserSelection,
   correctSelection,
-  setCorrectSelection
+  setCorrectSelection,
+  nodeEditor,
+  setNodeEditor
 }) {
   return (
     <section className='field-container'>
@@ -18,6 +20,8 @@ export default function MemoryField({
           nodes={nodes}
           activeNode={activeNode}
           setActiveNode={setActiveNode}
+          nodeEditor={nodeEditor}
+          setNodeEditor={setNodeEditor}
           userSelection={userSelection}
           setUserSelection={setUserSelection}
           correctSelection={correctSelection}

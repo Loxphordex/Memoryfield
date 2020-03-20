@@ -1,3 +1,5 @@
+import { notes } from './notes'
+import { waveforms } from '../components/Audio/constants'
 // all data for levels
 // each node gets shape, playOrder, position, color, texture, and sound
 
@@ -17,24 +19,31 @@ const colors = [
 // Creates random nodes
 export function generateRandomLevel(nodeCount) {
   let nodes = []
-  let order = getOrderNums(nodeCount)
+  // let order = getOrderNums(nodeCount)
+  let order = 0;
 
   for (let i = 0; i < nodeCount; i++) {
     let shape = randomShape()
     let color = randomColor()
     let filterFrequency = randomFrequency()
-    let endtime = 0.8
+    let endtime = 0.1
+    let playOrder = order
+    let note = notes[0]
+    let wave = waveforms.sine
+    order++
 
     // Each playOrder is a unique value
-    let playOrder = order.splice(Math.floor(Math.random() * order.length - 1), 1)
+    // let playOrder = order.splice(Math.floor(Math.random() * order.length - 1), 1)
 
-    playOrder = playOrder[0]
+    // playOrder = playOrder[0]
     let node = { 
       shape, 
       color, 
       playOrder, 
       filterFrequency,
-      endtime }
+      endtime,
+      note,
+      wave }
     nodes.push(node)
   }
   return nodes

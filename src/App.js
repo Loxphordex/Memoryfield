@@ -13,7 +13,8 @@ import "./styles/field.css";
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeNode, setActiveNode] = useState(-1);
-  const [currentLevel, setCurrentLevel] = useState(10);
+  const [nodeEditor, setNodeEditor] = useState(null);
+  const [currentLevel, setCurrentLevel] = useState(16);
   const [nodes, setNodes] = useState(null);
   const [speed, setSpeed] = useState(1000);
   const [outputLevel, setOutputLevel] = useState(0.2);
@@ -24,47 +25,50 @@ function App() {
 
   let AudioContext = window.AudioContext || window.webkitAudioContext || null;
   let ctx = new AudioContext();
-  let sine = ctx.createOscillator();
-  let saw = ctx.createOscillator();
-  let square = ctx.createOscillator();
+  let osc = ctx.createOscillator();
   let filter = ctx.createBiquadFilter();
   let volume = ctx.createGain();
-  sine.type = waveforms.sine;
-  saw.type = waveforms.sawtooth;
-  square.type = waveforms.square;
+  // sine.type = waveforms.sine;
   filter.type = "lowpass";
 
   useEffect(() => {
-    if (activeNode >= 0 && nodes != null) {
+    if (activeNode >= 0 && nodes != null && isPlaying) {
       if (AudioContext) {
         // let ctx = new AudioContext()
-        let now = ctx.currentTime
-        console.log(ctx)
+        let now = ctx.currentTime;
         let currentNode = nodes[activeNode];
-        console.log(currentNode)
+        let freq = currentNode.note.frequency;
+        let wave = currentNode.wave;
+        let end = currentNode.endtime;
 
         // filter setup
         filter.frequency.setValueAtTime(currentNode.filterFrequency, now);
 
-        // sine osc
-        sine.start(); // Turn on oscillator
-        console.log('sine started', now)
-        sine.frequency.value = 400;
-        sine.connect(volume); // Hook up to gain node
-        sine.stop(currentNode.endTime);
-        console.log('sine ended', currentNode.endtime)
+        osc.type = wave
+        osc.start();
+        console.log('start', now)
+        osc.frequency.value = freq;
+        osc.connect(volume)
+        osc.stop(end)
+        console.log('stop', now, end)
 
-        // sawtooth osc
-        saw.start();
-        saw.frequency.value = 523.25;
-        saw.connect(volume);
-        saw.stop(currentNode.endtime);
+        // // sine osc
+        // sine.start(); // Turn on oscillator
+        // sine.frequency.value = 400;
+        // sine.connect(volume); // Hook up to gain node
+        // sine.stop(currentNode.endTime);
 
-        // square osc
-        square.start();
-        square.frequency.value = 698.46;
-        square.connect(volume);
-        square.stop(currentNode.endtime);
+        // // sawtooth osc
+        // saw.start();
+        // saw.frequency.value = 523.25;
+        // saw.connect(volume);
+        // saw.stop(currentNode.endtime);
+
+        // // square osc
+        // square.start();
+        // square.frequency.value = 698.46;
+        // square.connect(volume);
+        // square.stop(currentNode.endtime);
 
         // Connect nodes
         volume.gain.value = outputLevel;
@@ -90,41 +94,41 @@ function App() {
       clearTimeout(timeout);
       setActiveNode(-1);
     }
-  }, [
-    activeNode,
-    currentLevel,
-    speed,
-    isPlaying,
-    nodes,
-    AudioContext,
-    ctx,
-    outputLevel,
-    filter,
-    sine,
-    volume,
-    saw,
-    square
-  ]);
+  }, [activeNode, currentLevel, speed, isPlaying, nodes, AudioContext, ctx, outputLevel, filter, volume, osc]);
 
   function randomize() {
     setNodes(getLevel(currentLevel));
   }
 
+  function calculateBpm(speedSetting) {
+    let fixedBpm = 7500 - speedSetting;
+    setSpeed(fixedBpm);
+    // setSpeed(speedSetting)
+  }
+
   return (
     <div className="App">
       <section className="app-container">
-        <ControlPanel play={setIsPlaying} randomize={randomize} />
-        {nodes && (
-          <MemoryField
-            nodes={nodes}
-            activeNode={activeNode}
-            setActiveNode={setActiveNode}
-            userSelection={userSelection}
-            setUserSelection={setUserSelection}
-            correctSelection={correctSelection}
-            setCorrectSelection={setCorrectSelection}
-          />
-        )}
+        <ControlPanel
+          speed={speed}
+          play={setIsPlaying}
+          randomize={randomize}
+          calculateBpm={calculateBpm}
+          nodes={nodes}
+          setNodes={setNodes}
+          nodeEditor={nodeEditor}
+        />
+        <MemoryField
+          nodes={nodes}
+          activeNode={activeNode}
+          nodeEditor={nodeEditor}
+          setActiveNode={setActiveNode}
+          userSelection={userSelection}
+          setNodeEditor={setNodeEditor}
+          setUserSelection={setUserSelection}
+          correctSelection={correctSelection}
+          setCorrectSelection={setCorrectSelection}
+        />
       </section>
     </div>
   );

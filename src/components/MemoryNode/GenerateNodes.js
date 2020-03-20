@@ -20,7 +20,10 @@ export default function GenerateNodes(props) {
             setUserSelection={props.setUserSelection}
             correctSelection={props.correctSelection}
             setCorrectSelection={props.setCorrectSelection}
+            nodeEditor={props.nodeEditor}
+            setNodeEditor={props.setNodeEditor}
             select={select}
+            key={node.playOrder}
           />
         );
       })}
