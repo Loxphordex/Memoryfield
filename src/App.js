@@ -8,6 +8,7 @@ import { waveforms } from "./components/Audio/constants";
 import "./styles/container.css";
 import "./styles/control.css";
 import "./styles/node.css";
+import "./styles/colors.css"
 import "./styles/field.css";
 
 function App() {

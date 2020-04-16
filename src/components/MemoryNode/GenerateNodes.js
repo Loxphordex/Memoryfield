@@ -1,5 +1,5 @@
-import React from "react";
-import MemoryNode from "./MemoryNode";
+import React from "react"
+import MemoryNode from "./MemoryNode"
 import select from '../../user/userSelect/userSelect'
 
 export default function GenerateNodes(props) {

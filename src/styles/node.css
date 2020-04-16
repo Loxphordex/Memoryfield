@@ -10,22 +10,3 @@
 .memory-node-circle {
     border-radius: 50%;
 }
-
-.red {
-    background-color: rgb(226, 0, 49);
-    box-shadow: 0px 0px 19px 5px rgb(255, 0, 55);
-}
-
-.green {
-    background-color: rgb(0, 226, 139);
-    box-shadow: 0px 0px 19px 5px rgb(2, 241, 150);
-}
-
-.purple {
-    background-color: rgb(127, 1, 230);
-    box-shadow: 0px 0px 19px 5px rgb(139, 1, 251);
-}
-
-.editing {
-  background-color: rgb(216, 214, 112);
-}
