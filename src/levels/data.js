@@ -13,7 +13,11 @@ const shapes = [
 const colors = [
   'red',
   'purple',
-  'green'
+  'green',
+  'orange',
+  'pink',
+  'teal',
+  'blue'
 ]
 
 // Creates random nodes
