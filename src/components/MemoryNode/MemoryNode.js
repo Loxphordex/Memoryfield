@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import synth from '../Audio/synth'
+import synth from "../Audio/synth";
 
 // Single "button" for memory game
 // presentational component containing all styles for current button
@@ -22,7 +22,6 @@ export default function MemoryNode({
   setNodeEditor,
   select
 }) {
-
   // useEffect(() => {
   //   if (activeNode === playOrder) {
   //     let frequency = Math.floor(Math.random() * 1000)
@@ -38,7 +37,8 @@ export default function MemoryNode({
         activeNode,
         playOrder,
         color
-      )}`}
+      )}
+      ${editing(playOrder, nodeEditor)}`}
       id={playOrder}
     />
   );
@@ -46,4 +46,8 @@ export default function MemoryNode({
 
 function active(activeNode, playOrder, color) {
   return activeNode === playOrder ? color : "";
+}
+
+function editing(playOrder, nodeEditor) {
+  return playOrder === nodeEditor ? "editing" : "";
 }

@@ -25,3 +25,7 @@
     background-color: rgb(127, 1, 230);
     box-shadow: 0px 0px 19px 5px rgb(139, 1, 251);
 }
+
+.editing {
+  background-color: rgb(216, 214, 112);
+}
