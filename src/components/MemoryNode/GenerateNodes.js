@@ -1,6 +1,5 @@
 import React from "react"
 import MemoryNode from "./MemoryNode"
-import select from '../../user/userSelect/userSelect'
 
 export default function GenerateNodes(props) {
   return (
@@ -18,7 +17,6 @@ export default function GenerateNodes(props) {
             setActiveNode={props.setActiveNode}
             nodeEditor={props.nodeEditor}
             setNodeEditor={props.setNodeEditor}
-            select={select}
             key={node.playOrder}
           />
         );
