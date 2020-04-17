@@ -9,13 +9,32 @@ export default function ControlPanel({
   calculateBpm,
   nodes,
   setNodes, 
-  nodeEditor }) {
+  nodeEditor,
+  setNodeEditor }) {
   
-  function addNodes() {
+  function addNode() {
     if (nodes) {
       setNodes([...nodes, defaultNode(nodes.length)])
     } else {
       setNodes([defaultNode(0)])
+    }
+  }
+
+  function deleteNode() {
+    if (nodes != null &&  nodeEditor != null) {
+      const nodesCopy = [...nodes]
+      delete nodesCopy[nodeEditor]
+      setNodeEditor(null)
+      setNodes(enumeratePlayOrder(nodesCopy))
+    }
+  }
+
+  function enumeratePlayOrder(nodes) {
+    if (nodes) {
+      return nodes.filter(Boolean).map((node, i) => {
+        node.playOrder = i
+        return node
+      })
     }
   }
 
@@ -35,6 +54,7 @@ export default function ControlPanel({
           <button className='prev-note note-switch-button'>{'<'}</button>
           <div className='note-display'>{selectedNode.note.note || defaultNote}</div>
           <button className='next-note note-switch-button'>{'>'}</button>
+          <button className="delete-node" onClick={() => deleteNode()}>Delete</button>
         </div>
       )
     }
@@ -46,7 +66,7 @@ export default function ControlPanel({
       <div className='global-controls'>
         <button onClick={() => playSequence()}>Play</button>
         <button onClick={() => play(false)}>Stop</button>
-        <button onClick={() => addNodes()}>+</button>
+        <button onClick={() => addNode()}>+</button>
         <button onClick={() => randomize()}>Randomize</button>
   
         <label htmlFor="speed">{speed}</label>

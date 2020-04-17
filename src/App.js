@@ -115,6 +115,7 @@ function App() {
           nodes={nodes}
           setNodes={setNodes}
           nodeEditor={nodeEditor}
+          setNodeEditor={setNodeEditor}
         />
         <MemoryField
           nodes={nodes}

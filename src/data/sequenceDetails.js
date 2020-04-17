@@ -5,7 +5,5 @@ export function getSequence(currentLevel) {
 } 
 
 export function defaultNode(order) {
-  console.log('defaultNode triggered ', order)
-  // return order ? createDefaultNode(order) : null
   return createDefaultNode(order)
 }

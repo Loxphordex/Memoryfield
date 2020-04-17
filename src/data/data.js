@@ -24,7 +24,7 @@ export function createDefaultNode(order) {
   return {
     shape: randomShape(),
     color: randomColor(),
-    filterFrequency: randomFrequency(),
+    filterFrequency: 800,
     endtime: 0.1,
     playOrder: order,
     note: notes[0],
