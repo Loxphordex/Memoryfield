@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MemoryField from "./components/MemoryField/MemoryField";
-import { getLevel } from "./levels/levelDetails";
+import { getSequence } from "./data/sequenceDetails";
 import ControlPanel from "./components/ControlPanel/ControlPanel";
 import { waveforms } from "./components/Audio/constants";
 
@@ -15,7 +15,6 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeNode, setActiveNode] = useState(-1);
   const [nodeEditor, setNodeEditor] = useState(null);
-  const [currentLevel, setCurrentLevel] = useState(16);
   const [nodes, setNodes] = useState(null);
   const [speed, setSpeed] = useState(1000);
   const [outputLevel, setOutputLevel] = useState(0.2);
@@ -47,11 +46,9 @@ function App() {
 
         osc.type = wave
         osc.start();
-        console.log('start', now)
         osc.frequency.value = freq;
         osc.connect(volume)
         osc.stop(end)
-        console.log('stop', now, end)
 
         // // sine osc
         // sine.start(); // Turn on oscillator
@@ -84,7 +81,7 @@ function App() {
     if (isPlaying) {
       // Light next node in order in intervals set by 'speed'
       timeout = setTimeout(() => {
-        if (activeNode >= currentLevel - 1) {
+        if (activeNode >= nodes.length - 1) {
           setActiveNode(0);
         } else {
           let nextNode = activeNode + 1;
@@ -95,10 +92,10 @@ function App() {
       clearTimeout(timeout);
       setActiveNode(-1);
     }
-  }, [activeNode, currentLevel, speed, isPlaying, nodes, AudioContext, ctx, outputLevel, filter, volume, osc]);
+  }, [activeNode, speed, isPlaying, nodes, AudioContext, ctx, outputLevel, filter, volume, osc]);
 
   function randomize() {
-    setNodes(getLevel(currentLevel));
+    setNodes(getSequence(16));
   }
 
   function calculateBpm(speedSetting) {

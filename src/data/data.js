@@ -20,27 +20,39 @@ const colors = [
   'blue'
 ]
 
+export function createDefaultNode(order) {
+  return {
+    shape: randomShape(),
+    color: randomColor(),
+    filterFrequency: randomFrequency(),
+    endtime: 0.1,
+    playOrder: order,
+    note: notes[0],
+    wave: waveforms.sine
+  }
+}
+
 // Creates random nodes
-export function generateRandomLevel(nodeCount) {
-  let nodes = []
+export function generateRandomSequence(nodeCount) {
+  const nodes = []
   // let order = getOrderNums(nodeCount)
   let order = 0;
 
   for (let i = 0; i < nodeCount; i++) {
-    let shape = randomShape()
-    let color = randomColor()
-    let filterFrequency = randomFrequency()
-    let endtime = 0.1
-    let playOrder = order
-    let note = notes[0]
-    let wave = waveforms.sine
+    const shape = randomShape()
+    const color = randomColor()
+    const filterFrequency = randomFrequency()
+    const endtime = 0.1
+    const playOrder = order
+    const note = notes[0]
+    const wave = waveforms.sine
     order++
 
     // Each playOrder is a unique value
     // let playOrder = order.splice(Math.floor(Math.random() * order.length - 1), 1)
 
     // playOrder = playOrder[0]
-    let node = { 
+    const node = { 
       shape, 
       color, 
       playOrder, 
