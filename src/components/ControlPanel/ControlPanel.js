@@ -69,25 +69,16 @@ export default function ControlPanel({
         <button onClick={() => addNode()}>+</button>
         <button onClick={() => randomize()}>Randomize</button>
   
-        <label htmlFor="speed">{speed}</label>
-        <input type="range" id="speed" name="speed" min={1} max={7500} onChange={(e) => calculateBpm(e.target.value)}></input>
+        <label htmlFor="speed">{(60_000 / speed).toFixed()}</label>
+        <input type="range" id="speed" name="speed" min={1} max={300} onChange={(e) => calculateBpm(e.target.value)}></input>
       </div>
-      <div className='node-editor'>
-      </div>
+
+      {/* why is this here? */}
+      <div className='node-editor'></div>
+
       <div className='node-controls'>
         {nodeControls()}
       </div>
     </section>
   );
 }
-
-// Check if a node is selected (node editor should be able to toggle on/off)
-// @param editor is the index of the current node
-// @param nodes, list of nodes
-// set node details based on user input
-// set sine, pitch, duration, filter, etc.
-// more user control === more interesting instrument
-//
-// first copy the nodes array.
-// mutate that copy, then set the nodes in state to that copy
-// this is to avoid mutating state

@@ -31,7 +31,6 @@ function App() {
   useEffect(() => {
     if (activeNode >= 0 && nodes != null && isPlaying) {
       if (AudioContext) {
-        // let ctx = new AudioContext()
         let now = ctx.currentTime;
         let currentNode = nodes[activeNode];
         let freq = currentNode.note.frequency;
@@ -56,6 +55,7 @@ function App() {
       }
     }
 
+    // Sequence and looping
     let timeout;
     if (isPlaying) {
       timeout = setTimeout(() => {
@@ -76,9 +76,8 @@ function App() {
     setNodes(getSequence(16));
   }
 
-  function calculateBpm(speedSetting) {
-    let fixedBpm = 7500 - speedSetting;
-    setSpeed(fixedBpm);
+  function calculateBpm(bpm) {
+    setSpeed((60_000 / bpm).toFixed())
   }
 
   return (

@@ -1,7 +1,6 @@
 import React from "react";
 import MemoryNode from '../MemoryNode/MemoryNode'
 
-// Presents memory nodes and level info
 export default function MemoryField({
   nodes,
   activeNode,
