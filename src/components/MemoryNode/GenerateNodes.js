@@ -16,10 +16,6 @@ export default function GenerateNodes(props) {
             sound={node.sound}
             activeNode={props.activeNode}
             setActiveNode={props.setActiveNode}
-            userSelection={props.userSelection}
-            setUserSelection={props.setUserSelection}
-            correctSelection={props.correctSelection}
-            setCorrectSelection={props.setCorrectSelection}
             nodeEditor={props.nodeEditor}
             setNodeEditor={props.setNodeEditor}
             select={select}

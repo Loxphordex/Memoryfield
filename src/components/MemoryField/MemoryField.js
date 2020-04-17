@@ -6,10 +6,6 @@ export default function MemoryField({
   nodes,
   activeNode,
   setActiveNode,
-  userSelection,
-  setUserSelection,
-  correctSelection,
-  setCorrectSelection,
   nodeEditor,
   setNodeEditor
 }) {
@@ -22,10 +18,6 @@ export default function MemoryField({
           setActiveNode={setActiveNode}
           nodeEditor={nodeEditor}
           setNodeEditor={setNodeEditor}
-          userSelection={userSelection}
-          setUserSelection={setUserSelection}
-          correctSelection={correctSelection}
-          setCorrectSelection={setCorrectSelection}
         />}
       </section>
     </section>

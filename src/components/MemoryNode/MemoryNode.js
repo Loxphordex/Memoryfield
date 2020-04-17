@@ -1,33 +1,14 @@
-import React, { useEffect } from "react";
-import synth from "../Audio/synth";
+import React from "react";
 
-// Single "button" for memory game
-// presentational component containing all styles for current button
-// based on level info from levelConstants
 export default function MemoryNode({
   shape,
   playOrder,
-  position,
   color,
-  texture,
-  sound,
   activeNode,
-  setActiveNode,
-  speed,
-  userSelection,
-  setUserSelection,
-  correctSelection,
-  setCorrectSelection,
   nodeEditor,
   setNodeEditor,
   select
 }) {
-  // useEffect(() => {
-  //   if (activeNode === playOrder) {
-  //     let frequency = Math.floor(Math.random() * 1000)
-  //     synth(0.2, frequency, 0.1, ctx)
-  //   }
-  // }, [activeNode, playOrder, ctx])
 
   return (
     <div

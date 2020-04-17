@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import MemoryField from "./components/MemoryField/MemoryField";
 import { getSequence } from "./data/sequenceDetails";
 import ControlPanel from "./components/ControlPanel/ControlPanel";
-import { waveforms } from "./components/Audio/constants";
 
 // styles
 import "./styles/container.css";
@@ -12,23 +11,21 @@ import "./styles/colors.css"
 import "./styles/field.css";
 
 function App() {
+  // Set up Audio Context
+  const AudioContext = window.AudioContext || window.webkitAudioContext || null;
+
+  // State
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeNode, setActiveNode] = useState(-1);
   const [nodeEditor, setNodeEditor] = useState(null);
   const [nodes, setNodes] = useState(null);
-  const [speed, setSpeed] = useState(1000);
-  const [outputLevel, setOutputLevel] = useState(0.2);
+  const [speed, setSpeed] = useState(150);
+  const [outputLevel] = useState(0.2);
+  const [ctx] = useState(new AudioContext())
 
-  // user' guesses
-  const [userSelection, setUserSelection] = useState(-1);
-  const [correctSelection, setCorrectSelection] = useState(0);
-
-  let AudioContext = window.AudioContext || window.webkitAudioContext || null;
-  let ctx = new AudioContext();
   let osc = ctx.createOscillator();
   let filter = ctx.createBiquadFilter();
   let volume = ctx.createGain();
-  // sine.type = waveforms.sine;
   filter.type = "lowpass";
 
   useEffect(() => {
@@ -39,7 +36,7 @@ function App() {
         let currentNode = nodes[activeNode];
         let freq = currentNode.note.frequency;
         let wave = currentNode.wave;
-        let end = currentNode.endtime;
+        let end = now + currentNode.endtime;
 
         // filter setup
         filter.frequency.setValueAtTime(currentNode.filterFrequency, now);
@@ -49,24 +46,6 @@ function App() {
         osc.frequency.value = freq;
         osc.connect(volume)
         osc.stop(end)
-
-        // // sine osc
-        // sine.start(); // Turn on oscillator
-        // sine.frequency.value = 400;
-        // sine.connect(volume); // Hook up to gain node
-        // sine.stop(currentNode.endTime);
-
-        // // sawtooth osc
-        // saw.start();
-        // saw.frequency.value = 523.25;
-        // saw.connect(volume);
-        // saw.stop(currentNode.endtime);
-
-        // // square osc
-        // square.start();
-        // square.frequency.value = 698.46;
-        // square.connect(volume);
-        // square.stop(currentNode.endtime);
 
         // Connect nodes
         volume.gain.value = outputLevel;
@@ -122,11 +101,7 @@ function App() {
           activeNode={activeNode}
           nodeEditor={nodeEditor}
           setActiveNode={setActiveNode}
-          userSelection={userSelection}
           setNodeEditor={setNodeEditor}
-          setUserSelection={setUserSelection}
-          correctSelection={correctSelection}
-          setCorrectSelection={setCorrectSelection}
         />
       </section>
     </div>
