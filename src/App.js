@@ -58,7 +58,6 @@ function App() {
 
     let timeout;
     if (isPlaying) {
-      // Light next node in order in intervals set by 'speed'
       timeout = setTimeout(() => {
         if (activeNode >= nodes.length - 1) {
           setActiveNode(0);
@@ -80,7 +79,6 @@ function App() {
   function calculateBpm(speedSetting) {
     let fixedBpm = 7500 - speedSetting;
     setSpeed(fixedBpm);
-    // setSpeed(speedSetting)
   }
 
   return (
