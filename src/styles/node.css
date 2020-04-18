@@ -1,9 +1,10 @@
 .memory-node {
-    min-width: 40px;
-    min-height: 40px;
+    min-width: 38px;
+    min-height: 38px;
     display: inline-block;
     margin: 5px;
     background-color: rgb(234, 229, 245);
+    border: 1px solid rgb(163, 160, 168);;
     border-radius: 3px;
 }
 

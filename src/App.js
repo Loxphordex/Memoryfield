@@ -46,8 +46,14 @@ function App() {
         osc.connect(volume)
         osc.stop(end)
 
+        // envelope
+        volume.gain.cancelScheduledValues(now)
+        volume.gain.setValueAtTime(volume.gain.value, now);
+        volume.gain.linearRampToValueAtTime(0.1, now + 0.05);
+        volume.gain.linearRampToValueAtTime(0, now + 0.1);
+
         // Connect nodes
-        volume.gain.value = outputLevel;
+        // volume.gain.value = outputLevel;
         volume.connect(filter);
         filter.connect(ctx.destination);
       } else {
