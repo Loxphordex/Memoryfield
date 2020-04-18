@@ -25,7 +25,8 @@ export function createDefaultNode(order) {
     filterFrequency: 800,
     endtime: 0.1,
     playOrder: order,
-    note: notes[0],
+    // note: notes[0],
+    note: notes[22],
     wave: waveforms.sine
   }
 }
