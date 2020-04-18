@@ -14,7 +14,9 @@ export default function ControlPanel({
   
   function addNode() {
     if (nodes) {
-      setNodes([...nodes, defaultNode(nodes.length)])
+      if (nodes.length < 48) {
+        setNodes([...nodes, defaultNode(nodes.length)])
+      }
     } else {
       setNodes([defaultNode(0)])
     }

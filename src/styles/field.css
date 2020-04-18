@@ -1,3 +1,10 @@
+.field-container {
+    background-color: rgb(119, 119, 119);
+    min-height: 300px;
+    border: 1px solid rgb(214, 214, 223);
+    border-radius: 3px;
+}
+
 .memory-field {
     display: flex;
     align-items: center;
@@ -6,9 +13,5 @@
     max-width: 400px;
     min-width: 400px;
     min-height: 100px;
-
     margin-left: auto;
-
-    border: 1px solid rgb(214, 214, 223);
-    border-radius: 3px;
 }
