@@ -31,7 +31,6 @@ function App() {
   useEffect(() => {
     if (activeNode >= 0 && nodes != null && isPlaying) {
       if (AudioContext) {
-        // let ctx = new AudioContext()
         let now = ctx.currentTime;
         let currentNode = nodes[activeNode];
         let freq = currentNode.note.frequency;
@@ -47,8 +46,14 @@ function App() {
         osc.connect(volume)
         osc.stop(end)
 
+        // envelope
+        volume.gain.cancelScheduledValues(now)
+        volume.gain.setValueAtTime(volume.gain.value, now);
+        volume.gain.linearRampToValueAtTime(0.1, now + 0.05);
+        volume.gain.linearRampToValueAtTime(0, now + 0.1);
+
         // Connect nodes
-        volume.gain.value = outputLevel;
+        // volume.gain.value = outputLevel;
         volume.connect(filter);
         filter.connect(ctx.destination);
       } else {
@@ -56,9 +61,9 @@ function App() {
       }
     }
 
+    // Sequence and looping
     let timeout;
     if (isPlaying) {
-      // Light next node in order in intervals set by 'speed'
       timeout = setTimeout(() => {
         if (activeNode >= nodes.length - 1) {
           setActiveNode(0);
@@ -77,10 +82,8 @@ function App() {
     setNodes(getSequence(16));
   }
 
-  function calculateBpm(speedSetting) {
-    let fixedBpm = 7500 - speedSetting;
-    setSpeed(fixedBpm);
-    // setSpeed(speedSetting)
+  function calculateBpm(bpm) {
+    setSpeed((60_000 / bpm).toFixed())
   }
 
   return (

@@ -1,7 +1,6 @@
 import React from "react";
-import GenerateNodes from "../MemoryNode/GenerateNodes";
+import MemoryNode from '../MemoryNode/MemoryNode'
 
-// Presents memory nodes and level info
 export default function MemoryField({
   nodes,
   activeNode,
@@ -12,13 +11,23 @@ export default function MemoryField({
   return (
     <section className='field-container'>
       <section className="memory-field">
-        {nodes && <GenerateNodes
-          nodes={nodes}
-          activeNode={activeNode}
-          setActiveNode={setActiveNode}
-          nodeEditor={nodeEditor}
-          setNodeEditor={setNodeEditor}
-        />}
+        {nodes && nodes.map(node => {
+          return (
+            <MemoryNode
+              shape={node.shape}
+              playOrder={node.playOrder}
+              position={node.position}
+              color={node.color}
+              texture={node.texture}
+              sound={node.sound}
+              activeNode={activeNode}
+              setActiveNode={setActiveNode}
+              nodeEditor={nodeEditor}
+              setNodeEditor={setNodeEditor}
+              key={node.playOrder}
+            />
+          );
+        })}
       </section>
     </section>
   );
