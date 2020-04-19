@@ -1,6 +1,7 @@
 import React from "react";
 import { notes } from '../../data/notes'
 import { defaultNode } from '../../data/sequenceDetails'
+import NoteControls from './NoteControls'
 
 export default function ControlPanel({ 
   play, 
@@ -46,23 +47,6 @@ export default function ControlPanel({
     }
   }
 
-  function nodeControls() {
-    if (nodes && nodeEditor !== null) {
-      const nodesClone = [...nodes]
-      const selectedNode = nodesClone[nodeEditor]
-      const defaultNote = notes[0]
-      return (
-        <div className='note-switch'>
-          <button className='prev-note note-switch-button'>{'<'}</button>
-          <div className='note-display'>{selectedNode.note.note || defaultNote}</div>
-          <button className='next-note note-switch-button'>{'>'}</button>
-          <button className="delete-node" onClick={() => deleteNode()}>Delete</button>
-        </div>
-      )
-    }
-    return <></>
-  }
-
   return (
     <section className="control-panel">
       <div className='global-controls'>
@@ -72,14 +56,18 @@ export default function ControlPanel({
         <button onClick={() => randomize()}>Randomize</button>
   
         <label htmlFor="speed">{(60_000 / speed).toFixed()}</label>
-        <input type="range" id="speed" name="speed" min={1} max={300} onChange={(e) => calculateBpm(e.target.value)}></input>
+        <input type="range" id="speed" name="speed" min={1} max={1000} 
+          onChange={(e) => calculateBpm(e.target.value)}></input>
       </div>
 
-      {/* why is this here? */}
-      <div className='node-editor'></div>
-
       <div className='node-controls'>
-        {nodeControls()}
+        <NoteControls
+          nodes={nodes}
+          setNodes={setNodes}
+          nodeEditor={nodeEditor}
+          notes={notes}
+        />
+        <button className="delete-node" onClick={() => deleteNode()}>Delete</button>
       </div>
     </section>
   );

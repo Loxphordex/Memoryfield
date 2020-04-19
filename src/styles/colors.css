@@ -1,3 +1,7 @@
+.editing {
+    background-color: rgb(216, 214, 112);
+}
+
 .red {
     border: none;
     min-width: 40px;
@@ -52,8 +56,4 @@
     min-height: 40px;    
     background-color: rgb(76, 13, 252);
     box-shadow: 0px 0px 19px 5px rgb(76, 13, 252);
-}
-
-.editing {
-    background-color: rgb(216, 214, 112);
 }

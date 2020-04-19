@@ -1,4 +1,4 @@
-export const notes = [
+const baseNotes = [
   {note:  'C0', frequency: 16.35},
   {note: 'Db0', frequency: 17.32},
   {note:  'D0', frequency: 18.35},
@@ -116,3 +116,8 @@ export const notes = [
   {note: 'Bb8', frequency: 7458.62},
   {note:  'B8', frequency: 7902.13},
 ]
+
+export const notes = baseNotes.map((note, index) => {
+  note.index = index
+  return note
+})

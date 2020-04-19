@@ -6,8 +6,7 @@ export default function MemoryNode({
   color,
   activeNode,
   nodeEditor,
-  setNodeEditor,
-  select
+  setNodeEditor
 }) {
 
   return (
