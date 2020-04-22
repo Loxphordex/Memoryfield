@@ -1,6 +1,5 @@
 {
   "name": "memory-field",
-  "homepage": "https://loxphordex.github.io/Memoryfield/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
