@@ -18,23 +18,26 @@ const colors = [
   'blue'
 ]
 
-export function createDefaultNode(order) {
+export function createDefaultNode(order, nodeSequenceLength) {
   return {
     shape: randomShape(),
     color: randomColor(),
     filterFrequency: 800,
     endtime: 0.1,
     playOrder: order,
-    // note: notes[0],
+    active: checkIfActive(order, nodeSequenceLength),
     note: notes[22],
     wave: waveforms.sine
   }
 }
 
+function checkIfActive(order, nodeSequenceLength) {
+  return order > nodeSequenceLength - 1 ? false : true
+}
+
 // Creates random nodes
-export function generateRandomSequence(nodeCount) {
+export function generateRandomSequence(nodeCount, nodeSequenceLength) {
   const nodes = []
-  let order = 0;
 
   for (let i = 0; i < nodeCount; i++) {
     nodes.push({
@@ -42,11 +45,11 @@ export function generateRandomSequence(nodeCount) {
       color: randomColor(),
       filterFrequency: randomFilterFrequency(),
       endtime: 0.1,
-      playOrder: order,
+      playOrder: i,
+      active: checkIfActive(i, nodeSequenceLength),
       note: randomNote(),
       wave: waveforms.sine
     })
-    order++
   }
   return nodes
 }
@@ -65,4 +68,26 @@ function randomFilterFrequency() {
 
 function randomNote() {
   return notes[Math.floor(Math.random() * notes.length)]
+}
+
+// Generate initial sequence of nodes
+export function generateInitialSequence(nodeCount, nodeSequenceLength) {
+  let nodes = []
+  for (let i = 0; i < nodeCount; i++) {
+    nodes.push(initialNode(i, nodeSequenceLength))
+  }
+  return nodes
+}
+
+function initialNode(order, nodeSequenceLength) {
+  return {
+    shape: shapes[0],
+    color: randomColor(),
+    filterFrequency: 1200,
+    endtime: 0.1,
+    playOrder: order,
+    active: checkIfActive(order, nodeSequenceLength),
+    note: notes[36],
+    wave: waveforms.sine
+  }
 }
