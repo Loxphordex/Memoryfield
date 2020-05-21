@@ -1,7 +1,7 @@
 import React from "react";
 import { notes } from '../../data/notes'
 import { defaultNode } from '../../data/sequenceDetails'
-import NoteControls from './NoteControls'
+import Panel from './Panel'
 
 export default function ControlPanel({ 
   play, 
@@ -9,6 +9,8 @@ export default function ControlPanel({
   speed, 
   calculateBpm,
   nodes,
+  nodeSequenceLength,
+  setNodeSequenceLength,
   setNodes, 
   nodeEditor,
   setNodeEditor }) {
@@ -41,6 +43,26 @@ export default function ControlPanel({
     }
   }
 
+  function nodeActivationStatus(num) {
+    if (nodes) {
+      return nodes.filter(Boolean).map((node, i) => {
+        if (node.playOrder > num - 1) {
+          node.active = false
+        } else {
+          node.active = true
+        }
+        return node
+      })
+    }
+  }
+
+  function setSequenceAndNodeStatus(num) {
+    if (num) {
+      setNodeSequenceLength(num)
+      setNodes(nodeActivationStatus(num))
+    }
+  }
+
   function playSequence() {
     if (nodes) {
       play(true)
@@ -48,27 +70,20 @@ export default function ControlPanel({
   }
 
   return (
-    <section className="control-panel">
-      <div className='global-controls'>
-        <button onClick={() => playSequence()}>Play</button>
-        <button onClick={() => play(false)}>Stop</button>
-        <button onClick={() => addNode()}>+</button>
-        <button onClick={() => randomize()}>Randomize</button>
-  
-        <label htmlFor="speed">{(60_000 / speed).toFixed()}</label>
-        <input type="range" id="speed" name="speed" min={1} max={1000} 
-          onChange={(e) => calculateBpm(e.target.value)}></input>
-      </div>
-
-      <div className='node-controls'>
-        <NoteControls
-          nodes={nodes}
-          setNodes={setNodes}
-          nodeEditor={nodeEditor}
-          notes={notes}
-        />
-        <button className="delete-node" onClick={() => deleteNode()}>Delete</button>
-      </div>
-    </section>
-  );
+    <Panel 
+      nodes={nodes}
+      setNodes={setNodes}
+      nodeEditor={nodeEditor}
+      notes={notes}
+      playSequence={playSequence}
+      play={play}
+      addNode={addNode}
+      randomize={randomize}
+      calculateBpm={calculateBpm}
+      deleteNode={deleteNode}
+      speed={speed}
+      nodeSequenceLength={nodeSequenceLength}
+      setSequenceAndNodeStatus={setSequenceAndNodeStatus}
+    />
+  )
 }

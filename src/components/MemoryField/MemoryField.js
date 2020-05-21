@@ -20,6 +20,7 @@ export default function MemoryField({
               color={node.color}
               texture={node.texture}
               sound={node.sound}
+              active={node.active}
               activeNode={activeNode}
               setActiveNode={setActiveNode}
               nodeEditor={nodeEditor}

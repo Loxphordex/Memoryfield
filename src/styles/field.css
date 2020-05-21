@@ -1,7 +1,5 @@
 .field-container {
-    background-color: rgb(176, 173, 177);
     min-height: 100px;
-    border: 1px solid rgb(214, 214, 223);
     border-radius: 3px;
     margin: 0 auto;
 }

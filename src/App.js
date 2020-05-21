@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import MemoryField from "./components/MemoryField/MemoryField";
-import { getSequence } from "./data/sequenceDetails";
+import { getRandomSequence, getInitialSequence } from "./data/sequenceDetails";
 import ControlPanel from "./components/ControlPanel/ControlPanel";
+import { filterTypes } from './components/Audio/constants'
+import playSound from './components/Audio/playSound'
 
 // styles
 import "./styles/container.css";
@@ -19,6 +21,7 @@ function App() {
   const [activeNode, setActiveNode] = useState(-1);
   const [nodeEditor, setNodeEditor] = useState(null);
   const [nodes, setNodes] = useState(null);
+  const [nodeSequenceLength, setNodeSequenceLength] = useState(16)
   const [speed, setSpeed] = useState(150);
   const [outputLevel] = useState(0.2);
   const [ctx] = useState(new AudioContext())
@@ -26,48 +29,25 @@ function App() {
   let osc = ctx.createOscillator();
   let filter = ctx.createBiquadFilter();
   let volume = ctx.createGain();
-  filter.type = "lowpass";
+  filter.type = filterTypes.lowpass;
 
   useEffect(() => {
+    if (nodes === null) {
+      setNodes(getInitialSequence(16, nodeSequenceLength))
+    }
     if (activeNode >= 0 && nodes != null && isPlaying) {
-      if (AudioContext) {
-        let now = ctx.currentTime;
-        let currentNode = nodes[activeNode];
-        let freq = currentNode.note.frequency;
-        let wave = currentNode.wave;
-        let end = now + currentNode.endtime;
-
-        // filter setup
-        filter.frequency.setValueAtTime(currentNode.filterFrequency, now);
-
-        osc.type = wave
-        osc.start();
-        osc.frequency.value = freq;
-        osc.connect(volume)
-        osc.stop(end)
-
-        // envelope
-        volume.gain.cancelScheduledValues(now)
-        volume.gain.setValueAtTime(volume.gain.value, now);
-        volume.gain.linearRampToValueAtTime(0.1, now + 0.05);
-        volume.gain.linearRampToValueAtTime(0, now + 0.1);
-
-        // Connect nodes
-        // volume.gain.value = outputLevel;
-        volume.connect(filter);
-        filter.connect(ctx.destination);
-      } else {
-        alert("Sorry, your browser doesn't support JavaScript Web Audio API");
-      }
+      playSound(ctx, filter, osc, volume, nodes, activeNode)
     }
 
     // Sequence and looping
     let timeout;
     if (isPlaying) {
       timeout = setTimeout(() => {
-        if (activeNode >= nodes.length - 1) {
+        if (activeNode >= nodeSequenceLength - 1) {
+          // reset sequence
           setActiveNode(0);
         } else {
+          // play next node
           let nextNode = activeNode + 1;
           setActiveNode(nextNode);
         }
@@ -76,10 +56,10 @@ function App() {
       clearTimeout(timeout);
       setActiveNode(-1);
     }
-  }, [activeNode, speed, isPlaying, nodes, AudioContext, ctx, outputLevel, filter, volume, osc]);
+  }, [activeNode, speed, isPlaying, nodes, AudioContext, ctx, outputLevel, filter, volume, osc, nodeSequenceLength]);
 
   function randomize() {
-    setNodes(getSequence(16));
+    setNodes(getRandomSequence(16, nodeSequenceLength));
   }
 
   function calculateBpm(bpm) {
@@ -96,6 +76,8 @@ function App() {
           calculateBpm={calculateBpm}
           nodes={nodes}
           setNodes={setNodes}
+          nodeSequenceLength={nodeSequenceLength}
+          setNodeSequenceLength={setNodeSequenceLength}
           nodeEditor={nodeEditor}
           setNodeEditor={setNodeEditor}
         />

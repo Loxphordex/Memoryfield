@@ -3,3 +3,8 @@ export const waveforms = {
   sawtooth: 'sawtooth',
   square: 'square'
 }
+
+export const filterTypes = {
+  lowpass: 'lowpass',
+  highpass: 'highpass'
+}
