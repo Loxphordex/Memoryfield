@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import MemoryField from "./components/MemoryField/MemoryField";
-import { getSequence } from "./data/sequenceDetails";
+import { getRandomSequence, getInitialSequence } from "./data/sequenceDetails";
 import ControlPanel from "./components/ControlPanel/ControlPanel";
+import { filterTypes } from './components/Audio/constants'
 
 // styles
 import "./styles/container.css";
@@ -19,6 +20,7 @@ function App() {
   const [activeNode, setActiveNode] = useState(-1);
   const [nodeEditor, setNodeEditor] = useState(null);
   const [nodes, setNodes] = useState(null);
+  const [nodeSequenceLength, setNodeSequenceLength] = useState(16)
   const [speed, setSpeed] = useState(150);
   const [outputLevel] = useState(0.2);
   const [ctx] = useState(new AudioContext())
@@ -26,9 +28,12 @@ function App() {
   let osc = ctx.createOscillator();
   let filter = ctx.createBiquadFilter();
   let volume = ctx.createGain();
-  filter.type = "lowpass";
+  filter.type = filterTypes.lowpass;
 
   useEffect(() => {
+    if (nodes === null) {
+      setNodes(getInitialSequence(16))
+    }
     if (activeNode >= 0 && nodes != null && isPlaying) {
       if (AudioContext) {
         let now = ctx.currentTime;
@@ -79,7 +84,7 @@ function App() {
   }, [activeNode, speed, isPlaying, nodes, AudioContext, ctx, outputLevel, filter, volume, osc]);
 
   function randomize() {
-    setNodes(getSequence(16));
+    setNodes(getRandomSequence(16));
   }
 
   function calculateBpm(bpm) {
@@ -96,6 +101,8 @@ function App() {
           calculateBpm={calculateBpm}
           nodes={nodes}
           setNodes={setNodes}
+          nodeSequenceLength={nodeSequenceLength}
+          setNodeSequenceLength={setNodeSequenceLength}
           nodeEditor={nodeEditor}
           setNodeEditor={setNodeEditor}
         />

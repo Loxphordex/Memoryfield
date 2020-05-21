@@ -8,7 +8,6 @@ export default function MemoryNode({
   nodeEditor,
   setNodeEditor
 }) {
-
   return (
     <div
       key={playOrder}

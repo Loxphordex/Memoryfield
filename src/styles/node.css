@@ -3,8 +3,7 @@
     min-height: 38px;
     display: inline-block;
     margin: 5px;
-    background-color: rgb(234, 229, 245);
-    border: 1px solid rgb(163, 160, 168);;
+    border: 1px solid rgb(0, 255, 255);
     border-radius: 3px;
 }
 

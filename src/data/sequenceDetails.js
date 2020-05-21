@@ -1,8 +1,12 @@
-import { generateRandomSequence, createDefaultNode } from './data'
+import { generateRandomSequence, generateInitialSequence, createDefaultNode } from './data'
 
-export function getSequence(currentLevel) {
-  return currentLevel ? generateRandomSequence(currentLevel, 1) : null
-} 
+export function getRandomSequence(nodeCount) {
+  return nodeCount ? generateRandomSequence(nodeCount) : null
+}
+
+export function getInitialSequence(nodeCount) {
+  return nodeCount ? generateInitialSequence(nodeCount) : null
+}
 
 export function defaultNode(order) {
   return createDefaultNode(order)
