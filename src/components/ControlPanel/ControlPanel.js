@@ -44,10 +44,8 @@ export default function ControlPanel({
   }
 
   function nodeActivationStatus(num) {
-    // console.log(nodeSequenceLength)
     if (nodes) {
       return nodes.filter(Boolean).map((node, i) => {
-        // console.log(i, node.playOrder > nodeSequenceLength - 1)
         if (node.playOrder > num - 1) {
           node.active = false
         } else {
@@ -60,7 +58,6 @@ export default function ControlPanel({
 
   function setSequenceAndNodeStatus(num) {
     if (num) {
-      console.log(num)
       setNodeSequenceLength(num)
       setNodes(nodeActivationStatus(num))
     }
@@ -89,29 +86,4 @@ export default function ControlPanel({
       setSequenceAndNodeStatus={setSequenceAndNodeStatus}
     />
   )
-
-  // return (
-  //   <section className="control-panel">
-  //     <div className='global-controls'>
-  //       <button onClick={() => playSequence()}>Play</button>
-  //       <button onClick={() => play(false)}>Stop</button>
-  //       <button onClick={() => addNode()}>+</button>
-  //       <button onClick={() => randomize()}>Randomize</button>
-  
-  //       <label htmlFor="speed">{(60_000 / speed).toFixed()}</label>
-  //       <input type="range" id="speed" name="speed" min={1} max={1000} 
-  //         onChange={(e) => calculateBpm(e.target.value)}></input>
-  //     </div>
-
-  //     <div className='node-controls'>
-  //       <NoteControls
-  //         nodes={nodes}
-  //         setNodes={setNodes}
-  //         nodeEditor={nodeEditor}
-  //         notes={notes}
-  //       />
-  //       <button className="delete-node" onClick={() => deleteNode()}>Delete</button>
-  //     </div>
-  //   </section>
-  // );
 }

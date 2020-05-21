@@ -43,9 +43,11 @@ function App() {
     let timeout;
     if (isPlaying) {
       timeout = setTimeout(() => {
-        if (activeNode >= nodes.length - 1) {
+        if (activeNode >= nodeSequenceLength - 1) {
+          // reset sequence
           setActiveNode(0);
         } else {
+          // play next node
           let nextNode = activeNode + 1;
           setActiveNode(nextNode);
         }
