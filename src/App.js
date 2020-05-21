@@ -3,6 +3,7 @@ import MemoryField from "./components/MemoryField/MemoryField";
 import { getRandomSequence, getInitialSequence } from "./data/sequenceDetails";
 import ControlPanel from "./components/ControlPanel/ControlPanel";
 import { filterTypes } from './components/Audio/constants'
+import playSound from './components/Audio/playSound'
 
 // styles
 import "./styles/container.css";
@@ -32,38 +33,10 @@ function App() {
 
   useEffect(() => {
     if (nodes === null) {
-      setNodes(getInitialSequence(16))
+      setNodes(getInitialSequence(16, nodeSequenceLength))
     }
     if (activeNode >= 0 && nodes != null && isPlaying) {
-      if (AudioContext) {
-        let now = ctx.currentTime;
-        let currentNode = nodes[activeNode];
-        let freq = currentNode.note.frequency;
-        let wave = currentNode.wave;
-        let end = now + currentNode.endtime;
-
-        // filter setup
-        filter.frequency.setValueAtTime(currentNode.filterFrequency, now);
-
-        osc.type = wave
-        osc.start();
-        osc.frequency.value = freq;
-        osc.connect(volume)
-        osc.stop(end)
-
-        // envelope
-        volume.gain.cancelScheduledValues(now)
-        volume.gain.setValueAtTime(volume.gain.value, now);
-        volume.gain.linearRampToValueAtTime(0.1, now + 0.05);
-        volume.gain.linearRampToValueAtTime(0, now + 0.1);
-
-        // Connect nodes
-        // volume.gain.value = outputLevel;
-        volume.connect(filter);
-        filter.connect(ctx.destination);
-      } else {
-        alert("Sorry, your browser doesn't support JavaScript Web Audio API");
-      }
+      playSound(ctx, filter, osc, volume, nodes, activeNode)
     }
 
     // Sequence and looping
@@ -81,10 +54,10 @@ function App() {
       clearTimeout(timeout);
       setActiveNode(-1);
     }
-  }, [activeNode, speed, isPlaying, nodes, AudioContext, ctx, outputLevel, filter, volume, osc]);
+  }, [activeNode, speed, isPlaying, nodes, AudioContext, ctx, outputLevel, filter, volume, osc, nodeSequenceLength]);
 
   function randomize() {
-    setNodes(getRandomSequence(16));
+    setNodes(getRandomSequence(16, nodeSequenceLength));
   }
 
   function calculateBpm(bpm) {

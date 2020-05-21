@@ -32,11 +32,11 @@ export function createDefaultNode(order, nodeSequenceLength) {
 }
 
 function checkIfActive(order, nodeSequenceLength) {
-  return order > nodeSequenceLength ? false : true
+  return order > nodeSequenceLength - 1 ? false : true
 }
 
 // Creates random nodes
-export function generateRandomSequence(nodeCount) {
+export function generateRandomSequence(nodeCount, nodeSequenceLength) {
   const nodes = []
 
   for (let i = 0; i < nodeCount; i++) {
@@ -46,6 +46,7 @@ export function generateRandomSequence(nodeCount) {
       filterFrequency: randomFilterFrequency(),
       endtime: 0.1,
       playOrder: i,
+      active: checkIfActive(i, nodeSequenceLength),
       note: randomNote(),
       wave: waveforms.sine
     })

@@ -43,15 +43,16 @@ export default function ControlPanel({
     }
   }
 
-  function nodeActivationStatus() {
+  function nodeActivationStatus(num) {
+    // console.log(nodeSequenceLength)
     if (nodes) {
       return nodes.filter(Boolean).map((node, i) => {
-        if (node.playOrder > nodeSequenceLength) {
+        // console.log(i, node.playOrder > nodeSequenceLength - 1)
+        if (node.playOrder > num - 1) {
           node.active = false
         } else {
           node.active = true
         }
-        console.log(node)
         return node
       })
     }
@@ -59,8 +60,9 @@ export default function ControlPanel({
 
   function setSequenceAndNodeStatus(num) {
     if (num) {
+      console.log(num)
       setNodeSequenceLength(num)
-      setNodes(nodeActivationStatus())
+      setNodes(nodeActivationStatus(num))
     }
   }
 
