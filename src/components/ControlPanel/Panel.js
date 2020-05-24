@@ -32,7 +32,7 @@ export default function Panel ({
           onClick={() => setSequenceAndNodeStatus(16)}>16</button>
       </div>
   
-      <div className='node-controls'>
+      <div className='note-controls'>
         <NoteControls
           nodes={nodes}
           setNodes={setNodes}

@@ -1,4 +1,5 @@
 import React from 'react'
+import NoteSwitch from './NoteSwitch'
 
 export default function NoteControls({
   nodes,
@@ -23,16 +24,15 @@ export default function NoteControls({
       }
     }
 
+    function displayNote() {
+      return selectedNode && selectedNode.note ? selectedNode.note.note : defaultNote.note
+    }
+
     return (
-      <div className='note-switch'>
-        <button 
-          onClick={() => changeNote(-1)}
-          className='prev-note note-switch-button'>{'<'}</button>
-        <div className='note-display'>{selectedNode.note.note || defaultNote}</div>
-        <button 
-          onClick={() => changeNote(1)}
-          className='next-note note-switch-button'>{'>'}</button>
-      </div>
+      <NoteSwitch
+        changeNote={changeNote}
+        displayNote={displayNote} 
+      />
     )
   }
   return <></>
