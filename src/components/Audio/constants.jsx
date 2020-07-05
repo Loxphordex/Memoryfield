@@ -1,8 +1,8 @@
-export const waveforms = { 
-  sine: 'sine',
-  sawtooth: 'sawtooth',
-  square: 'square'
-}
+export const waveforms = [ 
+  'sine',
+  'triangle', 
+  'square' 
+]
 
 export const filterTypes = {
   lowpass: 'lowpass',
