@@ -33,6 +33,7 @@ export default function NoteControls({
         if (targetNote) {
           selectedNode.note = targetNote
           setNodes(nodesClone)
+          setDisplayedNote(selectedNode.note.note)
         }
       }
     }
