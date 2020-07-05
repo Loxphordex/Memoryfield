@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { notes } from '../../data/notes'
 import { defaultNode } from '../../data/sequenceDetails'
-import Panel from './Panel'
+import { waveforms } from '../Audio/constants'
+import MainPanel from './MainPanel'
+import NoteControls from './NoteControls'
+import WaveControls from './WaveControls'
 
 export default function ControlPanel({ 
   play, 
@@ -14,7 +17,16 @@ export default function ControlPanel({
   setNodes, 
   nodeEditor,
   setNodeEditor }) {
+
+  const [selectedNode, setSelectedNode] = useState(null)
+
+  useEffect(() => {
+    if (nodeEditor != null && nodes) {
+      setSelectedNode(nodes[nodeEditor])
+    }
+  }, [nodeEditor, nodes, selectedNode])
   
+  // ! feature removed
   function addNode() {
     if (nodes) {
       if (nodes.length < 16) {
@@ -25,6 +37,7 @@ export default function ControlPanel({
     }
   }
 
+  // ! feature removed
   function deleteNode() {
     if (nodes != null &&  nodeEditor != null) {
       const nodesCopy = [...nodes]
@@ -69,21 +82,61 @@ export default function ControlPanel({
     }
   }
 
+  function cycleWaveforms() {
+    let currentWaveIndex
+    for (let i in waveforms) {
+      if (waveforms[i] === selectedNode.wave) {
+        currentWaveIndex = i
+        break
+      }
+    }
+
+    if (currentWaveIndex) {
+      const i = parseInt(currentWaveIndex, 10)
+      const nextWave = waveforms[i + 1]
+      nextWave
+      ? selectWaveform(nextWave)
+      : selectWaveform(waveforms[0])
+    }
+  }
+
+  function selectWaveform(wave) {
+    selectedNode.wave = wave
+    nodes.splice(selectedNode.playOrder, 1, selectedNode)
+    const newNodes = [...nodes]
+    setNodes(newNodes)
+  }
+
+  function displayWaveforms() {
+    if (nodes && selectedNode) {
+      return selectedNode.wave
+    }
+    return String()
+  }
+
   return (
-    <Panel 
-      nodes={nodes}
-      setNodes={setNodes}
-      nodeEditor={nodeEditor}
-      notes={notes}
-      playSequence={playSequence}
-      play={play}
-      addNode={addNode}
-      randomize={randomize}
-      calculateBpm={calculateBpm}
-      deleteNode={deleteNode}
-      speed={speed}
-      nodeSequenceLength={nodeSequenceLength}
-      setSequenceAndNodeStatus={setSequenceAndNodeStatus}
-    />
+    <section className='control-panel'>
+      <MainPanel 
+        playSequence={playSequence}
+        play={play}
+        addNode={addNode}
+        randomize={randomize}
+        calculateBpm={calculateBpm}
+        deleteNode={deleteNode}
+        speed={speed}
+        setSequenceAndNodeStatus={setSequenceAndNodeStatus}
+      />
+      <NoteControls 
+        nodes={nodes}
+        setNodes={setNodes}
+        nodeEditor={nodeEditor}
+        notes={notes}
+        selectedNode={selectedNode}
+      />
+      <WaveControls 
+        cycleWaveforms={cycleWaveforms}
+        displayWaveforms={displayWaveforms}
+      />
+    </section>
   )
 }

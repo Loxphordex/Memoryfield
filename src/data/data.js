@@ -2,13 +2,13 @@ import { notes } from './notes'
 import { waveforms } from '../components/Audio/constants'
 
 // All possible shapes
-const shapes = [
+export const shapes = [
   'square',
   'circle'
 ]
 
 // All possible colors
-const colors = [
+export const colors = [
   'red',
   'purple',
   'green',
@@ -27,7 +27,7 @@ export function createDefaultNode(order, nodeSequenceLength) {
     playOrder: order,
     active: checkIfActive(order, nodeSequenceLength),
     note: notes[22],
-    wave: waveforms.sine
+    wave: waveforms[0]
   }
 }
 
@@ -48,7 +48,7 @@ export function generateRandomSequence(nodeCount, nodeSequenceLength) {
       playOrder: i,
       active: checkIfActive(i, nodeSequenceLength),
       note: randomNote(),
-      wave: waveforms.sine
+      wave: waveforms[0]
     })
   }
   return nodes
@@ -88,6 +88,6 @@ function initialNode(order, nodeSequenceLength) {
     playOrder: order,
     active: checkIfActive(order, nodeSequenceLength),
     note: notes[36],
-    wave: waveforms.sine
+    wave: waveforms[0]
   }
 }

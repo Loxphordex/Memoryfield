@@ -1,15 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import NoteSwitch from './NoteSwitch'
 
 export default function NoteControls({
   nodes,
   setNodes,
   nodeEditor,
-  notes
+  notes,
+  selectedNode
 }) {
+  const [nodesClone, setNodesClone] = useState(null)
+  const [defaultNote] = useState(notes[40])
+  const [displayedNote, setDisplayedNote] = useState(null)
+
+  useEffect(() => {
+    if (selectedNode && selectedNode.note) {
+      setDisplayedNote(selectedNode.note.note)
+    } else {
+      setDisplayedNote(defaultNote.note)
+    }
+  }, [selectedNode, defaultNote.note])
+
   if (nodes && nodeEditor != null) {
-    const nodesClone = [...nodes]
-    const selectedNode = nodesClone[nodeEditor]
-    const defaultNote = notes[40]
+    if (nodesClone === null) {
+      setNodesClone([...nodes])
+    }
 
     // amount: the number of notes to increment
     function changeNote(amount) {
@@ -17,24 +31,19 @@ export default function NoteControls({
         const targetIndex = selectedNode.note.index + amount
         const targetNote = notes[targetIndex]
         if (targetNote) {
-            selectedNode.note = targetNote
-            setNodes(nodesClone)
+          selectedNode.note = targetNote
+          setNodes(nodesClone)
+          setDisplayedNote(selectedNode.note.note)
         }
       }
     }
 
     return (
-      <div className='note-switch'>
-        <button 
-          onClick={() => changeNote(-1)}
-          className='prev-note note-switch-button'>{'<'}</button>
-        <div className='note-display'>{selectedNode.note.note || defaultNote}</div>
-        <button 
-          onClick={() => changeNote(1)}
-          className='next-note note-switch-button'>{'>'}</button>
-      </div>
+      <NoteSwitch
+        changeNote={changeNote}
+        displayedNote={displayedNote}
+      />
     )
   }
   return <></>
 }
-
