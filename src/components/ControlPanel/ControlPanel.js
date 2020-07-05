@@ -23,6 +23,8 @@ export default function ControlPanel({
   useEffect(() => {
     if (nodeEditor != null && nodes) {
       setSelectedNode(nodes[nodeEditor])
+    } else if (nodeEditor === null) {
+      setSelectedNode(null)
     }
   }, [nodeEditor, nodes, selectedNode])
   

@@ -9,10 +9,17 @@ export default function MemoryNode({
   nodeEditor,
   setNodeEditor
 }) {
+  function toggleNodeEditor() {
+    if (nodeEditor === playOrder) {
+      setNodeEditor(null)
+    } else {
+      setNodeEditor(playOrder)
+    }
+  }
   return (
     <div
       key={playOrder}
-      onClick={() => setNodeEditor(playOrder)}
+      onClick={() => toggleNodeEditor()}
       className={`memory-node memory-node-${shape} node-is-active-${active} 
         ${nodeIsActive(
           activeNode,
