@@ -21,7 +21,7 @@ export default function ControlPanel({
   const [selectedNode, setSelectedNode] = useState(null)
 
   useEffect(() => {
-    if (nodeEditor && nodes) {
+    if (nodeEditor != null && nodes) {
       setSelectedNode(nodes[nodeEditor])
     }
   }, [nodeEditor, nodes, selectedNode])
@@ -131,6 +131,7 @@ export default function ControlPanel({
         setNodes={setNodes}
         nodeEditor={nodeEditor}
         notes={notes}
+        selectedNode={selectedNode}
       />
       <WaveControls 
         cycleWaveforms={cycleWaveforms}
