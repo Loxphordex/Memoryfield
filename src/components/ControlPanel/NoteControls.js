@@ -23,7 +23,7 @@ export default function NoteControls({
     }
   }, [selectedNode, defaultNote.note, nodes])
 
-  if (nodes && nodeEditor != null) {
+  if (nodes && nodeEditor != null) {            
 
     // amount: the number of notes to increment
     function changeNote(amount) {
