@@ -13,17 +13,17 @@ export default function NoteControls({
   const [displayedNote, setDisplayedNote] = useState(null)
 
   useEffect(() => {
+    if (nodes) {
+      setNodesClone([...nodes])
+    }
     if (selectedNode && selectedNode.note) {
       setDisplayedNote(selectedNode.note.note)
     } else {
       setDisplayedNote(defaultNote.note)
     }
-  }, [selectedNode, defaultNote.note])
+  }, [selectedNode, defaultNote.note, nodes])
 
   if (nodes && nodeEditor != null) {
-    if (nodesClone === null) {
-      setNodesClone([...nodes])
-    }
 
     // amount: the number of notes to increment
     function changeNote(amount) {
