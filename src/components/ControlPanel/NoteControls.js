@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NoteSwitch from './NoteSwitch'
 
 export default function NoteControls({
@@ -7,10 +7,15 @@ export default function NoteControls({
   nodeEditor,
   notes
 }) {
+  const [nodesClone, setNodesClone] = useState(null)
+  const [selectedNode, setSelectedNode] = useState(null)
+  const [defaultNote] = useState(notes[40])
+
   if (nodes && nodeEditor != null) {
-    const nodesClone = [...nodes]
-    const selectedNode = nodesClone[nodeEditor]
-    const defaultNote = notes[40]
+    if (selectedNode === null && nodesClone != null) {
+      setNodesClone([...nodes])
+      setSelectedNode(nodesClone[nodeEditor])
+    }
 
     // amount: the number of notes to increment
     function changeNote(amount) {
