@@ -26,6 +26,7 @@ export default function MemoryField({
               nodeEditor={nodeEditor}
               setNodeEditor={setNodeEditor}
               key={node.playOrder}
+              wave={node.wave}
             />
           );
         })}
