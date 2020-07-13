@@ -7,7 +7,8 @@ export default function MemoryNode({
   active,
   activeNode,
   nodeEditor,
-  setNodeEditor
+  setNodeEditor,
+  wave
 }) {
   function toggleNodeEditor() {
     if (nodeEditor === playOrder) {
@@ -20,7 +21,7 @@ export default function MemoryNode({
     <div
       key={playOrder}
       onClick={() => toggleNodeEditor()}
-      className={`memory-node memory-node-${shape} node-is-active-${active} 
+      className={`memory-node memory-node-${wave} node-is-active-${active} 
         ${nodeIsActive(
           activeNode,
           playOrder,
