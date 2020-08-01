@@ -5,6 +5,7 @@ import { waveforms } from '../Audio/constants'
 import MainPanel from './MainPanel'
 import NoteControls from './NoteControls'
 import WaveControls from './WaveControls'
+import FilterControls from './FilterControls'
 
 export default function ControlPanel({ 
   play, 
@@ -47,6 +48,12 @@ export default function ControlPanel({
       setNodeEditor(null)
       setNodes(enumeratePlayOrder(nodesCopy))
     }
+  }
+
+  function updateNodes() {
+    nodes.splice(selectedNode.playOrder, 1, selectedNode)
+    const newNodes = [...nodes]
+    setNodes(newNodes)
   }
 
   function enumeratePlayOrder(nodes) {
@@ -116,6 +123,20 @@ export default function ControlPanel({
     return String()
   }
 
+  function setFilterFrequency(freq) {
+    if (freq) {
+      selectedNode.filterFrequency = freq
+      updateNodes()
+    }
+  }
+  
+  function setFilterQ(q) {
+    if (q) {
+      selectedNode.filterQ = q
+      updateNodes()
+    }
+  }
+
   return (
     <section className='control-panel'>
       <MainPanel 
@@ -138,6 +159,12 @@ export default function ControlPanel({
       <WaveControls 
         cycleWaveforms={cycleWaveforms}
         displayWaveforms={displayWaveforms}
+      />
+      <FilterControls 
+        setFilterFrequency={setFilterFrequency}
+        setFilterQ={setFilterQ}
+        nodeEditor={nodeEditor}
+        selectedNode={selectedNode}
       />
     </section>
   )
