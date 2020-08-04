@@ -3,7 +3,6 @@ import React from 'react'
 export default function MainPanel({
   playSequence,
   play,
-  addNode,
   randomize,
   calculateBpm,
   speed,
@@ -13,7 +12,6 @@ export default function MainPanel({
     <div className='global-controls'>
       <button onClick={() => playSequence()}>Play</button>
       <button onClick={() => play(false)}>Stop</button>
-      <button onClick={() => addNode()}>+</button>
       <button onClick={() => randomize()}>Randomize</button>
   
       <label htmlFor="speed">{(60_000 / speed).toFixed()}</label>

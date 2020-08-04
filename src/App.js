@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import MemoryField from "./components/MemoryField/MemoryField"
 import { getRandomSequence, getInitialSequence } from "./data/sequenceDetails"
 import ControlPanel from "./components/ControlPanel/ControlPanel"
 import { filterTypes } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
+import { handleKeydownEvents } from './appHelper'
 
 // styles
 import "./styles/container.css"
@@ -25,6 +26,10 @@ function App() {
   const [speed, setSpeed] = useState(150)
   const [outputLevel] = useState(0.2)
   const [ctx] = useState(new AudioContext())
+  const [setEventHandlers] = useState(() => window.addEventListener('keydown', event => handleKeydownEvents(event, setIsPlaying, isPlaying, random)))
+
+  // Callbacks
+  const random = useCallback(() => setNodes(getRandomSequence(16, nodeSequenceLength)), [nodeSequenceLength])
 
   let osc = ctx.createOscillator()
   let filter = ctx.createBiquadFilter()
@@ -32,6 +37,9 @@ function App() {
   filter.type = filterTypes.lowpass
 
   useEffect(() => {
+    if (setEventHandlers) {
+      setEventHandlers()
+    }
     if (nodes === null) {
       setNodes(getInitialSequence(16, nodeSequenceLength))
     }
@@ -56,7 +64,18 @@ function App() {
       clearTimeout(timeout)
       setActiveNode(-1)
     }
-  }, [activeNode, speed, isPlaying, nodes, AudioContext, ctx, outputLevel, filter, volume, osc, nodeSequenceLength])
+  }, [activeNode,
+      speed,
+      isPlaying,
+      nodes,
+      AudioContext,
+      ctx,
+      outputLevel,
+      filter,
+      volume,
+      osc,
+      nodeSequenceLength,
+      setEventHandlers])
 
   function randomize() {
     setNodes(getRandomSequence(16, nodeSequenceLength))
@@ -71,6 +90,7 @@ function App() {
       <section className="app-container">
         <ControlPanel
           speed={speed}
+          isPlaying={isPlaying}
           play={setIsPlaying}
           randomize={randomize}
           calculateBpm={calculateBpm}
