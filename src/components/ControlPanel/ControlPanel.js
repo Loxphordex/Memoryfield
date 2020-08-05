@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { notes } from '../../data/notes'
-import { defaultNode } from '../../data/sequenceDetails'
 import { waveforms } from '../Audio/constants'
 import MainPanel from './MainPanel'
 import NoteControls from './NoteControls'
 import WaveControls from './WaveControls'
+import FilterControls from './FilterControls'
 
 export default function ControlPanel({ 
+  speed,
   play, 
   randomize, 
-  speed, 
   calculateBpm,
   nodes,
-  nodeSequenceLength,
   setNodeSequenceLength,
   setNodes, 
-  nodeEditor,
-  setNodeEditor }) {
-
+  nodeEditor}) {
   const [selectedNode, setSelectedNode] = useState(null)
 
   useEffect(() => {
@@ -27,35 +24,11 @@ export default function ControlPanel({
       setSelectedNode(null)
     }
   }, [nodeEditor, nodes, selectedNode])
-  
-  // ! feature removed
-  function addNode() {
-    if (nodes) {
-      if (nodes.length < 16) {
-        setNodes([...nodes, defaultNode(nodes.length)])
-      }
-    } else {
-      setNodes([defaultNode(0)])
-    }
-  }
 
-  // ! feature removed
-  function deleteNode() {
-    if (nodes != null &&  nodeEditor != null) {
-      const nodesCopy = [...nodes]
-      delete nodesCopy[nodeEditor]
-      setNodeEditor(null)
-      setNodes(enumeratePlayOrder(nodesCopy))
-    }
-  }
-
-  function enumeratePlayOrder(nodes) {
-    if (nodes) {
-      return nodes.filter(Boolean).map((node, i) => {
-        node.playOrder = i
-        return node
-      })
-    }
+  function updateNodes() {
+    nodes.splice(selectedNode.playOrder, 1, selectedNode)
+    const newNodes = [...nodes]
+    setNodes(newNodes)
   }
 
   function nodeActivationStatus(num) {
@@ -116,15 +89,27 @@ export default function ControlPanel({
     return String()
   }
 
+  function setFilterFrequency(freq) {
+    if (freq) {
+      selectedNode.filterFrequency = freq
+      updateNodes()
+    }
+  }
+  
+  function setFilterQ(q) {
+    if (q) {
+      selectedNode.filterQ = q
+      updateNodes()
+    }
+  }
+
   return (
     <section className='control-panel'>
       <MainPanel 
         playSequence={playSequence}
         play={play}
-        addNode={addNode}
         randomize={randomize}
         calculateBpm={calculateBpm}
-        deleteNode={deleteNode}
         speed={speed}
         setSequenceAndNodeStatus={setSequenceAndNodeStatus}
       />
@@ -138,6 +123,12 @@ export default function ControlPanel({
       <WaveControls 
         cycleWaveforms={cycleWaveforms}
         displayWaveforms={displayWaveforms}
+      />
+      <FilterControls 
+        setFilterFrequency={setFilterFrequency}
+        setFilterQ={setFilterQ}
+        nodeEditor={nodeEditor}
+        selectedNode={selectedNode}
       />
     </section>
   )
