@@ -8,17 +8,13 @@ import FilterControls from './FilterControls'
 
 export default function ControlPanel({ 
   speed,
-  isPlaying,
   play, 
   randomize, 
   calculateBpm,
   nodes,
-  nodeSequenceLength,
   setNodeSequenceLength,
   setNodes, 
-  nodeEditor,
-  setNodeEditor }) {
-
+  nodeEditor}) {
   const [selectedNode, setSelectedNode] = useState(null)
 
   useEffect(() => {
