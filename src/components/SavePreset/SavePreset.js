@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import SaveControl from './SaveControl'
+import { memoryFieldPresets } from '../../constants/storageConstants' 
 
 export default function SavePreset({
   nodes,
@@ -19,7 +20,12 @@ export default function SavePreset({
   }
 
   function save(name) {
-    localStorage.setItem(name, JSON.stringify(nodes))
+    const existingPresets = localStorage.getItem(memoryFieldPresets)
+    if (existingPresets) {
+      localStorage.setItem(memoryFieldPresets, existingPresets + JSON.stringify({[name]: nodes}))
+    } else {
+      localStorage.setItem(memoryFieldPresets, JSON.stringify({[name]: nodes}))
+    }
     setPreset(name)
   }
 
