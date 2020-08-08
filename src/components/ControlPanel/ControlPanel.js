@@ -16,7 +16,6 @@ export default function ControlPanel({
   setNodeSequenceLength,
   setNodes, 
   nodeEditor,
-  setPresetName,
   toggleDefaultKeys,
   presets,
   setPresets
@@ -138,7 +137,6 @@ export default function ControlPanel({
       />
       <Presets
         nodes={nodes}
-        setPresetName={setPresetName}
         toggleDefaultKeys={toggleDefaultKeys}
         presets={presets}
         setPresets={setPresets}

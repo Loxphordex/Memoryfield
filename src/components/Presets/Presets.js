@@ -4,7 +4,6 @@ import LoadPreset from './LoadPreset/LoadPreset'
 
 export default function Presets({
   nodes,
-  setPresetName,
   toggleDefaultKeys,
   presets,
   setPresets,
@@ -14,7 +13,6 @@ export default function Presets({
     <div className='presets-container'>
       <SavePreset
         nodes={nodes}
-        setPreset={setPresetName}
         toggleDefaultKeys={toggleDefaultKeys}
         setPresets={setPresets}
       />
