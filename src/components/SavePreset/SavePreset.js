@@ -22,7 +22,9 @@ export default function SavePreset({
   function save(name) {
     const existingPresets = localStorage.getItem(memoryFieldPresets)
     if (existingPresets) {
-      localStorage.setItem(memoryFieldPresets, existingPresets + JSON.stringify({[name]: nodes}))
+      const unwrappedPresets = JSON.parse(existingPresets)
+      unwrappedPresets[name] = nodes
+      localStorage.setItem(memoryFieldPresets, JSON.stringify(unwrappedPresets))
     } else {
       localStorage.setItem(memoryFieldPresets, JSON.stringify({[name]: nodes}))
     }
