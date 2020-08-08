@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { notes } from '../../data/notes'
 import { waveforms } from '../Audio/constants'
+import SavePreset from '../SavePreset/SavePreset'
 import MainPanel from './MainPanel'
 import NoteControls from './NoteControls'
 import WaveControls from './WaveControls'
@@ -14,7 +15,9 @@ export default function ControlPanel({
   nodes,
   setNodeSequenceLength,
   setNodes, 
-  nodeEditor}) {
+  nodeEditor,
+  setPresetName,
+  toggleDefaultKeys}) {
   const [selectedNode, setSelectedNode] = useState(null)
 
   useEffect(() => {
@@ -112,6 +115,11 @@ export default function ControlPanel({
         calculateBpm={calculateBpm}
         speed={speed}
         setSequenceAndNodeStatus={setSequenceAndNodeStatus}
+      />
+      <SavePreset 
+        nodes={nodes}
+        setPreset={setPresetName}
+        toggleDefaultKeys={toggleDefaultKeys}
       />
       <NoteControls 
         nodes={nodes}
