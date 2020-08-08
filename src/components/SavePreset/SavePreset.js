@@ -10,11 +10,12 @@ export default function SavePreset({
   const [saveInputActive, setSaveInputActive] = useState(false)
 
   function saveNodes() {
-    presetName
-      ? save(presetName)
-      : save(new Date())
-    setPresetName(null)
-    toggleDefaultKeys()
+    if (presetName) {
+      save(presetName)
+    } else {
+      save(new Date())
+    }
+    toggleInputActive()
   }
 
   function save(name) {
@@ -23,6 +24,7 @@ export default function SavePreset({
   }
 
   function toggleInputActive() {
+    setPresetName(null)
     toggleDefaultKeys()
     setSaveInputActive(!saveInputActive)
   }
