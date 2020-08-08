@@ -31,6 +31,7 @@ function App() {
     isPlayingRef.current = status
     setIsPlaying(status)
   }
+  const [presets, setPresets] = useState(null)
   const [presetNames, setPresetName] = useState(null)
   const [defaultKeys, setDefaultKeys] = useState(false)
   const [isKeyHandlerSet, setIsKeyHandlerSet] = useState(false)
@@ -143,6 +144,8 @@ function App() {
           setNodeEditor={setNodeEditor}
           setPresetName={setPresetNames}
           toggleDefaultKeys={toggleDefaultKeys}
+          presets={presets}
+          setPresets={setPresets}
         />
         <MemoryField
           nodes={nodes}

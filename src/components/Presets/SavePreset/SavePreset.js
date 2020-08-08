@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import SaveControl from './SaveControl'
-import { memoryFieldPresets } from '../../constants/storageConstants' 
+import { memoryFieldPresets } from '../../../constants/storageConstants' 
 
 export default function SavePreset({
   nodes,
-  setPreset,
-  toggleDefaultKeys
+  toggleDefaultKeys,
+  setPresets
 }) {
   const [presetName, setPresetName] = useState('')
   const [saveInputActive, setSaveInputActive] = useState(false)
@@ -28,7 +28,7 @@ export default function SavePreset({
     } else {
       localStorage.setItem(memoryFieldPresets, JSON.stringify({[name]: nodes}))
     }
-    setPreset(name)
+    setPresets(JSON.parse(localStorage.getItem(memoryFieldPresets)))
   }
 
   function toggleInputActive() {
