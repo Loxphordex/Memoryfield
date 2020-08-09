@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { notes } from '../../data/notes'
 import { waveforms } from '../Audio/constants'
+import Presets from '../Presets/Presets'
 import MainPanel from './MainPanel'
 import NoteControls from './NoteControls'
 import WaveControls from './WaveControls'
@@ -14,7 +15,11 @@ export default function ControlPanel({
   nodes,
   setNodeSequenceLength,
   setNodes, 
-  nodeEditor}) {
+  nodeEditor,
+  toggleDefaultKeys,
+  presets,
+  setPresets
+}) {
   const [selectedNode, setSelectedNode] = useState(null)
 
   useEffect(() => {
@@ -129,6 +134,13 @@ export default function ControlPanel({
         setFilterQ={setFilterQ}
         nodeEditor={nodeEditor}
         selectedNode={selectedNode}
+      />
+      <Presets
+        nodes={nodes}
+        toggleDefaultKeys={toggleDefaultKeys}
+        presets={presets}
+        setPresets={setPresets}
+        setNodes={setNodes}
       />
     </section>
   )

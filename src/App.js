@@ -31,7 +31,9 @@ function App() {
     isPlayingRef.current = status
     setIsPlaying(status)
   }
-  const [setEventHandlers] = useState(() => window.addEventListener('keydown', event => handleKeydownEvents(event)))
+  const [presets, setPresets] = useState(null)
+  const [defaultKeys, setDefaultKeys] = useState(false)
+  const [isKeyHandlerSet, setIsKeyHandlerSet] = useState(false)
 
   let osc = ctx.createOscillator()
   let filter = ctx.createBiquadFilter()
@@ -39,20 +41,38 @@ function App() {
   filter.type = filterTypes.lowpass
 
   useEffect(() => {
-    if (setEventHandlers) {
-      setEventHandlers()
+    function randomize() {
+      setNodes(getRandomSequence(16, nodeSequenceLength))
     }
-    if (nodes === null) {
-      setNodes(getInitialSequence(16, nodeSequenceLength))
+    const handleKeydownEvents = function(event) {
+      if (event) {
+        event.stopPropagation()
+        event.preventDefault()
+      
+        if (event.keyCode === keyShortcuts.spacebar) {
+          setPlaying(!isPlayingRef.current)
+        }
+      
+        else if (event.keyCode === keyShortcuts.r && randomize) {
+          randomize()
+        }
+      }
     }
-    if (activeNode >= 0 && nodes != null && isPlaying) {
-      playSound(ctx, filter, osc, volume, nodes, activeNode)
+    if (!defaultKeys && !isKeyHandlerSet) {
+      window.addEventListener('keydown', handleKeydownEvents)
+      setIsKeyHandlerSet(true)
     }
+    if (defaultKeys && isKeyHandlerSet) {
+      window.removeEventListener('keydown', handleKeydownEvents)
+      setIsKeyHandlerSet(false)
+    }
+    if (nodes === null) setNodes(getInitialSequence(16, nodeSequenceLength))
 
     // Sequence and looping
-    let timeout
+    let interval
     if (isPlaying) {
-      timeout = setTimeout(() => {
+      interval = setInterval(() => {
+        if (activeNode >= 0 && nodes != null && isPlaying) playSound(ctx, filter, osc, volume, nodes, activeNode)
         if (activeNode >= nodeSequenceLength - 1) {
           // reset sequence
           setActiveNode(0)
@@ -62,9 +82,14 @@ function App() {
           setActiveNode(nextNode)
         }
       }, speed)
-    } else {
-      clearTimeout(timeout)
+    } else if (!isPlaying) {
+      clearInterval(interval)
       setActiveNode(-1)
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeydownEvents)
+      clearInterval(interval)
     }
   }, [activeNode,
       speed,
@@ -77,27 +102,19 @@ function App() {
       volume,
       osc,
       nodeSequenceLength,
-      setEventHandlers])
-
-  function randomize() {
-    setNodes(getRandomSequence(16, nodeSequenceLength))
-  }
+      defaultKeys,
+      isKeyHandlerSet])
 
   function calculateBpm(bpm) {
     setSpeed((60_000 / bpm).toFixed())
   }
 
-  function handleKeydownEvents(event) {
-    event.stopPropagation()
-    event.preventDefault()
-  
-    if (event.keyCode === keyShortcuts.spacebar) {
-      setPlaying(!isPlayingRef.current)
-    }
-  
-    else if (event.keyCode === keyShortcuts.r) {
-      randomize()
-    }
+  function toggleDefaultKeys() {
+    setDefaultKeys(!defaultKeys)
+  }
+
+  function random() {
+    setNodes(getRandomSequence(16, nodeSequenceLength))
   }
 
   return (
@@ -107,7 +124,7 @@ function App() {
           speed={speed}
           isPlaying={isPlaying}
           play={setPlaying}
-          randomize={randomize}
+          randomize={random}
           calculateBpm={calculateBpm}
           nodes={nodes}
           setNodes={setNodes}
@@ -115,6 +132,9 @@ function App() {
           setNodeSequenceLength={setNodeSequenceLength}
           nodeEditor={nodeEditor}
           setNodeEditor={setNodeEditor}
+          toggleDefaultKeys={toggleDefaultKeys}
+          presets={presets}
+          setPresets={setPresets}
         />
         <MemoryField
           nodes={nodes}
