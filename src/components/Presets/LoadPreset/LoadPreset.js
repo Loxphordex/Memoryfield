@@ -57,10 +57,6 @@ export default function LoadPreset({
     }
   }
 
-  // create a function that displays available presets created by the user
-  // Once selected, the menu will disappear, a confirmation dialogue will appear
-  // Upon confirmation, the dialogue will disappear, and the new preset will be set
-
   return (
     <div className='load-preset'>
       <button onClick={toggleShowMenu}>Load</button>
