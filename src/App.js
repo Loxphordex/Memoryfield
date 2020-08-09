@@ -67,12 +67,12 @@ function App() {
       setIsKeyHandlerSet(false)
     }
     if (nodes === null) setNodes(getInitialSequence(16, nodeSequenceLength))
-    if (activeNode >= 0 && nodes != null && isPlaying) playSound(ctx, filter, osc, volume, nodes, activeNode)
 
     // Sequence and looping
-    let timeout
+    let interval
     if (isPlaying) {
-      timeout = setTimeout(() => {
+      interval = setInterval(() => {
+        if (activeNode >= 0 && nodes != null && isPlaying) playSound(ctx, filter, osc, volume, nodes, activeNode)
         if (activeNode >= nodeSequenceLength - 1) {
           // reset sequence
           setActiveNode(0)
@@ -82,13 +82,14 @@ function App() {
           setActiveNode(nextNode)
         }
       }, speed)
-    } else {
-      clearTimeout(timeout)
+    } else if (!isPlaying) {
+      clearInterval(interval)
       setActiveNode(-1)
     }
 
     return () => {
       window.removeEventListener('keydown', handleKeydownEvents)
+      clearInterval(interval)
     }
   }, [activeNode,
       speed,
