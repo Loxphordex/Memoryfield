@@ -31,7 +31,7 @@ function App() {
     isPlayingRef.current = status
     setIsPlaying(status)
   }
-  const [presetNames, setPresetName] = useState(null)
+  const [presets, setPresets] = useState(null)
   const [defaultKeys, setDefaultKeys] = useState(false)
   const [isKeyHandlerSet, setIsKeyHandlerSet] = useState(false)
 
@@ -117,16 +117,6 @@ function App() {
     setNodes(getRandomSequence(16, nodeSequenceLength))
   }
 
-  function setPresetNames(name) {
-    if (name) {
-      if (presetNames) {
-        setPresetName([...presetNames, name])
-      } else {
-        setPresetName([name])
-      }
-    }
-  }
-
   return (
     <div className="App">
       <section className="app-container">
@@ -142,8 +132,9 @@ function App() {
           setNodeSequenceLength={setNodeSequenceLength}
           nodeEditor={nodeEditor}
           setNodeEditor={setNodeEditor}
-          setPresetName={setPresetNames}
           toggleDefaultKeys={toggleDefaultKeys}
+          presets={presets}
+          setPresets={setPresets}
         />
         <MemoryField
           nodes={nodes}
