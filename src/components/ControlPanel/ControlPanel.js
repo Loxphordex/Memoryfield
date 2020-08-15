@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { notes } from '../../data/notes'
 import { waveforms } from '../Audio/constants'
 import Presets from '../Presets/Presets'
-import MainPanel from './MainPanel'
-import NoteControls from './NoteControls'
-import WaveControls from './WaveControls'
-import FilterControls from './FilterControls'
+import MainPanel from '../GlobalControls/MainPanel'
+import NoteControls from '../NodeControls/NoteControls'
+import WaveControls from '../NodeControls/WaveControls'
+import FilterControls from '../NodeControls/FilterControls'
 
 export default function ControlPanel({ 
   speed,
