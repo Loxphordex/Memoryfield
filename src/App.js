@@ -3,6 +3,7 @@ import MemoryField from "./components/MemoryField/MemoryField"
 import { getRandomSequence, getInitialSequence } from "./data/sequenceDetails"
 import ControlPanel from "./components/ControlPanel/ControlPanel"
 import { filterTypes } from './components/Audio/constants'
+import playSequence from './components/Audio/playSequence'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
 
@@ -19,6 +20,7 @@ function App() {
 
   // State
   const [isPlaying, setIsPlaying] = useState(false)
+  const [renderLock, setRenderLock] = useState(false)
   const [activeNode, setActiveNode] = useState(-1)
   const [nodeEditor, setNodeEditor] = useState(null)
   const [nodes, setNodes] = useState(null)
@@ -37,8 +39,11 @@ function App() {
 
   let osc = ctx.createOscillator()
   let filter = ctx.createBiquadFilter()
+  let globalFilter = ctx.createBiquadFilter()
   let volume = ctx.createGain()
+
   filter.type = filterTypes.lowpass
+  globalFilter.type = filterTypes.lowpass
 
   useEffect(() => {
     function randomize() {
@@ -69,28 +74,44 @@ function App() {
     if (nodes === null) setNodes(getInitialSequence(16, nodeSequenceLength))
 
     // Sequence and looping
-    let interval
-    if (isPlaying) {
-      interval = setInterval(() => {
-        if (activeNode >= 0 && nodes != null && isPlaying) playSound(ctx, filter, osc, volume, nodes, activeNode)
-        if (activeNode >= nodeSequenceLength - 1) {
-          // reset sequence
-          setActiveNode(0)
-        } else {
-          // play next node
-          let nextNode = activeNode + 1
-          setActiveNode(nextNode)
-        }
-      }, speed)
-    } else if (!isPlaying) {
-      clearInterval(interval)
-      setActiveNode(-1)
-    }
+    // let interval
+    // if (isPlaying) {
+    //   interval = setInterval(() => {
+    //     console.log('interval')
+    //     if (activeNode >= 0 && nodes != null && isPlaying) playSound(ctx, filter, osc, volume, nodes, activeNode)
+    //     if (activeNode >= nodeSequenceLength - 1) {
+    //       // reset sequence
+    //       setActiveNode(0)
+    //     } else {
+    //       // play next node
+    //       let nextNode = activeNode + 1
+    //       setActiveNode(nextNode)
+    //     }
+    //   }, speed)
+    // } else if (!isPlaying) {
+    //   clearInterval(interval)
+    //   setActiveNode(-1)
+    // }
 
-    return () => {
-      window.removeEventListener('keydown', handleKeydownEvents)
-      clearInterval(interval)
-    }
+    playSequence(
+      isPlaying,
+      activeNode,
+      nodes,
+      ctx,
+      filter,
+      osc,
+      volume,
+      nodeSequenceLength,
+      setActiveNode,
+      speed,
+      renderLock,
+      setRenderLock
+    )
+
+    // return () => {
+    //   window.removeEventListener('keydown', handleKeydownEvents)
+    //   clearInterval(interval)
+    // }
   }, [activeNode,
       speed,
       isPlaying,
