@@ -1,6 +1,6 @@
 .memory-node {
-    min-width: 38px;
-    min-height: 38px;
+    min-width: 85px;
+    min-height: 85px;
     display: inline-block;
     margin: 5px;
     border: 1px solid rgb(0, 255, 255);
