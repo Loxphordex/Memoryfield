@@ -5,6 +5,7 @@ import ControlPanel from "./components/ControlPanel/ControlPanel"
 import { filterTypes } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
+import Footer from './components/Footer/Footer'
 
 // styles
 import "./styles/container.css"
@@ -144,6 +145,7 @@ function App() {
           setNodeEditor={setNodeEditor}
         />
       </section>
+      <Footer />
     </div>
   )
 }

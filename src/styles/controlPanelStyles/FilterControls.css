@@ -1,0 +1,4 @@
+.filter-control {
+  display: flex;
+  flex-flow: column;
+}

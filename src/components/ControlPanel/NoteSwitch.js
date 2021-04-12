@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/controlPanelStyles/NoteSwitch.css'
 
 export default function NoteSwitch({ changeNote, displayedNote }) {
   return (
