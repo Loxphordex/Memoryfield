@@ -1,24 +1,25 @@
 import React from 'react'
 import '../../styles/components/MainPanel.css'
+import { Play, Stop } from 'phosphor-react'
 
 export default function MainPanel({
   playSequence,
   play,
+  isPlaying,
   randomize,
   calculateBpm,
-  speed,
   displayedBpm,
   setSequenceAndNodeStatus
 }) {
   return (
     <div className='global-controls'>
-      <button onClick={() => playSequence()}>Play</button>
-      <button onClick={() => play(false)}>Stop</button>
+      {!isPlaying && <button onClick={() => playSequence()}><Play size={36} /></button>}
+      {isPlaying && <button onClick={() => play(false)}><Stop size={36} /></button>}
       <button onClick={() => randomize()}>Randomize</button>
   
       <div className='bpm-controls-container'>
         <label htmlFor="speed">{`${displayedBpm} BPM`}</label>
-        <input type="range" id="speed" name="speed" min={1} max={1000}
+        <input type="range" id="speed" name="speed" min={1} max={400} defaultValue={150}
           onChange={(e) => calculateBpm(e.target.value)} />
       </div>
       <button id="sequenceLength8" name="sequenceLength8"
