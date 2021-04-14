@@ -8,6 +8,7 @@ export default function playSound(ctx, filter, osc, volume, nodes, activeNode) {
 
     // filter setup
     filter.frequency.setValueAtTime(currentNode.filterFrequency, now);
+    filter.Q.value = currentNode.filterQ;
 
     osc.type = wave;
     osc.start();
@@ -17,8 +18,8 @@ export default function playSound(ctx, filter, osc, volume, nodes, activeNode) {
 
     // envelope
     volume.gain.cancelScheduledValues(now);
-    volume.gain.setValueAtTime(volume.gain.value, now);
-    volume.gain.linearRampToValueAtTime(0.1, now + 0.05);
+    volume.gain.setValueAtTime(0.001, now);
+    volume.gain.linearRampToValueAtTime(0.1, now + 0.0008);
     volume.gain.linearRampToValueAtTime(0, now + 0.1);
 
     // Connect nodes

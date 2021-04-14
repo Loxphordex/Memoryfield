@@ -36,7 +36,7 @@ export function generateRandomSequence(nodeCount, nodeSequenceLength) {
     nodes.push({
       color: getRandom(colors),
       filterFrequency: randomFilterFrequency(),
-      filterQ: randomFilterFrequency(),
+      filterQ: randomFilterQFrequency(),
       endtime: 0.1,
       playOrder: i,
       active: checkIfActive(i, nodeSequenceLength),
@@ -49,6 +49,10 @@ export function generateRandomSequence(nodeCount, nodeSequenceLength) {
 
 function randomFilterFrequency() {
   return Math.floor(Math.random() * 2000)
+}
+
+function randomFilterQFrequency() {
+  return Math.floor(Math.random() * 20)
 }
 
 function getRandom(array) {
