@@ -1,0 +1,12 @@
+.global-controls {
+  display: flex;
+  flex-flow: wrap;
+  width: 100%;
+}
+
+.bpm-controls-container {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}

@@ -5,6 +5,7 @@ import ControlPanel from "./components/ControlPanel/ControlPanel"
 import { filterTypes } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
+import Footer from './components/Footer/Footer'
 
 // styles
 import "./styles/container.css"
@@ -24,6 +25,7 @@ function App() {
   const [nodes, setNodes] = useState(null)
   const [nodeSequenceLength, setNodeSequenceLength] = useState(16)
   const [speed, setSpeed] = useState(150)
+  const [displayedBpm, setDisplayedBpm] = useState(150)
   const [outputLevel] = useState(0.2)
   const [ctx] = useState(new AudioContext())
   const isPlayingRef = useRef(isPlaying)
@@ -106,7 +108,12 @@ function App() {
       isKeyHandlerSet])
 
   function calculateBpm(bpm) {
-    setSpeed((60_000 / bpm).toFixed())
+    // how do we calculate the interval between beats, given a bpm?
+    bpm = parseInt(bpm, 10) // 128
+    const millisecondsPerBeat = 60000 / bpm
+
+    setSpeed(millisecondsPerBeat)
+    setDisplayedBpm(bpm)
   }
 
   function toggleDefaultKeys() {
@@ -122,6 +129,7 @@ function App() {
       <section className="app-container">
         <ControlPanel
           speed={speed}
+          displayedBpm={displayedBpm}
           isPlaying={isPlaying}
           play={setPlaying}
           randomize={random}
@@ -144,6 +152,7 @@ function App() {
           setNodeEditor={setNodeEditor}
         />
       </section>
+      <Footer />
     </div>
   )
 }

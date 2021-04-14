@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import LoadPresetMenu from './LoadPresetMenu'
 import { memoryFieldPresets } from '../../../constants/storageConstants'
+import '../../../styles/components/LoadPreset.css'
 
 export default function LoadPreset({
   setNodes,
@@ -34,6 +35,7 @@ export default function LoadPreset({
     if (nodes) {
       setNodes(nodes)
       toggleShowMenu()
+      setIsConfirmationShowing(false)
     }
   }
 

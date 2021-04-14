@@ -9,6 +9,7 @@ import FilterControls from './FilterControls'
 
 export default function ControlPanel({ 
   speed,
+  displayedBpm,
   play, 
   randomize, 
   calculateBpm,
@@ -116,6 +117,7 @@ export default function ControlPanel({
         randomize={randomize}
         calculateBpm={calculateBpm}
         speed={speed}
+        displayedBpm={displayedBpm}
         setSequenceAndNodeStatus={setSequenceAndNodeStatus}
       />
       <NoteControls 

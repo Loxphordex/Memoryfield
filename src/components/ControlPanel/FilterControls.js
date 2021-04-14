@@ -1,4 +1,5 @@
 import React from 'react'
+import '../../styles/controlPanelStyles/FilterControls.css'
 
 export default function FilterControls({
   setFilterFrequency,
@@ -15,7 +16,7 @@ export default function FilterControls({
           id='frequency'
           type='range'
           min={0}
-          max={2000}
+          max={4000}
           value={selectedNode.filterFrequency}
           onChange={e => setFilterFrequency(e.target.value)} />
         <label htmlFor='filterQ'>Q</label>
@@ -24,7 +25,7 @@ export default function FilterControls({
           id='filterQ'
           type='range'
           min={0}
-          max={2000}
+          max={20}
           value={selectedNode.filterQ}
           onChange={e => setFilterQ(e.target.value)} />
       </div>

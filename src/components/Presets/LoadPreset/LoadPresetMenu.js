@@ -9,7 +9,7 @@ export default function LoadPresetMenu({
 }) {
   return (
     <div className='load-preset-menu'>
-      <ul>
+      <ul className='preset-list'>
         {presetItems && setupConfirmation && presetItems().map(name => {
           return (
             <li
