@@ -1,4 +1,5 @@
 import React from 'react'
+import '../../styles/controlPanelStyles/WaveControls.css'
 
 export default function WaveControls({
   cycleWaveforms,

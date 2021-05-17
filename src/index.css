@@ -17,3 +17,11 @@ code {
 .App {
   background-color: rgb(46, 46, 46);
 }
+
+@media only screen and (min-width: 768px) {
+  .App {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+  }
+}
