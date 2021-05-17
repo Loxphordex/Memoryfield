@@ -8,8 +8,8 @@ import WaveControls from './WaveControls'
 import FilterControls from './FilterControls'
 
 export default function ControlPanel({ 
-  speed,
   displayedBpm,
+  isPlaying,
   play, 
   randomize, 
   calculateBpm,
@@ -114,9 +114,9 @@ export default function ControlPanel({
       <MainPanel 
         playSequence={playSequence}
         play={play}
+        isPlaying={isPlaying}
         randomize={randomize}
         calculateBpm={calculateBpm}
-        speed={speed}
         displayedBpm={displayedBpm}
         setSequenceAndNodeStatus={setSequenceAndNodeStatus}
       />

@@ -108,11 +108,11 @@ function App() {
       isKeyHandlerSet])
 
   function calculateBpm(bpm) {
-    // how do we calculate the interval between beats, given a bpm?
-    bpm = parseInt(bpm, 10) // 128
-    const millisecondsPerBeat = 60000 / bpm
+    bpm = parseInt(bpm, 10)
+    const millisecondsPerBeat = (60000 / bpm)
+    const beatsIn44Time = millisecondsPerBeat / 4
 
-    setSpeed(millisecondsPerBeat)
+    setSpeed(beatsIn44Time)
     setDisplayedBpm(bpm)
   }
 
@@ -128,7 +128,6 @@ function App() {
     <div className="App">
       <section className="app-container">
         <ControlPanel
-          speed={speed}
           displayedBpm={displayedBpm}
           isPlaying={isPlaying}
           play={setPlaying}
