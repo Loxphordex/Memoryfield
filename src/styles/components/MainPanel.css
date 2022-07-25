@@ -4,9 +4,17 @@
   width: 100%;
 }
 
+.bpm-controls-container-label {
+  width: 100%;
+}
+
 .bpm-controls-container {
   width: 100%;
   display: flex;
   flex-flow: column;
   justify-content: center;
+}
+
+.sequence-length-container-label {
+  width: 100%;
 }
