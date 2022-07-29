@@ -4,7 +4,7 @@
     display: inline-block;
     margin: 5px;
     border: 1px solid rgba(0, 0, 0, 0);
-    box-shadow: -4px 5px 11px 4px rgb(38 38 43);
+    box-shadow: -3px 5px 4px 4px rgb(38 38 43);
     background-color: rgb(211 232 232);
     border-radius: 3px;
     transition: all 170ms;

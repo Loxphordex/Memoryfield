@@ -1,4 +1,5 @@
 import React from 'react'
+import Knob from '../Knob/knob'
 import '../../styles/components/MainPanel.css'
 import { Play, Stop } from 'phosphor-react'
 
@@ -13,11 +14,11 @@ export default function MainPanel({
 }) {
   return (
     <div className='global-controls'>
+      <Knob />
       {!isPlaying && <button onClick={() => playSequence()}><Play size={36} /></button>}
       {isPlaying && <button onClick={() => play(false)}><Stop size={36} /></button>}
       <button onClick={() => randomize()}>Randomize</button>
   
-      <label htmlFor="bpm-controls-container" className="bpm-controls-container-label">Tempo</label>
       <div className='bpm-controls-container'>
         <label htmlFor="speed">{`${displayedBpm} BPM`}</label>
         <input type="range" id="speed" name="speed" min={1} max={400} defaultValue={150}
