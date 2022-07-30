@@ -1,11 +1,16 @@
 import React, {useState, useEffect, createRef} from 'react'
+import { act } from 'react-dom/test-utils'
 import detectMobile from '../../helpers/detectMobile'
 import '../../styles/buttons/buttons.css'
 
-export default function Knob() {
+export default function Knob({
+  defaultValue,
+  maxValue,
+  valueCallback
+}) {
   const volumeKnob = createRef()
-  const [knobValue, setKnobValue] = useState(0)
-  const [rotationStyles, setRotationStyles] = useState({ transform: 'rotate(0deg)' })
+  const [knobValue, setKnobValue] = useState(defaultValue || 0)
+  const [rotationStyles, setRotationStyles] = useState({ transform: `rotate(${defaultValue || 0}deg)` })
 
   let
     mouseX,
@@ -74,7 +79,10 @@ export default function Knob() {
     finalAngleInDegrees = -(radiansInDegrees - 135)
 
     if (finalAngleInDegrees >= 0 && finalAngleInDegrees <= 270) {
-      setKnobValue(Math.floor(finalAngleInDegrees / (270 / 100)))
+      let ang = Math.floor(finalAngleInDegrees / (270 / 100))
+      let actualVal = (ang / 100) * maxValue
+      valueCallback(actualVal)
+      setKnobValue(Math.floor(actualVal))
       setRotationStyles({ transform: `rotate(${finalAngleInDegrees}deg)`})
       // audio.volume = knobValue / 100
     }
@@ -88,10 +96,11 @@ export default function Knob() {
         onMouseDown={onMouseDown}
         onTouchStart={onMouseDown}
         ref={volumeKnob}
-        style={rotationStyles}></div>
+        style={rotationStyles}
+      />
 
       {/* <span className='min'>Min</span> */}
-      <span className='max'>{`${knobValue}%`}</span>
+      <span className='max'>{`${knobValue}`}</span>
     </div>
   )
 }

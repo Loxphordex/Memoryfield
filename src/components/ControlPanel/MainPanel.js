@@ -14,16 +14,24 @@ export default function MainPanel({
 }) {
   return (
     <div className='global-controls'>
-      <Knob />
       {!isPlaying && <button onClick={() => playSequence()}><Play size={36} /></button>}
       {isPlaying && <button onClick={() => play(false)}><Stop size={36} /></button>}
       <button onClick={() => randomize()}>Randomize</button>
   
-      <div className='bpm-controls-container'>
+      {/* <div className='bpm-controls-container'>
         <label htmlFor="speed">{`${displayedBpm} BPM`}</label>
         <input type="range" id="speed" name="speed" min={1} max={400} defaultValue={150}
           onChange={(e) => calculateBpm(e.target.value)} />
+      </div> */}
+
+      <div className='bmp-knob-container'>
+        <Knob
+          defaultValue={150}
+          maxValue={300}
+          valueCallback={calculateBpm}
+        />
       </div>
+
       <label htmlFor="sequence-length-container" className="sequence-length-container-label">Steps</label>
       <div className="sequence-length-container">
         <button id="sequenceLength8" name="sequenceLength8"
