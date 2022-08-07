@@ -1,9 +1,9 @@
 import React, {useState, useEffect, createRef} from 'react'
-import { act } from 'react-dom/test-utils'
 import detectMobile from '../../helpers/detectMobile'
 import '../../styles/buttons/buttons.css'
 
 export default function Knob({
+  units,
   defaultValue,
   maxValue,
   valueCallback
@@ -90,16 +90,16 @@ export default function Knob({
 
   return (
     <div className='knob-surround'>
+      <span className='knob-label'><label htmlFor={`${units}-knob`}>{units}</label></span>
       <div 
         className='knob'
-        id='knob'
+        id={`${units}-knob`}
         onMouseDown={onMouseDown}
         onTouchStart={onMouseDown}
         ref={volumeKnob}
         style={rotationStyles}
       />
 
-      {/* <span className='min'>Min</span> */}
       <span className='max'>{`${knobValue}`}</span>
     </div>
   )

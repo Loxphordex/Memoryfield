@@ -5,7 +5,7 @@
   height: 3em;
   border-radius: 50%;
   border: solid 0.25em #0e0e0e;
-  margin: 1px auto;
+  margin: 20px 3px;
   background: #181818;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #1d1d1d), color-stop(1, #131313));
   background: -ms-linear-gradient(bottom, #1d1d1d, #131313);
@@ -41,7 +41,8 @@
   border-radius: 50%;
 }
 .min,
-.max {
+.max,
+.knob-label {
   display: block;
   font-family: "Varela Round", sans-serif;
   color: rgba(255, 255, 255, 0.4);
@@ -50,6 +51,10 @@
   font-size: 70%;
   position: absolute;
   opacity: 0.5;
+}
+.knob-label {
+  top: -2em;
+  margin: 0 auto;
 }
 .min {
   bottom: 1em;

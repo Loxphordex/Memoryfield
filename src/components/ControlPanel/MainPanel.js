@@ -26,6 +26,7 @@ export default function MainPanel({
 
       <div className='bmp-knob-container'>
         <Knob
+          units='tempo'
           defaultValue={150}
           maxValue={300}
           valueCallback={calculateBpm}
