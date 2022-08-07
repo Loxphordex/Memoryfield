@@ -8,10 +8,11 @@
     "@testing-library/user-event": "^7.2.1",
     "nexusui": "^2.0.10",
     "phosphor-react": "^1.2.1",
+    "prop-types": "^15.8.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-nexusui": "^0.1.7",
-    "react-scripts": "3.4.0",
+    "react-scripts": "^5.0.1",
     "tone": "^13.8.25"
   },
   "scripts": {
@@ -38,6 +39,8 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-plugin-react": "^7.29.4",
     "gh-pages": "^2.2.0"
   }
 }

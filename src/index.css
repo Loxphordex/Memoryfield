@@ -5,17 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(46, 46, 46);
+  background-color: rgb(133 131 147);
   color: rgb(241, 241, 241);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-.App {
-  background-color: rgb(46, 46, 46);
 }
 
 @media only screen and (min-width: 768px) {

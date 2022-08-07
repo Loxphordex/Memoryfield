@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function SaveControl({
+function SaveControl({
   toggleInputActive,
   saveInputActive,
   setPresetName,
@@ -19,3 +19,5 @@ export default function SaveControl({
     </div>
   )
 }
+
+export default SaveControl
