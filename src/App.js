@@ -6,9 +6,12 @@ import { filterTypes } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
 import Footer from './components/Footer/Footer'
+import { samples } from "./components/Audio/constants"
 
 // samples
 import kick from './samples/KickHollowThud.wav'
+import snare from './samples/SnareQuick.wav'
+import hat from './samples/HiHatClosed.wav'
 
 // styles
 import "./styles/container.css"
@@ -40,7 +43,9 @@ function App() {
 
   const [samplesSetup, setSamplesSetup] = useState(false)
   const [kickSrc, setKickSrc] = useState(false)
+
   const [kickAudio, setKickAudio] = useState(null)
+  const [audioLibrary, setAudioLibrary] = useState({})
 
   const isPlayingRef = useRef(isPlaying)
   const setPlaying = (status) => {
@@ -55,7 +60,7 @@ function App() {
 
   useEffect(() => {
     setUpSignalPath()
-    setUpSamples()
+    setUpAudio()
     function randomize() {
       setNodes(getRandomSequence(16, nodeSequenceLength))
     }
@@ -156,20 +161,29 @@ function App() {
   }
 
   // Set up samples
-  function setUpSamples() {
-    if (samplesSetup === false) {
-      const aud = new Audio(kick)
-      setKickAudio(aud)
+  function setUpAudio() {
+    if (!samplesSetup) {
+      samples.forEach(s => {
+        console.log(s.audio)
+        if (s.audio) {
+          const src = ctx.createMediaElementSource(s.audio)
+          src.connect(ctx.destination)
+        }
+      })
+
       setSamplesSetup(true)
     }
+    // if (samplesSetup === false) {
+    //   const aud = new Audio(kick)
+    //   setKickAudio(aud)
+    //   setSamplesSetup(true)
+    // }
 
-    if (samplesSetup === true && kickSrc === false) {
-      const kickSource = ctx.createMediaElementSource(kickAudio)
-      kickSource.connect(ctx.destination)
-      console.log(kickSource)
-      console.log(volume)
-      setKickSrc(true)
-    }
+    // if (samplesSetup === true && kickSrc === false) {
+    //   const kickSource = ctx.createMediaElementSource(kickAudio)
+    //   kickSource.connect(ctx.destination)
+    //   setKickSrc(true)
+    // }
   }
 
   // function testKick() {

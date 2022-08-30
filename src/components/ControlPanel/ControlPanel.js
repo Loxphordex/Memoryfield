@@ -6,6 +6,7 @@ import MainPanel from './MainPanel'
 import NoteControls from './NoteControls'
 import WaveControls from './WaveControls'
 import FilterControls from './FilterControls'
+import SampleSelect from './SampleSelect'
 
 export default function ControlPanel({ 
   displayedBpm,
@@ -88,6 +89,13 @@ export default function ControlPanel({
     setNodes(newNodes)
   }
 
+  function selectSample(sample) {
+    selectedNode.sample = sample
+    nodes.splice(selectedNode.playOrder, 1, selectedNode)
+    const newNodes = [...nodes]
+    setNodes(newNodes)
+  }
+
   function displayWaveforms() {
     if (nodes && selectedNode) {
       return selectedNode.wave
@@ -120,16 +128,21 @@ export default function ControlPanel({
         displayedBpm={displayedBpm}
         setSequenceAndNodeStatus={setSequenceAndNodeStatus}
       />
-      <NoteControls 
+      {/* <NoteControls 
         nodes={nodes}
         setNodes={setNodes}
         nodeEditor={nodeEditor}
         notes={notes}
         selectedNode={selectedNode}
-      />
-      <WaveControls 
+      /> */}
+      {/* <WaveControls 
         cycleWaveforms={cycleWaveforms}
         displayWaveforms={displayWaveforms}
+      /> */}
+      <SampleSelect
+        selectSample={selectSample}
+        nodeEditor={nodeEditor}
+        selectedNode={selectedNode}
       />
       <FilterControls 
         setFilterFrequency={setFilterFrequency}

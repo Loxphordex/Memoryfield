@@ -12,11 +12,13 @@ export default function playSound(ctx, filter, osc, volume, nodes, activeNode, k
     filter.frequency.setValueAtTime(currentNode.filterFrequency, now)
     filter.Q.value = currentNode.filterQ
 
+    if (currentNode?.sample?.audio) currentNode.sample.audio.play()
 
-    const k = new Audio(kick)
-    const kickSource = ctx.createMediaElementSource(k)
-    kickSource.connect(ctx.destination)
-    k.play()
+
+    // const k = new Audio(kick)
+    // const kickSource = ctx.createMediaElementSource(k)
+    // kickSource.connect(ctx.destination)
+    // k.play()
 
     // osc.type = wave
     // osc.start()
