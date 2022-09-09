@@ -6,31 +6,36 @@ export default function MemoryField({
   activeNode,
   setActiveNode,
   nodeEditor,
-  setNodeEditor
+  setNodeEditor,
+  ctx
 }) {
-  return (
-    <section className='field-container'>
-      <section className="memory-field">
-        {nodes && nodes.map(node => {
-          return (
-            <MemoryNode
-              shape={node.shape}
-              playOrder={node.playOrder}
-              position={node.position}
-              color={node.color}
-              texture={node.texture}
-              sound={node.sound}
-              active={node.active}
-              activeNode={activeNode}
-              setActiveNode={setActiveNode}
-              nodeEditor={nodeEditor}
-              setNodeEditor={setNodeEditor}
-              key={node.playOrder}
-              wave={node.wave}
-            />
-          );
-        })}
+  if (ctx) {
+    return (
+      <section className='field-container'>
+        <section className="memory-field">
+          {nodes && nodes.map(node => {
+            return (
+              <MemoryNode
+                shape={node.shape}
+                playOrder={node.playOrder}
+                position={node.position}
+                color={node.color}
+                texture={node.texture}
+                sound={node.sound}
+                active={node.active}
+                activeNode={activeNode}
+                setActiveNode={setActiveNode}
+                nodeEditor={nodeEditor}
+                setNodeEditor={setNodeEditor}
+                key={node.playOrder}
+                wave={node.wave}
+              />
+            );
+          })}
+        </section>
       </section>
-    </section>
-  );
+    )
+  }
+
+  return <></>
 }

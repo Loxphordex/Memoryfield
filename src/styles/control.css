@@ -1,7 +1,7 @@
 .control-panel {
     box-sizing: border-box;
-    width: 350px;
     min-height: 400px;
+    max-height: 400px;
     margin-right: 10px;
     padding: 10px;
     background-color: rgb(27, 26, 26);
