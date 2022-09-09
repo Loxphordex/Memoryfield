@@ -6,7 +6,6 @@ import StartButton from './components/StartButton/StartButton'
 import { filterTypes } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
-import { samples } from './components/Audio/constants'
 import { getRandomSequence, getInitialSequence } from './data/sequenceDetails'
 
 // styles
@@ -37,9 +36,6 @@ function App() {
   const [isSignalSetUp, setIsSignalSetUp] = useState(false)
   const [isOscStarted, setIsOscStarted] = useState(false)
 
-  const [samplesSetup, setSamplesSetup] = useState(false)
-  const [kickSrc, setKickSrc] = useState(false)
-
   const [kickAudio, setKickAudio] = useState(null)
   const [audioLibrary, setAudioLibrary] = useState({})
 
@@ -56,7 +52,6 @@ function App() {
 
   useEffect(() => {
     setUpSignalPath()
-    setUpAudio()
     function randomize() {
       setNodes(getRandomSequence(16, nodeSequenceLength))
     }
@@ -163,20 +158,6 @@ function App() {
         filter.connect(ctx.destination)
       }
     }
-  }
-
-  // Set up samples
-  function setUpAudio() {
-    // if (ctx && !samplesSetup) {
-    //   samples.forEach(s => {
-    //     if (s.audio) {
-    //       const src = ctx.createMediaElementSource(s.audio)
-    //       src.connect(ctx.destination)
-    //     }
-    //   })
-
-    //   setSamplesSetup(true)
-    // }
   }
 
   return (

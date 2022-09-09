@@ -16,26 +16,12 @@ export default function playSound(ctx, filter, osc, volume, nodes, activeNode, k
       src.connect(ctx.destination)
       aud.play()
     }
-    else console.log(currentNode)
-
-
-    // const k = new Audio(kick)
-    // const kickSource = ctx.createMediaElementSource(k)
-    // kickSource.connect(ctx.destination)
-    // k.play()
 
     // osc.type = wave
     // osc.start()
     // osc.frequency.value = freq
     // osc.connect(volume)
     // osc.stop(end)
-
-    // play sample
-    // const kickAudio = new Audio(kick)
-    // const source = ctx.createMediaElementSource(kickAudio)
-    // source.connect(volume)
-    // kickAudio.play()
-
 
     // envelope
     volume.gain.cancelScheduledValues(now)
