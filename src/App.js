@@ -1,28 +1,24 @@
-import React, { useState, useEffect, useRef } from "react"
-import MemoryField from "./components/MemoryField/MemoryField"
-import { getRandomSequence, getInitialSequence } from "./data/sequenceDetails"
-import ControlPanel from "./components/ControlPanel/ControlPanel"
+import React, { useState, useEffect, useRef } from 'react'
+import MemoryField from './components/MemoryField/MemoryField'
+import ControlPanel from './components/ControlPanel/ControlPanel'
+import Footer from './components/Footer/Footer'
+import StartButton from './components/StartButton/StartButton'
 import { filterTypes } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
-import Footer from './components/Footer/Footer'
-import { samples } from "./components/Audio/constants"
-
-// samples
-import kick from './samples/KickHollowThud.wav'
-import snare from './samples/SnareQuick.wav'
-import hat from './samples/HiHatClosed.wav'
+import { samples } from './components/Audio/constants'
+import { getRandomSequence, getInitialSequence } from './data/sequenceDetails'
 
 // styles
-import "./styles/container.css"
-import "./styles/control.css"
-import "./styles/node.css"
-import "./styles/colors.css"
-import "./styles/field.css"
+import './styles/container.css'
+import './styles/control.css'
+import './styles/node.css'
+import './styles/colors.css'
+import './styles/field.css'
 
 function App() {
   // Set up Audio Context
-  const AudioContext = window.AudioContext || window.webkitAudioContext || null
+  let AudioContext
 
   // State
   const [isPlaying, setIsPlaying] = useState(false)
@@ -33,7 +29,7 @@ function App() {
   const [speed, setSpeed] = useState(150)
   const [displayedBpm, setDisplayedBpm] = useState(150)
   const [outputLevel] = useState(0.2)
-  const [ctx] = useState(new AudioContext())
+  const [ctx, setCtx] = useState(null)
 
   const [volume, setVolume] = useState(null)
   const [osc, setOsc] = useState(null)
@@ -125,6 +121,13 @@ function App() {
       defaultKeys,
       isKeyHandlerSet])
 
+  function startAudioContext() {
+    if (!ctx) {
+      AudioContext = window.AudioContext || window.webkitAudioContext || null
+      setCtx(new AudioContext)
+    }
+  }
+
   function calculateBpm(bpm) {
     bpm = parseInt(bpm, 10)
     const millisecondsPerBeat = (60000 / bpm)
@@ -144,27 +147,28 @@ function App() {
 
   // Set up signal path
   function setUpSignalPath() {
-    if (isSignalSetUp === false) {
-      setOsc(ctx.createOscillator())
-      setFilter(ctx.createBiquadFilter())
-      setVolume(ctx.createGain())
-      setIsSignalSetUp(true)
-    }
-    
-    if (isOscStarted === false && osc && isSignalSetUp === true) {
-      osc.start()
-      setIsOscStarted(true)
-
-      volume.connect(filter)
-      filter.connect(ctx.destination)
+    if (ctx) {
+      if (isSignalSetUp === false) {
+        setOsc(ctx.createOscillator())
+        setFilter(ctx.createBiquadFilter())
+        setVolume(ctx.createGain())
+        setIsSignalSetUp(true)
+      }
+      
+      if (isOscStarted === false && osc && isSignalSetUp === true) {
+        osc.start()
+        setIsOscStarted(true)
+  
+        volume.connect(filter)
+        filter.connect(ctx.destination)
+      }
     }
   }
 
   // Set up samples
   function setUpAudio() {
-    if (!samplesSetup) {
+    if (ctx && !samplesSetup) {
       samples.forEach(s => {
-        console.log(s.audio)
         if (s.audio) {
           const src = ctx.createMediaElementSource(s.audio)
           src.connect(ctx.destination)
@@ -173,29 +177,15 @@ function App() {
 
       setSamplesSetup(true)
     }
-    // if (samplesSetup === false) {
-    //   const aud = new Audio(kick)
-    //   setKickAudio(aud)
-    //   setSamplesSetup(true)
-    // }
-
-    // if (samplesSetup === true && kickSrc === false) {
-    //   const kickSource = ctx.createMediaElementSource(kickAudio)
-    //   kickSource.connect(ctx.destination)
-    //   setKickSrc(true)
-    // }
   }
 
-  // function testKick() {
-  //   const k = new Audio(kick)
-  //   const kSource = ctx.createMediaElementSource(k)
-  //   kSource.connect(volume)
-  //   k.play()
-  // }
-
   return (
-    <div className="App">
-      <section className="app-container">
+    <div className='App'>
+      <section className='app-container'>
+        <StartButton
+          ctx={ctx}
+          startAudioContext={startAudioContext}
+        />
         <ControlPanel
           displayedBpm={displayedBpm}
           isPlaying={isPlaying}
@@ -211,6 +201,7 @@ function App() {
           toggleDefaultKeys={toggleDefaultKeys}
           presets={presets}
           setPresets={setPresets}
+          ctx={ctx}
         />
         <MemoryField
           nodes={nodes}
@@ -218,9 +209,9 @@ function App() {
           nodeEditor={nodeEditor}
           setActiveNode={setActiveNode}
           setNodeEditor={setNodeEditor}
+          ctx={ctx}
         />
       </section>
-      {/* <button onClick={testKick}>Kick</button> */}
       <Footer />
     </div>
   )

@@ -20,7 +20,8 @@ export default function ControlPanel({
   nodeEditor,
   toggleDefaultKeys,
   presets,
-  setPresets
+  setPresets,
+  ctx
 }) {
   const [selectedNode, setSelectedNode] = useState(null)
 
@@ -117,46 +118,50 @@ export default function ControlPanel({
     }
   }
 
-  return (
-    <section className='control-panel'>
-      <MainPanel 
-        playSequence={playSequence}
-        play={play}
-        isPlaying={isPlaying}
-        randomize={randomize}
-        calculateBpm={calculateBpm}
-        displayedBpm={displayedBpm}
-        setSequenceAndNodeStatus={setSequenceAndNodeStatus}
-      />
-      {/* <NoteControls 
-        nodes={nodes}
-        setNodes={setNodes}
-        nodeEditor={nodeEditor}
-        notes={notes}
-        selectedNode={selectedNode}
-      /> */}
-      {/* <WaveControls 
-        cycleWaveforms={cycleWaveforms}
-        displayWaveforms={displayWaveforms}
-      /> */}
-      <SampleSelect
-        selectSample={selectSample}
-        nodeEditor={nodeEditor}
-        selectedNode={selectedNode}
-      />
-      <FilterControls 
-        setFilterFrequency={setFilterFrequency}
-        setFilterQ={setFilterQ}
-        nodeEditor={nodeEditor}
-        selectedNode={selectedNode}
-      />
-      <Presets
-        nodes={nodes}
-        toggleDefaultKeys={toggleDefaultKeys}
-        presets={presets}
-        setPresets={setPresets}
-        setNodes={setNodes}
-      />
-    </section>
-  )
+  if (ctx) {
+    return (
+      <section className='control-panel'>
+        <MainPanel 
+          playSequence={playSequence}
+          play={play}
+          isPlaying={isPlaying}
+          randomize={randomize}
+          calculateBpm={calculateBpm}
+          displayedBpm={displayedBpm}
+          setSequenceAndNodeStatus={setSequenceAndNodeStatus}
+        />
+        {/* <NoteControls 
+          nodes={nodes}
+          setNodes={setNodes}
+          nodeEditor={nodeEditor}
+          notes={notes}
+          selectedNode={selectedNode}
+        /> */}
+        {/* <WaveControls 
+          cycleWaveforms={cycleWaveforms}
+          displayWaveforms={displayWaveforms}
+        /> */}
+        <SampleSelect
+          selectSample={selectSample}
+          nodeEditor={nodeEditor}
+          selectedNode={selectedNode}
+        />
+        <FilterControls 
+          setFilterFrequency={setFilterFrequency}
+          setFilterQ={setFilterQ}
+          nodeEditor={nodeEditor}
+          selectedNode={selectedNode}
+        />
+        <Presets
+          nodes={nodes}
+          toggleDefaultKeys={toggleDefaultKeys}
+          presets={presets}
+          setPresets={setPresets}
+          setNodes={setNodes}
+        />
+      </section>
+    )
+  }
+
+  return <></>
 }

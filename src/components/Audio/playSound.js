@@ -1,5 +1,3 @@
-import kick from '../../samples/KickHollowThud.wav'
-
 export default function playSound(ctx, filter, osc, volume, nodes, activeNode, kickAudio) {
   if (ctx) {
     let now = ctx.currentTime
@@ -13,6 +11,7 @@ export default function playSound(ctx, filter, osc, volume, nodes, activeNode, k
     filter.Q.value = currentNode.filterQ
 
     if (currentNode?.sample?.audio) currentNode.sample.audio.play()
+    else console.log(currentNode)
 
 
     // const k = new Audio(kick)
