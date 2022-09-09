@@ -20,14 +20,14 @@ export const samples = [
   },
   {
     name: 'kick',
-    audio: new Audio(kick)
+    audio: kick
   },
   {
     name: 'snare',
-    audio: new Audio(snare)
+    audio: snare
   },
   {
     name: 'hat',
-    audio: new Audio(hat)
+    audio: hat
   }
 ]

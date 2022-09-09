@@ -10,7 +10,12 @@ export default function playSound(ctx, filter, osc, volume, nodes, activeNode, k
     filter.frequency.setValueAtTime(currentNode.filterFrequency, now)
     filter.Q.value = currentNode.filterQ
 
-    if (currentNode?.sample?.audio) currentNode.sample.audio.play()
+    if (currentNode?.sample?.audio) {
+      const aud = new Audio(currentNode.sample.audio)
+      const src = ctx.createMediaElementSource(aud)
+      src.connect(ctx.destination)
+      aud.play()
+    }
     else console.log(currentNode)
 
 

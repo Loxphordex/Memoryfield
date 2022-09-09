@@ -167,16 +167,16 @@ function App() {
 
   // Set up samples
   function setUpAudio() {
-    if (ctx && !samplesSetup) {
-      samples.forEach(s => {
-        if (s.audio) {
-          const src = ctx.createMediaElementSource(s.audio)
-          src.connect(ctx.destination)
-        }
-      })
+    // if (ctx && !samplesSetup) {
+    //   samples.forEach(s => {
+    //     if (s.audio) {
+    //       const src = ctx.createMediaElementSource(s.audio)
+    //       src.connect(ctx.destination)
+    //     }
+    //   })
 
-      setSamplesSetup(true)
-    }
+    //   setSamplesSetup(true)
+    // }
   }
 
   return (
