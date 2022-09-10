@@ -33,11 +33,9 @@ function App() {
   const [volume, setVolume] = useState(null)
   const [osc, setOsc] = useState(null)
   const [filter, setFilter] = useState(null)
+  const [filterValues, setFilterValues] = useState({ frequency: 4000, q: 10 })
   const [isSignalSetUp, setIsSignalSetUp] = useState(false)
   const [isOscStarted, setIsOscStarted] = useState(false)
-
-  const [kickAudio, setKickAudio] = useState(null)
-  const [audioLibrary, setAudioLibrary] = useState({})
 
   const isPlayingRef = useRef(isPlaying)
   const setPlaying = (status) => {
@@ -83,11 +81,16 @@ function App() {
     let interval
     if (isPlaying) {
       interval = setInterval(() => {
-        if (activeNode >= 0 && nodes != null && isPlaying) playSound(ctx, filter, osc, volume, nodes, activeNode, kickAudio)
+        if (activeNode >= 0 && nodes != null && isPlaying) {
+          playSound(ctx, filter, osc, volume, nodes, activeNode)
+        }
+
         if (activeNode >= nodeSequenceLength - 1) {
           // reset sequence
           setActiveNode(0)
-        } else {
+        }
+        
+        else {
           // play next node
           let nextNode = activeNode + 1
           setActiveNode(nextNode)
@@ -154,8 +157,11 @@ function App() {
         osc.start()
         setIsOscStarted(true)
   
-        volume.connect(filter)
-        filter.connect(ctx.destination)
+        filter.type = 'lowpass'
+        filter.frequency.value = filterValues.frequency
+        filter.Q.value = filterValues.q
+        filter.connect(volume)
+        volume.connect(ctx.destination)
       }
     }
   }

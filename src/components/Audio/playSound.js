@@ -1,4 +1,4 @@
-export default function playSound(ctx, filter, osc, volume, nodes, activeNode, kickAudio) {
+export default function playSound(ctx, filter, osc, volume, nodes, activeNode) {
   if (ctx) {
     let now = ctx.currentTime
     let currentNode = nodes[activeNode]
@@ -7,13 +7,13 @@ export default function playSound(ctx, filter, osc, volume, nodes, activeNode, k
     let end = now + currentNode.endtime
 
     // filter setup
-    filter.frequency.setValueAtTime(currentNode.filterFrequency, now)
-    filter.Q.value = currentNode.filterQ
+    // filter.frequency.setValueAtTime(currentNode.filterFrequency, now)
+    // filter.Q.value = currentNode.filterQ
 
     if (currentNode?.sample?.audio) {
       const aud = new Audio(currentNode.sample.audio)
       const src = ctx.createMediaElementSource(aud)
-      src.connect(ctx.destination)
+      src.connect(filter)
       aud.play()
     }
 
@@ -24,10 +24,10 @@ export default function playSound(ctx, filter, osc, volume, nodes, activeNode, k
     // osc.stop(end)
 
     // envelope
-    volume.gain.cancelScheduledValues(now)
-    volume.gain.setValueAtTime(0.001, now)
-    volume.gain.linearRampToValueAtTime(0.1, now + 0.0008)
-    volume.gain.linearRampToValueAtTime(0, now + 0.1)
+    // volume.gain.cancelScheduledValues(now)
+    // volume.gain.setValueAtTime(0.001, now)
+    // volume.gain.linearRampToValueAtTime(0.1, now + 0.0008)
+    // volume.gain.linearRampToValueAtTime(0, now + 0.1)
 
     // Connect nodes
     // volume.gain.value = outputLevel
