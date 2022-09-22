@@ -3,7 +3,7 @@ import MemoryField from './components/MemoryField/MemoryField'
 import ControlPanel from './components/ControlPanel/ControlPanel'
 import Footer from './components/Footer/Footer'
 import StartButton from './components/StartButton/StartButton'
-import { filterTypes, samples } from './components/Audio/constants'
+import { samples } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
 import { getRandomSequence, getInitialSequence } from './data/sequenceDetails'
@@ -47,8 +47,6 @@ function App() {
   const [defaultKeys, setDefaultKeys] = useState(false)
   const [isKeyHandlerSet, setIsKeyHandlerSet] = useState(false)
 
-  // filter.type(filterTypes.lowpass)
-
   useEffect(() => {
     setUpSignalPath()
     function randomize() {
@@ -78,33 +76,8 @@ function App() {
     }
     if (nodes === null) setNodes(getInitialSequence(16, nodeSequenceLength))
 
-    // Sequence and looping
-    // let interval
-    // if (isPlaying) {
-    //   interval = setInterval(() => {
-    //     if (activeNode >= 0 && nodes != null && isPlaying) {
-    //       playSound(ctx, filter, osc, volume, nodes, activeNode)
-    //     }
-
-    //     if (activeNode >= nodeSequenceLength - 1) {
-    //       // reset sequence
-    //       setActiveNode(0)
-    //     }
-        
-    //     else {
-    //       // play next node
-    //       let nextNode = activeNode + 1
-    //       setActiveNode(nextNode)
-    //     }
-    //   }, speed)
-    // } else if (!isPlaying) {
-    //   clearInterval(interval)
-    //   setActiveNode(-1)
-    // }
-
     return () => {
       window.removeEventListener('keydown', handleKeydownEvents)
-      // clearInterval(interval)
     }
   }, [activeNode,
       speed,
@@ -119,8 +92,6 @@ function App() {
       nodeSequenceLength,
       defaultKeys,
       isKeyHandlerSet])
-
-  
 
   useInterval(() => {
     if (!isPlaying) setActiveNode(-1)
