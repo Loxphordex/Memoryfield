@@ -10,7 +10,8 @@ export default function MainPanel({
   randomize,
   calculateBpm,
   displayedBpm,
-  setSequenceAndNodeStatus
+  setSequenceAndNodeStatus,
+  updateFilterFrequency
 }) {
   return (
     <div className='global-controls'>
@@ -30,6 +31,15 @@ export default function MainPanel({
           defaultValue={150}
           maxValue={300}
           valueCallback={calculateBpm}
+        />
+      </div>
+
+      <div className='global-filter-container'>
+        <Knob
+          units='frequency'
+          defaultValue={4000}
+          maxValue={6000}
+          valueCallback={updateFilterFrequency}
         />
       </div>
 

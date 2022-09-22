@@ -3,7 +3,7 @@ import MemoryField from './components/MemoryField/MemoryField'
 import ControlPanel from './components/ControlPanel/ControlPanel'
 import Footer from './components/Footer/Footer'
 import StartButton from './components/StartButton/StartButton'
-import { filterTypes } from './components/Audio/constants'
+import { filterTypes, samples } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
 import { getRandomSequence, getInitialSequence } from './data/sequenceDetails'
@@ -155,13 +155,25 @@ function App() {
       
       if (isOscStarted === false && osc && isSignalSetUp === true) {
         osc.start()
-        setIsOscStarted(true)
+        console.log('signal path')
   
         filter.type = 'lowpass'
         filter.frequency.value = filterValues.frequency
         filter.Q.value = filterValues.q
         filter.connect(volume)
         volume.connect(ctx.destination)
+
+        for (let i = 0; i < samples.length; i++) {
+          if (samples[i].audio) {
+            for (let j = 0; j < samples[i].audio.length; j++) {
+              const src = ctx.createMediaElementSource(samples[i].audio[j])
+              src.connect(filter)
+              console.log(src)
+            }
+          }
+        }
+
+        setIsOscStarted(true)
       }
     }
   }
@@ -189,6 +201,9 @@ function App() {
           presets={presets}
           setPresets={setPresets}
           ctx={ctx}
+          filter={filter}
+          setFilter={setFilter}
+          setFilterValues={setFilterValues}
         />
         <MemoryField
           nodes={nodes}

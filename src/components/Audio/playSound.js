@@ -10,11 +10,31 @@ export default function playSound(ctx, filter, osc, volume, nodes, activeNode) {
     // filter.frequency.setValueAtTime(currentNode.filterFrequency, now)
     // filter.Q.value = currentNode.filterQ
 
+    // if (currentNode?.sample?.audio) {
+    //   let aud = new Audio(currentNode.sample.audio)
+    //   const src = ctx.createMediaElementSource(aud)
+    //   src.connect(filter)
+    //   aud.play()
+
+    //   setTimeout(() => {
+    //     src.disconnect()
+    //     aud = null
+    //   }, 500)
+    // }
+
     if (currentNode?.sample?.audio) {
-      const aud = new Audio(currentNode.sample.audio)
-      const src = ctx.createMediaElementSource(aud)
-      src.connect(filter)
+      let aud = currentNode.sample.audio[currentNode.sample.index]
+      // const src = ctx.createMediaElementSource(aud)
+      // src.connect(filter)
       aud.play()
+      currentNode.sample.index === 7
+        ? currentNode.sample.index = 0
+        : currentNode.sample.index++
+
+      setTimeout(() => {
+        // src.disconnect()
+        aud = null
+      }, 100)
     }
 
     // osc.type = wave

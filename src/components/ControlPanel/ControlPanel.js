@@ -7,6 +7,7 @@ import NoteControls from './NoteControls'
 import WaveControls from './WaveControls'
 import FilterControls from './FilterControls'
 import SampleSelect from './SampleSelect'
+import '../../styles/controlPanelStyles/DisplayPanel.css'
 
 export default function ControlPanel({ 
   displayedBpm,
@@ -21,7 +22,10 @@ export default function ControlPanel({
   toggleDefaultKeys,
   presets,
   setPresets,
-  ctx
+  ctx,
+  filter,
+  setFilter,
+  setFilterValues
 }) {
   const [selectedNode, setSelectedNode] = useState(null)
 
@@ -104,17 +108,23 @@ export default function ControlPanel({
     return String()
   }
 
-  function setFilterFrequency(freq) {
-    if (freq) {
-      selectedNode.filterFrequency = freq
-      updateNodes()
-    }
-  }
+  // function setFilterFrequency(freq) {
+  //   if (freq) {
+  //     selectedNode.filterFrequency = freq
+  //     updateNodes()
+  //   }
+  // }
   
-  function setFilterQ(q) {
-    if (q) {
-      selectedNode.filterQ = q
-      updateNodes()
+  // function setFilterQ(q) {
+  //   if (q) {
+  //     selectedNode.filterQ = q
+  //     updateNodes()
+  //   }
+  // }
+
+  function updateFilterFrequency(e) {
+    if (e) {
+      filter.frequency.value = e
     }
   }
 
@@ -129,36 +139,36 @@ export default function ControlPanel({
           calculateBpm={calculateBpm}
           displayedBpm={displayedBpm}
           setSequenceAndNodeStatus={setSequenceAndNodeStatus}
+          updateFilterFrequency={updateFilterFrequency}
         />
-        {/* <NoteControls 
-          nodes={nodes}
-          setNodes={setNodes}
-          nodeEditor={nodeEditor}
-          notes={notes}
-          selectedNode={selectedNode}
-        /> */}
-        {/* <WaveControls 
-          cycleWaveforms={cycleWaveforms}
-          displayWaveforms={displayWaveforms}
-        /> */}
-        <SampleSelect
-          selectSample={selectSample}
-          nodeEditor={nodeEditor}
-          selectedNode={selectedNode}
-        />
-        <FilterControls 
-          setFilterFrequency={setFilterFrequency}
-          setFilterQ={setFilterQ}
-          nodeEditor={nodeEditor}
-          selectedNode={selectedNode}
-        />
-        <Presets
-          nodes={nodes}
-          toggleDefaultKeys={toggleDefaultKeys}
-          presets={presets}
-          setPresets={setPresets}
-          setNodes={setNodes}
-        />
+        <div className='selected-node-control-display'>
+          {/* <NoteControls 
+            nodes={nodes}
+            setNodes={setNodes}
+            nodeEditor={nodeEditor}
+            notes={notes}
+            selectedNode={selectedNode}
+          /> */}
+          {/* <WaveControls 
+            cycleWaveforms={cycleWaveforms}
+            displayWaveforms={displayWaveforms}
+          /> */}
+          <SampleSelect
+            selectSample={selectSample}
+            nodeEditor={nodeEditor}
+            selectedNode={selectedNode}
+          />
+          {/* <FilterControls
+            updateFilterFrequency={updateFilterFrequency}
+          /> */}
+          <Presets
+            nodes={nodes}
+            toggleDefaultKeys={toggleDefaultKeys}
+            presets={presets}
+            setPresets={setPresets}
+            setNodes={setNodes}
+          />
+        </div>
       </section>
     )
   }

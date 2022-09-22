@@ -20,14 +20,26 @@ export const samples = [
   },
   {
     name: 'kick',
-    audio: kick
+    index: 0,
+    audio: createAudioObjects(kick)
   },
   {
     name: 'snare',
-    audio: snare
+    index: 0,
+    audio: createAudioObjects(snare)
   },
   {
     name: 'hat',
-    audio: hat
+    index: 0,
+    audio: createAudioObjects(hat)
   }
 ]
+
+function createAudioObjects(aud) {
+  let audioArray = []
+  for (let i = 0; i < 8; i++) {
+    audioArray.push(new Audio(aud))
+  }
+
+  return audioArray
+}
