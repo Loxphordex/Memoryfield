@@ -7,6 +7,7 @@ import { filterTypes, samples } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
 import { getRandomSequence, getInitialSequence } from './data/sequenceDetails'
+import { useInterval } from './helpers/hooks'
 
 // styles
 import './styles/container.css'
@@ -78,32 +79,32 @@ function App() {
     if (nodes === null) setNodes(getInitialSequence(16, nodeSequenceLength))
 
     // Sequence and looping
-    let interval
-    if (isPlaying) {
-      interval = setInterval(() => {
-        if (activeNode >= 0 && nodes != null && isPlaying) {
-          playSound(ctx, filter, osc, volume, nodes, activeNode)
-        }
+    // let interval
+    // if (isPlaying) {
+    //   interval = setInterval(() => {
+    //     if (activeNode >= 0 && nodes != null && isPlaying) {
+    //       playSound(ctx, filter, osc, volume, nodes, activeNode)
+    //     }
 
-        if (activeNode >= nodeSequenceLength - 1) {
-          // reset sequence
-          setActiveNode(0)
-        }
+    //     if (activeNode >= nodeSequenceLength - 1) {
+    //       // reset sequence
+    //       setActiveNode(0)
+    //     }
         
-        else {
-          // play next node
-          let nextNode = activeNode + 1
-          setActiveNode(nextNode)
-        }
-      }, speed)
-    } else if (!isPlaying) {
-      clearInterval(interval)
-      setActiveNode(-1)
-    }
+    //     else {
+    //       // play next node
+    //       let nextNode = activeNode + 1
+    //       setActiveNode(nextNode)
+    //     }
+    //   }, speed)
+    // } else if (!isPlaying) {
+    //   clearInterval(interval)
+    //   setActiveNode(-1)
+    // }
 
     return () => {
       window.removeEventListener('keydown', handleKeydownEvents)
-      clearInterval(interval)
+      // clearInterval(interval)
     }
   }, [activeNode,
       speed,
@@ -118,6 +119,27 @@ function App() {
       nodeSequenceLength,
       defaultKeys,
       isKeyHandlerSet])
+
+  
+
+  useInterval(() => {
+    if (!isPlaying) setActiveNode(-1)
+
+    if (activeNode >= 0 && nodes != null && isPlaying) {
+      playSound(ctx, filter, osc, volume, nodes, activeNode)
+    }
+
+    if (activeNode >= nodeSequenceLength - 1) {
+      // reset sequence
+      setActiveNode(0)
+    }
+    
+    else {
+      // play next node
+      let nextNode = activeNode + 1
+      setActiveNode(nextNode)
+    }
+  }, isPlaying ? speed : null)
 
   function startAudioContext() {
     if (!ctx) {
@@ -155,7 +177,6 @@ function App() {
       
       if (isOscStarted === false && osc && isSignalSetUp === true) {
         osc.start()
-        console.log('signal path')
   
         filter.type = 'lowpass'
         filter.frequency.value = filterValues.frequency
@@ -168,7 +189,6 @@ function App() {
             for (let j = 0; j < samples[i].audio.length; j++) {
               const src = ctx.createMediaElementSource(samples[i].audio[j])
               src.connect(filter)
-              console.log(src)
             }
           }
         }
