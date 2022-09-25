@@ -90,7 +90,7 @@ export default function Knob({
 
   return (
     <div className='knob-surround'>
-      <span className='knob-label'><label htmlFor={`${units}-knob`}>{units}</label></span>
+      <span className='knob-label no-select'><label htmlFor={`${units}-knob`}>{units}</label></span>
       <div 
         className='knob'
         id={`${units}-knob`}
@@ -100,7 +100,7 @@ export default function Knob({
         style={rotationStyles}
       />
 
-      <span className='max'>{`${knobValue}`}</span>
+      <span className='max no-select'>{`${knobValue}`}</span>
     </div>
   )
 }

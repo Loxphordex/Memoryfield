@@ -5,7 +5,7 @@
   height: 3em;
   border-radius: 50%;
   border: solid 0.25em #0e0e0e;
-  margin: 20px 3px;
+  margin: 20px 25px;
   background: #181818;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #1d1d1d), color-stop(1, #131313));
   background: -ms-linear-gradient(bottom, #1d1d1d, #131313);
@@ -55,6 +55,7 @@
 .knob-label {
   top: -2em;
   margin: 0 auto;
+  pointer-events: none;
 }
 .min {
   bottom: 1em;

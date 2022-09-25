@@ -121,8 +121,8 @@ function App() {
 
   function calculateBpm(bpm) {
     bpm = parseInt(bpm, 10)
-    const millisecondsPerBeat = (60000 / bpm)
-    const beatsIn44Time = millisecondsPerBeat / 4
+    const millisecondsPerBeat = Math.floor((60000 / bpm))
+    const beatsIn44Time = Math.floor((millisecondsPerBeat / 4))
 
     setSpeed(beatsIn44Time)
     setDisplayedBpm(bpm)
