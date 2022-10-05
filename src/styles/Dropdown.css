@@ -1,0 +1,29 @@
+.custom-dropdown-container {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+}
+
+.custom-dropdown {
+  padding-left: 0;
+  position: absolute;
+  top: -90px;
+  right: -10px;
+  background-color: rgb(211 232 232);
+  border-radius: 3px;
+  color: rgb(46, 46, 46);
+  box-shadow: -4px 5px 14px -5px rgb(24 24 29);
+  min-width: 0;
+}
+
+.custom-dropdown-option {
+  list-style: none;
+  cursor: default;
+  text-align: center;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.custom-dropdown-option:hover {
+  background-color: rgb(162, 181, 181);
+}

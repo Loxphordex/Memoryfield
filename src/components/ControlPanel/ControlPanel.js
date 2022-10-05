@@ -8,6 +8,7 @@ import WaveControls from './WaveControls'
 import FilterControls from './FilterControls'
 import SampleSelect from './SampleSelect'
 import '../../styles/controlPanelStyles/DisplayPanel.css'
+import '../../styles/controlPanelStyles/GeneralStyles.css'
 
 export default function ControlPanel({ 
   displayedBpm,
@@ -16,6 +17,7 @@ export default function ControlPanel({
   randomize, 
   calculateBpm,
   nodes,
+  nodeSequenceLength,
   setNodeSequenceLength,
   setNodes, 
   nodeEditor,
@@ -128,6 +130,12 @@ export default function ControlPanel({
     }
   }
 
+  function updateFilterQ(e) {
+    if (e) {
+      filter.Q.value = e
+    }
+  }
+
   if (ctx) {
     return (
       <section className='control-panel'>
@@ -138,8 +146,15 @@ export default function ControlPanel({
           randomize={randomize}
           calculateBpm={calculateBpm}
           displayedBpm={displayedBpm}
+          nodeSequenceLength={nodeSequenceLength}
           setSequenceAndNodeStatus={setSequenceAndNodeStatus}
           updateFilterFrequency={updateFilterFrequency}
+          updateFilterQ={updateFilterQ}
+          nodes={nodes}
+          toggleDefaultKeys={toggleDefaultKeys}
+          presets={presets}
+          setPresets={setPresets}
+          setNodes={setNodes}
         />
         <div className='selected-node-control-display'>
           {/* <NoteControls 
@@ -161,13 +176,6 @@ export default function ControlPanel({
           {/* <FilterControls
             updateFilterFrequency={updateFilterFrequency}
           /> */}
-          <Presets
-            nodes={nodes}
-            toggleDefaultKeys={toggleDefaultKeys}
-            presets={presets}
-            setPresets={setPresets}
-            setNodes={setNodes}
-          />
         </div>
       </section>
     )

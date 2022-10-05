@@ -1,6 +1,5 @@
 .global-controls {
   display: flex;
-  flex-flow: wrap;
   width: 100%;
 }
 
@@ -15,6 +14,11 @@
   justify-content: center;
 }
 
-.sequence-length-container-label {
-  width: 100%;
+.control-button {
+  max-height: 40px;
+}
+
+.sequence-length-container {
+  display: flex;
+  flex-flow: column;
 }
