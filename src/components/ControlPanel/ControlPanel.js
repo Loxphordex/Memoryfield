@@ -172,6 +172,7 @@ export default function ControlPanel({
             selectSample={selectSample}
             nodeEditor={nodeEditor}
             selectedNode={selectedNode}
+            nodes={nodes}
           />
           {/* <FilterControls
             updateFilterFrequency={updateFilterFrequency}

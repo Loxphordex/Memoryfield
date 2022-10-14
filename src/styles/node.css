@@ -5,9 +5,9 @@
     margin: 5px;
     border: 1px solid rgba(0, 0, 0, 0);
     box-shadow: -3px 5px 4px 4px rgb(38 38 43);
-    background-color: rgb(211 232 232);
+    background-color: rgb(133 149 149);
     border-radius: 3px;
-    transition: all 170ms;
+    transition: all 50ms;
 }
 
 .memory-node-sine {
@@ -19,6 +19,7 @@
 }
 
 .node-is-active-false {
-    border: 1px solid rgb(167, 167, 167);
+    border: 1px solid rgb(61, 69, 68);
     transition: all 170ms;
+    background-color: rgb(57, 66, 66);
 }
