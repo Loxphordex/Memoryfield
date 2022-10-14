@@ -6,7 +6,7 @@ import StartButton from './components/StartButton/StartButton'
 import { samples } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
-import { getRandomSequence, getInitialSequence } from './data/sequenceDetails'
+import { getInitialSequence } from './data/sequenceDetails'
 import { useInterval } from './helpers/hooks'
 
 // styles
@@ -25,7 +25,7 @@ function App() {
   const [activeNode, setActiveNode] = useState(-1)
   const [nodeEditor, setNodeEditor] = useState(null)
   const [nodes, setNodes] = useState(null)
-  const [nodeSequenceLength, setNodeSequenceLength] = useState(16)
+  const [nodeSequenceLength, setNodeSequenceLength] = useState(8)
   const [speed, setSpeed] = useState(150)
   const [displayedBpm, setDisplayedBpm] = useState(150)
   const [outputLevel] = useState(0.2)
@@ -49,9 +49,6 @@ function App() {
 
   useEffect(() => {
     setUpSignalPath()
-    function randomize() {
-      setNodes(getRandomSequence(16, nodeSequenceLength))
-    }
     const handleKeydownEvents = function(event) {
       if (event) {
         event.stopPropagation()
@@ -59,10 +56,6 @@ function App() {
       
         if (event.keyCode === keyShortcuts.spacebar) {
           setPlaying(!isPlayingRef.current)
-        }
-      
-        else if (event.keyCode === keyShortcuts.r && randomize) {
-          randomize()
         }
       }
     }
@@ -132,10 +125,6 @@ function App() {
     setDefaultKeys(!defaultKeys)
   }
 
-  function random() {
-    setNodes(getRandomSequence(16, nodeSequenceLength))
-  }
-
   // Set up signal path
   function setUpSignalPath() {
     if (ctx) {
@@ -180,7 +169,6 @@ function App() {
           displayedBpm={displayedBpm}
           isPlaying={isPlaying}
           play={setPlaying}
-          randomize={random}
           calculateBpm={calculateBpm}
           nodes={nodes}
           setNodes={setNodes}

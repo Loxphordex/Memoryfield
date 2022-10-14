@@ -29,33 +29,6 @@ function checkIfActive(order, nodeSequenceLength) {
   return order > nodeSequenceLength - 1 ? false : true
 }
 
-// Creates random nodes
-export function generateRandomSequence(nodeCount, nodeSequenceLength) {
-  const nodes = []
-
-  for (let i = 0; i < nodeCount; i++) {
-    nodes.push({
-      color: getRandom(colors),
-      filterFrequency: randomFilterFrequency(),
-      filterQ: randomFilterQFrequency(),
-      endtime: 0.1,
-      playOrder: i,
-      active: checkIfActive(i, nodeSequenceLength),
-      note: getRandom(notes),
-      wave: getRandom(waveforms)
-    })
-  }
-  return nodes
-}
-
-function randomFilterFrequency() {
-  return Math.floor(Math.random() * 2000)
-}
-
-function randomFilterQFrequency() {
-  return Math.floor(Math.random() * 20)
-}
-
 function getRandom(array) {
   if (array) {
     return array[Math.floor(Math.random() * array.length)]

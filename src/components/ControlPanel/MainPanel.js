@@ -9,7 +9,6 @@ export default function MainPanel({
   playSequence,
   play,
   isPlaying,
-  randomize,
   calculateBpm,
   displayedBpm,
   nodeSequenceLength,
@@ -50,7 +49,6 @@ export default function MainPanel({
     <div className='global-controls'>
       {!isPlaying && <button className='control-button' onClick={() => playSequence()}><Play size={36} /></button>}
       {isPlaying && <button className='control-button' onClick={() => play(false)}><Stop size={36} /></button>}
-      <button className='control-button' onClick={() => randomize()}>Randomize</button>
 
       <div className='bmp-knob-container'>
         <Knob

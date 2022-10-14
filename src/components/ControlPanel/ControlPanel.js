@@ -14,7 +14,6 @@ export default function ControlPanel({
   displayedBpm,
   isPlaying,
   play, 
-  randomize, 
   calculateBpm,
   nodes,
   nodeSequenceLength,
@@ -143,7 +142,6 @@ export default function ControlPanel({
           playSequence={playSequence}
           play={play}
           isPlaying={isPlaying}
-          randomize={randomize}
           calculateBpm={calculateBpm}
           displayedBpm={displayedBpm}
           nodeSequenceLength={nodeSequenceLength}

@@ -9,7 +9,6 @@ export default function Panel ({
   playSequence,
   play,
   addNode,
-  randomize,
   calculateBpm,
   deleteNode,
   speed,
@@ -21,7 +20,6 @@ export default function Panel ({
         <button onClick={() => playSequence()}>Play</button>
         <button onClick={() => play(false)}>Stop</button>
         <button onClick={() => addNode()}>+</button>
-        <button onClick={() => randomize()}>Randomize</button>
   
         <label htmlFor="speed">{(60_000 / speed).toFixed()}</label>
         <input type="range" id="speed" name="speed" min={1} max={1000} 
