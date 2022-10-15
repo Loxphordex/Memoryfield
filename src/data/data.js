@@ -13,9 +13,16 @@ export const colors = [
   'blue'
 ]
 
+export const sampleColors = {
+  none: 'default',
+  kick: 'red',
+  snare: 'green',
+  hat: 'teal'
+}
+
 export function createDefaultNode(order, nodeSequenceLength) {
   return {
-    color: getRandom(colors),
+    color: 'default',
     filterFrequency: 800,
     endtime: 0.1,
     playOrder: order,
@@ -29,12 +36,6 @@ function checkIfActive(order, nodeSequenceLength) {
   return order > nodeSequenceLength - 1 ? false : true
 }
 
-function getRandom(array) {
-  if (array) {
-    return array[Math.floor(Math.random() * array.length)]
-  }
-}
-
 // Generate initial sequence of nodes
 export function generateInitialSequence(nodeCount, nodeSequenceLength) {
   let nodes = []
@@ -46,7 +47,7 @@ export function generateInitialSequence(nodeCount, nodeSequenceLength) {
 
 function initialNode(order, nodeSequenceLength) {
   return {
-    color: getRandom(colors),
+    color: 'default',
     filterFrequency: 1200,
     filterQ: 0,
     endtime: 0.1,

@@ -7,6 +7,7 @@ import NoteControls from './NoteControls'
 import WaveControls from './WaveControls'
 import FilterControls from './FilterControls'
 import SampleSelect from './SampleSelect'
+import { sampleColors } from "../../data/data";
 import '../../styles/controlPanelStyles/DisplayPanel.css'
 import '../../styles/controlPanelStyles/GeneralStyles.css'
 
@@ -97,9 +98,14 @@ export default function ControlPanel({
 
   function selectSample(sample) {
     selectedNode.sample = sample
+    selectedNode.color = setNodeColor(sample.name)
     nodes.splice(selectedNode.playOrder, 1, selectedNode)
     const newNodes = [...nodes]
     setNodes(newNodes)
+  }
+
+  function setNodeColor(sample) {
+    return sampleColors[sample]
   }
 
   function displayWaveforms() {
