@@ -1,0 +1,43 @@
+@font-face {
+  font-family: 'EightBitDragon-anqx';
+  src: local('EightBitDragon-anqx'), url(../../fonts/EightBitDragon-anqx.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'AncientModernTales-a7Po';
+  src: local('AncientModernTales-a7Po'), url(../../fonts/AncientModernTales-a7Po.ttf) format('truetype');
+}
+
+.selected-node-control-display {
+  font-family: 'EightBitDragon-anqx';
+  font-size: 0.7em;
+  box-sizing: border-box;
+  background-color: rgb(81, 91, 80);
+  min-height: 23em;
+  max-height: 23em;
+  padding: 10px;
+  box-shadow: inset 0 0 6px rgb(24 24 29);
+}
+
+.sample-list {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+
+.sample-selection {
+  border: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  min-height: 80px;
+  cursor: default;
+}
+
+.sample-highlight {
+  background-color: white;
+  color: rgb(81, 91, 80);
+}

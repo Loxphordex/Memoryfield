@@ -6,20 +6,28 @@ import MainPanel from './MainPanel'
 import NoteControls from './NoteControls'
 import WaveControls from './WaveControls'
 import FilterControls from './FilterControls'
+import SampleSelect from './SampleSelect'
+import { sampleColors } from "../../data/data";
+import '../../styles/controlPanelStyles/DisplayPanel.css'
+import '../../styles/controlPanelStyles/GeneralStyles.css'
 
 export default function ControlPanel({ 
   displayedBpm,
   isPlaying,
   play, 
-  randomize, 
   calculateBpm,
   nodes,
+  nodeSequenceLength,
   setNodeSequenceLength,
   setNodes, 
   nodeEditor,
   toggleDefaultKeys,
   presets,
-  setPresets
+  setPresets,
+  ctx,
+  filter,
+  setFilter,
+  setFilterValues
 }) {
   const [selectedNode, setSelectedNode] = useState(null)
 
@@ -88,6 +96,18 @@ export default function ControlPanel({
     setNodes(newNodes)
   }
 
+  function selectSample(sample) {
+    selectedNode.sample = sample
+    selectedNode.color = setNodeColor(sample.name)
+    nodes.splice(selectedNode.playOrder, 1, selectedNode)
+    const newNodes = [...nodes]
+    setNodes(newNodes)
+  }
+
+  function setNodeColor(sample) {
+    return sampleColors[sample]
+  }
+
   function displayWaveforms() {
     if (nodes && selectedNode) {
       return selectedNode.wave
@@ -95,55 +115,76 @@ export default function ControlPanel({
     return String()
   }
 
-  function setFilterFrequency(freq) {
-    if (freq) {
-      selectedNode.filterFrequency = freq
-      updateNodes()
-    }
-  }
+  // function setFilterFrequency(freq) {
+  //   if (freq) {
+  //     selectedNode.filterFrequency = freq
+  //     updateNodes()
+  //   }
+  // }
   
-  function setFilterQ(q) {
-    if (q) {
-      selectedNode.filterQ = q
-      updateNodes()
+  // function setFilterQ(q) {
+  //   if (q) {
+  //     selectedNode.filterQ = q
+  //     updateNodes()
+  //   }
+  // }
+
+  function updateFilterFrequency(e) {
+    if (e) {
+      filter.frequency.value = e
     }
   }
 
-  return (
-    <section className='control-panel'>
-      <MainPanel 
-        playSequence={playSequence}
-        play={play}
-        isPlaying={isPlaying}
-        randomize={randomize}
-        calculateBpm={calculateBpm}
-        displayedBpm={displayedBpm}
-        setSequenceAndNodeStatus={setSequenceAndNodeStatus}
-      />
-      <NoteControls 
-        nodes={nodes}
-        setNodes={setNodes}
-        nodeEditor={nodeEditor}
-        notes={notes}
-        selectedNode={selectedNode}
-      />
-      <WaveControls 
-        cycleWaveforms={cycleWaveforms}
-        displayWaveforms={displayWaveforms}
-      />
-      <FilterControls 
-        setFilterFrequency={setFilterFrequency}
-        setFilterQ={setFilterQ}
-        nodeEditor={nodeEditor}
-        selectedNode={selectedNode}
-      />
-      <Presets
-        nodes={nodes}
-        toggleDefaultKeys={toggleDefaultKeys}
-        presets={presets}
-        setPresets={setPresets}
-        setNodes={setNodes}
-      />
-    </section>
-  )
+  function updateFilterQ(e) {
+    if (e) {
+      filter.Q.value = e
+    }
+  }
+
+  if (ctx) {
+    return (
+      <section className='control-panel'>
+        <MainPanel 
+          playSequence={playSequence}
+          play={play}
+          isPlaying={isPlaying}
+          calculateBpm={calculateBpm}
+          displayedBpm={displayedBpm}
+          nodeSequenceLength={nodeSequenceLength}
+          setSequenceAndNodeStatus={setSequenceAndNodeStatus}
+          updateFilterFrequency={updateFilterFrequency}
+          updateFilterQ={updateFilterQ}
+          nodes={nodes}
+          toggleDefaultKeys={toggleDefaultKeys}
+          presets={presets}
+          setPresets={setPresets}
+          setNodes={setNodes}
+        />
+        <div className='selected-node-control-display'>
+          {/* <NoteControls 
+            nodes={nodes}
+            setNodes={setNodes}
+            nodeEditor={nodeEditor}
+            notes={notes}
+            selectedNode={selectedNode}
+          /> */}
+          {/* <WaveControls 
+            cycleWaveforms={cycleWaveforms}
+            displayWaveforms={displayWaveforms}
+          /> */}
+          <SampleSelect
+            selectSample={selectSample}
+            nodeEditor={nodeEditor}
+            selectedNode={selectedNode}
+            nodes={nodes}
+          />
+          {/* <FilterControls
+            updateFilterFrequency={updateFilterFrequency}
+          /> */}
+        </div>
+      </section>
+    )
+  }
+
+  return <></>
 }

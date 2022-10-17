@@ -1,6 +1,9 @@
 .global-controls {
   display: flex;
-  flex-flow: wrap;
+  width: 100%;
+}
+
+.bpm-controls-container-label {
   width: 100%;
 }
 
@@ -9,4 +12,13 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
+}
+
+.control-button {
+  max-height: 40px;
+}
+
+.sequence-length-container {
+  display: flex;
+  flex-flow: column;
 }
