@@ -1,8 +1,4 @@
-import { generateRandomSequence, generateInitialSequence, createDefaultNode } from './data'
-
-export function getRandomSequence(nodeCount, nodeSequenceLength) {
-  return nodeCount ? generateRandomSequence(nodeCount, nodeSequenceLength) : null
-}
+import { generateInitialSequence, createDefaultNode } from './data'
 
 export function getInitialSequence(nodeCount, nodeSequenceLength) {
   return nodeCount ? generateInitialSequence(nodeCount, nodeSequenceLength) : null

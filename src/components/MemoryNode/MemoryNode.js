@@ -34,7 +34,7 @@ export default function MemoryNode({
 }
 
 function nodeIsActive(activeNode, playOrder, color) {
-  return activeNode === playOrder ? color : "";
+  return activeNode === playOrder ? color : `not-playing-${color}`;
 }
 
 function editing(playOrder, nodeEditor) {

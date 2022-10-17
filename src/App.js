@@ -3,10 +3,11 @@ import MemoryField from './components/MemoryField/MemoryField'
 import ControlPanel from './components/ControlPanel/ControlPanel'
 import Footer from './components/Footer/Footer'
 import StartButton from './components/StartButton/StartButton'
-import { filterTypes } from './components/Audio/constants'
+import { samples } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
-import { getRandomSequence, getInitialSequence } from './data/sequenceDetails'
+import { getInitialSequence } from './data/sequenceDetails'
+import { useInterval } from './helpers/hooks'
 
 // styles
 import './styles/container.css'
@@ -24,7 +25,7 @@ function App() {
   const [activeNode, setActiveNode] = useState(-1)
   const [nodeEditor, setNodeEditor] = useState(null)
   const [nodes, setNodes] = useState(null)
-  const [nodeSequenceLength, setNodeSequenceLength] = useState(16)
+  const [nodeSequenceLength, setNodeSequenceLength] = useState(8)
   const [speed, setSpeed] = useState(150)
   const [displayedBpm, setDisplayedBpm] = useState(150)
   const [outputLevel] = useState(0.2)
@@ -46,13 +47,8 @@ function App() {
   const [defaultKeys, setDefaultKeys] = useState(false)
   const [isKeyHandlerSet, setIsKeyHandlerSet] = useState(false)
 
-  // filter.type(filterTypes.lowpass)
-
   useEffect(() => {
     setUpSignalPath()
-    function randomize() {
-      setNodes(getRandomSequence(16, nodeSequenceLength))
-    }
     const handleKeydownEvents = function(event) {
       if (event) {
         event.stopPropagation()
@@ -60,10 +56,6 @@ function App() {
       
         if (event.keyCode === keyShortcuts.spacebar) {
           setPlaying(!isPlayingRef.current)
-        }
-      
-        else if (event.keyCode === keyShortcuts.r && randomize) {
-          randomize()
         }
       }
     }
@@ -77,33 +69,8 @@ function App() {
     }
     if (nodes === null) setNodes(getInitialSequence(16, nodeSequenceLength))
 
-    // Sequence and looping
-    let interval
-    if (isPlaying) {
-      interval = setInterval(() => {
-        if (activeNode >= 0 && nodes != null && isPlaying) {
-          playSound(ctx, filter, osc, volume, nodes, activeNode)
-        }
-
-        if (activeNode >= nodeSequenceLength - 1) {
-          // reset sequence
-          setActiveNode(0)
-        }
-        
-        else {
-          // play next node
-          let nextNode = activeNode + 1
-          setActiveNode(nextNode)
-        }
-      }, speed)
-    } else if (!isPlaying) {
-      clearInterval(interval)
-      setActiveNode(-1)
-    }
-
     return () => {
       window.removeEventListener('keydown', handleKeydownEvents)
-      clearInterval(interval)
     }
   }, [activeNode,
       speed,
@@ -119,6 +86,25 @@ function App() {
       defaultKeys,
       isKeyHandlerSet])
 
+  useInterval(() => {
+    if (!isPlaying) setActiveNode(-1)
+
+    if (activeNode >= 0 && nodes != null && isPlaying) {
+      playSound(ctx, filter, osc, volume, nodes, activeNode)
+    }
+
+    if (activeNode >= nodeSequenceLength - 1) {
+      // reset sequence
+      setActiveNode(0)
+    }
+    
+    else {
+      // play next node
+      let nextNode = activeNode + 1
+      setActiveNode(nextNode)
+    }
+  }, isPlaying ? speed : null)
+
   function startAudioContext() {
     if (!ctx) {
       AudioContext = window.AudioContext || window.webkitAudioContext || null
@@ -128,8 +114,8 @@ function App() {
 
   function calculateBpm(bpm) {
     bpm = parseInt(bpm, 10)
-    const millisecondsPerBeat = (60000 / bpm)
-    const beatsIn44Time = millisecondsPerBeat / 4
+    const millisecondsPerBeat = Math.floor((60000 / bpm))
+    const beatsIn44Time = Math.floor((millisecondsPerBeat / 4))
 
     setSpeed(beatsIn44Time)
     setDisplayedBpm(bpm)
@@ -137,10 +123,6 @@ function App() {
 
   function toggleDefaultKeys() {
     setDefaultKeys(!defaultKeys)
-  }
-
-  function random() {
-    setNodes(getRandomSequence(16, nodeSequenceLength))
   }
 
   // Set up signal path
@@ -155,13 +137,23 @@ function App() {
       
       if (isOscStarted === false && osc && isSignalSetUp === true) {
         osc.start()
-        setIsOscStarted(true)
   
         filter.type = 'lowpass'
         filter.frequency.value = filterValues.frequency
         filter.Q.value = filterValues.q
         filter.connect(volume)
         volume.connect(ctx.destination)
+
+        for (let i = 0; i < samples.length; i++) {
+          if (samples[i].audio) {
+            for (let j = 0; j < samples[i].audio.length; j++) {
+              const src = ctx.createMediaElementSource(samples[i].audio[j])
+              src.connect(filter)
+            }
+          }
+        }
+
+        setIsOscStarted(true)
       }
     }
   }
@@ -177,7 +169,6 @@ function App() {
           displayedBpm={displayedBpm}
           isPlaying={isPlaying}
           play={setPlaying}
-          randomize={random}
           calculateBpm={calculateBpm}
           nodes={nodes}
           setNodes={setNodes}
@@ -189,6 +180,9 @@ function App() {
           presets={presets}
           setPresets={setPresets}
           ctx={ctx}
+          filter={filter}
+          setFilter={setFilter}
+          setFilterValues={setFilterValues}
         />
         <MemoryField
           nodes={nodes}

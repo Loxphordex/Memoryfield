@@ -4,16 +4,27 @@ import { samples } from '../Audio/constants'
 export default function SampleSelect({
   selectSample,
   nodeEditor,
-  selectedNode
+  selectedNode,
+  nodes
 }) {
 
   function displaySampleSelection() {
-    return samples.map(s => <li className='sample-selection'
+    return samples.map(s => <li className={`sample-selection ${highlight(s.name)}`}
       key={s.name}
       onClick={() => selectSample(s)}>
         {s.name}
       </li>
     )
+  }
+
+  function highlight(audioSample) {
+    if (nodes[nodeEditor].sample) {
+      if (nodes[nodeEditor].sample.name === audioSample) {
+        return 'sample-highlight'
+      }
+    }
+
+    return ''
   }
 
   if (nodeEditor !== null && selectedNode) {
