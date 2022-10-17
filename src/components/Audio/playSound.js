@@ -44,10 +44,10 @@ export default function playSound(ctx, filter, osc, volume, nodes, activeNode) {
     // osc.stop(end)
 
     // envelope
-    // volume.gain.cancelScheduledValues(now)
-    // volume.gain.setValueAtTime(0.001, now)
-    // volume.gain.linearRampToValueAtTime(0.1, now + 0.0008)
-    // volume.gain.linearRampToValueAtTime(0, now + 0.1)
+    volume.gain.cancelScheduledValues(now)
+    volume.gain.setValueAtTime(0.001, now)
+    volume.gain.linearRampToValueAtTime(0.8, now + 0.0008)
+    volume.gain.linearRampToValueAtTime(0, now + 0.1)
 
     // Connect nodes
     // volume.gain.value = outputLevel
