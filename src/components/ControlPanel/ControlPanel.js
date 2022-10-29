@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { notes } from '../../data/notes'
-import { waveforms } from '../Audio/constants'
+import { waveforms, panelMode } from '../Audio/constants'
 import Presets from '../Presets/Presets'
 import MainPanel from './MainPanel'
 import NoteControls from './NoteControls'
 import WaveControls from './WaveControls'
 import FilterControls from './FilterControls'
 import SampleSelect from './SampleSelect'
+import SequenceLengthSelect from './SequenceLengthSelect'
 import { sampleColors } from "../../data/data";
 import '../../styles/controlPanelStyles/DisplayPanel.css'
 import '../../styles/controlPanelStyles/GeneralStyles.css'
@@ -21,15 +22,15 @@ export default function ControlPanel({
   setNodeSequenceLength,
   setNodes, 
   nodeEditor,
+  setNodeEditor,
   toggleDefaultKeys,
-  presets,
-  setPresets,
   ctx,
   filter,
-  setFilter,
-  setFilterValues
+  panelDisplayMode,
+  setPanelDisplayMode,
 }) {
   const [selectedNode, setSelectedNode] = useState(null)
+  const [presets, setPresets] = useState(null)
 
   useEffect(() => {
     if (nodeEditor != null && nodes) {
@@ -115,20 +116,6 @@ export default function ControlPanel({
     return String()
   }
 
-  // function setFilterFrequency(freq) {
-  //   if (freq) {
-  //     selectedNode.filterFrequency = freq
-  //     updateNodes()
-  //   }
-  // }
-  
-  // function setFilterQ(q) {
-  //   if (q) {
-  //     selectedNode.filterQ = q
-  //     updateNodes()
-  //   }
-  // }
-
   function updateFilterFrequency(e) {
     if (e) {
       filter.frequency.value = e
@@ -138,6 +125,26 @@ export default function ControlPanel({
   function updateFilterQ(e) {
     if (e) {
       filter.Q.value = e
+    }
+  }
+
+  function RenderDisplayPanel() {
+    if (panelDisplayMode === panelMode.node) {
+      return (
+        <SampleSelect
+        selectSample={selectSample}
+        nodeEditor={nodeEditor}
+        selectedNode={selectedNode}
+        nodes={nodes}
+      />
+      )
+    }
+
+    else if (panelDisplayMode === panelMode.steps) {
+      return <SequenceLengthSelect
+        nodeSequenceLength={nodeSequenceLength}
+        setSequenceAndNodeStatus={setSequenceAndNodeStatus}
+      />
     }
   }
 
@@ -159,6 +166,9 @@ export default function ControlPanel({
           presets={presets}
           setPresets={setPresets}
           setNodes={setNodes}
+          setPanelDisplayMode={setPanelDisplayMode}
+          nodeEditor={nodeEditor}
+          setNodeEditor={setNodeEditor}
         />
         <div className='selected-node-control-display'>
           {/* <NoteControls 
@@ -172,15 +182,7 @@ export default function ControlPanel({
             cycleWaveforms={cycleWaveforms}
             displayWaveforms={displayWaveforms}
           /> */}
-          <SampleSelect
-            selectSample={selectSample}
-            nodeEditor={nodeEditor}
-            selectedNode={selectedNode}
-            nodes={nodes}
-          />
-          {/* <FilterControls
-            updateFilterFrequency={updateFilterFrequency}
-          /> */}
+          {RenderDisplayPanel()}
         </div>
       </section>
     )

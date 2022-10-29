@@ -47,13 +47,13 @@
 }
 
 .not-playing-red {
-    border: 1px solid rgb(156, 1, 35);
-    background-color: rgb(156, 1, 35);
+    border: 1px solid rgb(202 82 108);
+    background-color: rgb(202 82 108);
 }
 
 .not-playing-green {
-    border: 1px solid rgb(8, 135, 86);
-    background-color: rgb(8, 135, 86);
+    border: 1px solid rgb(57 142 109);
+    background-color: rgb(57 142 109);
 }
 
 .not-playing-teal {

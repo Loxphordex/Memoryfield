@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Knob from '../Knob/knob'
 import Dropdown from '../Dropdown/Dropdown'
 import Presets from '../Presets/Presets'
+import { panelMode } from '../Audio/constants'
 import '../../styles/components/MainPanel.css'
 import { Play, Stop } from 'phosphor-react'
 
@@ -19,30 +20,15 @@ export default function MainPanel({
   toggleDefaultKeys,
   presets,
   setPresets,
-  setNodes
+  setNodes,
+  setPanelDisplayMode,
+  nodeEditor,
+  setNodeEditor
 }) {
 
-  const [stepToggle, setStepToggle] = useState(false)
-
-  function steps() {
-    if (stepToggle) {
-      const stepOptions = [8, 9, 10, 11, 12, 13, 14, 15, 16]
-      return stepOptions.map((i) => {
-        return <li 
-          key={`step-option-${i}`}
-          className='custom-dropdown-option'
-          onClick={() => setSequenceAndCloseToggle(i)}
-          >{i}
-        </li>
-      })
-    }
-
-    return <></>
-  }
-
-  function setSequenceAndCloseToggle(seq) {
-    setSequenceAndNodeStatus(seq)
-    setStepToggle(false)
+  function activateSteps() {
+    setPanelDisplayMode(panelMode.steps)
+    setNodeEditor(null)
   }
 
   return (
@@ -77,24 +63,9 @@ export default function MainPanel({
         />
       </div>
 
-      {/* <div className='sequence-length-container'>
-        <label htmlFor='steps-dropdown' className='global-label sequence-length-container-label'>Steps</label>
-        <button className='steps-dropdown' id='steps-dropdown' onClick={() => setStepToggle(!stepToggle)}>{nodeSequenceLength}</button>
-        <div className='custom-drop-down-container'>
-          <ul className='steps-dropdown-content custom-drop-down'>
-            {steps()}
-          </ul>
-        </div>
-      </div> */}
-
-      <Dropdown
-        menuLabel='Steps'
-        dropdownId='steps-dropdown'
-        toggle={stepToggle}
-        setToggle={setStepToggle}
-        buttonContent={nodeSequenceLength}
-        createMenuContent={steps}
-      />
+      <button 
+        className='control-button'
+        onClick={activateSteps}>Steps</button>
 
       <Presets
         nodes={nodes}

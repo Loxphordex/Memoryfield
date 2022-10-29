@@ -37,13 +37,13 @@ function App() {
   const [filterValues, setFilterValues] = useState({ frequency: 4000, q: 10 })
   const [isSignalSetUp, setIsSignalSetUp] = useState(false)
   const [isOscStarted, setIsOscStarted] = useState(false)
+  const [panelDisplayMode, setPanelDisplayMode] = useState(null)
 
   const isPlayingRef = useRef(isPlaying)
   const setPlaying = (status) => {
     isPlayingRef.current = status
     setIsPlaying(status)
   }
-  const [presets, setPresets] = useState(null)
   const [defaultKeys, setDefaultKeys] = useState(false)
   const [isKeyHandlerSet, setIsKeyHandlerSet] = useState(false)
 
@@ -177,12 +177,10 @@ function App() {
           nodeEditor={nodeEditor}
           setNodeEditor={setNodeEditor}
           toggleDefaultKeys={toggleDefaultKeys}
-          presets={presets}
-          setPresets={setPresets}
           ctx={ctx}
           filter={filter}
-          setFilter={setFilter}
-          setFilterValues={setFilterValues}
+          panelDisplayMode={panelDisplayMode}
+          setPanelDisplayMode={setPanelDisplayMode}
         />
         <MemoryField
           nodes={nodes}
@@ -190,6 +188,7 @@ function App() {
           nodeEditor={nodeEditor}
           setActiveNode={setActiveNode}
           setNodeEditor={setNodeEditor}
+          setPanelDisplayMode={setPanelDisplayMode}
           ctx={ctx}
         />
       </section>

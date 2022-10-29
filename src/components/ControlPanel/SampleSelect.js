@@ -20,7 +20,7 @@ export default function SampleSelect({
   function highlight(audioSample) {
     if (nodes[nodeEditor].sample) {
       if (nodes[nodeEditor].sample.name === audioSample) {
-        return 'sample-highlight'
+        return 'display-panel-highlight'
       }
     }
 

@@ -1,6 +1,7 @@
 .global-controls {
   display: flex;
   width: 100%;
+  justify-content: space-around;
 }
 
 .bpm-controls-container-label {

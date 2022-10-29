@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react'
+import { panelMode } from '../Audio/constants'
 
 export default function MemoryNode({
   shape,
@@ -8,13 +9,16 @@ export default function MemoryNode({
   activeNode,
   nodeEditor,
   setNodeEditor,
-  wave
+  wave,
+  setPanelDisplayMode
 }) {
   function toggleNodeEditor() {
     if (nodeEditor === playOrder) {
       setNodeEditor(null)
+      setPanelDisplayMode(null)
     } else {
       setNodeEditor(playOrder)
+      setPanelDisplayMode(panelMode.node)
     }
   }
   return (
