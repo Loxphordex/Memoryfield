@@ -166,7 +166,6 @@ function App() {
           startAudioContext={startAudioContext}
         />
         <ControlPanel
-          displayedBpm={displayedBpm}
           isPlaying={isPlaying}
           play={setPlaying}
           calculateBpm={calculateBpm}

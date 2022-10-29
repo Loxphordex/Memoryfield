@@ -38,7 +38,8 @@ export const samples = [
 export const panelMode = {
   node: 'node',
   steps: 'steps',
-  presets: 'presets'
+  savePreset: 'savePreset',
+  loadPreset: 'loadPreset'
 }
 
 function createAudioObjects(aud) {

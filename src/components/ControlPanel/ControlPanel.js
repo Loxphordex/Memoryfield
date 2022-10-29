@@ -8,12 +8,13 @@ import WaveControls from './WaveControls'
 import FilterControls from './FilterControls'
 import SampleSelect from './SampleSelect'
 import SequenceLengthSelect from './SequenceLengthSelect'
+import SavePreset from '../Presets/SavePreset/SavePreset'
+import LoadPreset from '../Presets/LoadPreset/LoadPreset'
 import { sampleColors } from "../../data/data";
 import '../../styles/controlPanelStyles/DisplayPanel.css'
 import '../../styles/controlPanelStyles/GeneralStyles.css'
 
 export default function ControlPanel({ 
-  displayedBpm,
   isPlaying,
   play, 
   calculateBpm,
@@ -132,19 +133,41 @@ export default function ControlPanel({
     if (panelDisplayMode === panelMode.node) {
       return (
         <SampleSelect
-        selectSample={selectSample}
-        nodeEditor={nodeEditor}
-        selectedNode={selectedNode}
-        nodes={nodes}
-      />
+          selectSample={selectSample}
+          nodeEditor={nodeEditor}
+          selectedNode={selectedNode}
+          nodes={nodes}
+        />
       )
     }
 
     else if (panelDisplayMode === panelMode.steps) {
-      return <SequenceLengthSelect
-        nodeSequenceLength={nodeSequenceLength}
-        setSequenceAndNodeStatus={setSequenceAndNodeStatus}
-      />
+      return (
+        <SequenceLengthSelect
+          nodeSequenceLength={nodeSequenceLength}
+          setSequenceAndNodeStatus={setSequenceAndNodeStatus}
+        />
+      )
+    }
+
+    else if (panelDisplayMode === panelMode.savePreset) {
+      return (
+        <SavePreset
+          nodes={nodes}
+          toggleDefaultKeys={toggleDefaultKeys}
+          setPresets={setPresets}
+        />
+      )
+    }
+
+    else if (panelDisplayMode === panelMode.loadPreset) {
+      return (
+        <LoadPreset
+          setNodes={setNodes}
+          presets={presets}
+          setPresets={setPresets}
+        />
+      )
     }
   }
 
@@ -156,18 +179,9 @@ export default function ControlPanel({
           play={play}
           isPlaying={isPlaying}
           calculateBpm={calculateBpm}
-          displayedBpm={displayedBpm}
-          nodeSequenceLength={nodeSequenceLength}
-          setSequenceAndNodeStatus={setSequenceAndNodeStatus}
           updateFilterFrequency={updateFilterFrequency}
           updateFilterQ={updateFilterQ}
-          nodes={nodes}
-          toggleDefaultKeys={toggleDefaultKeys}
-          presets={presets}
-          setPresets={setPresets}
-          setNodes={setNodes}
           setPanelDisplayMode={setPanelDisplayMode}
-          nodeEditor={nodeEditor}
           setNodeEditor={setNodeEditor}
         />
         <div className='selected-node-control-display'>

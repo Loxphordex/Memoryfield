@@ -8,7 +8,6 @@ export default function SavePreset({
   setPresets
 }) {
   const [presetName, setPresetName] = useState('')
-  const [saveInputActive, setSaveInputActive] = useState(false)
 
   function saveNodes() {
     if (presetName) {
@@ -34,13 +33,11 @@ export default function SavePreset({
   function toggleInputActive() {
     setPresetName(null)
     toggleDefaultKeys()
-    setSaveInputActive(!saveInputActive)
   }
 
   return (
     <SaveControl
       toggleInputActive={toggleInputActive}
-      saveInputActive={saveInputActive}
       setPresetName={setPresetName}
       saveNodes={saveNodes}
     />

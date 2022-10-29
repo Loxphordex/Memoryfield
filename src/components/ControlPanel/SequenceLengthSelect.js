@@ -10,7 +10,7 @@ export default function SequenceLengthSelect({
     return stepOptions.map((i) => {
       return <li 
         key={`step-option-${i}`}
-        className={`sequence-dropdown-option ${highlight(i)}`}
+        className={`sequence-dropdown-option display-panel-list-item-highlight ${highlight(i)}`}
         onClick={() => setSequenceAndCloseToggle(i)}
         >{i}
       </li>

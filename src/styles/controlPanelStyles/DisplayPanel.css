@@ -28,7 +28,6 @@
 }
 
 .sample-selection {
-  border: 1px solid white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,4 +63,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.preset-list-item {
+  cursor: default;
+  padding-top: 5px;
+}
+
+.preset-label {
+  text-align: center;
+  margin: auto;
+  display: inline-block;
+  width: 100%;
+}
+
+.display-panel-list-item-highlight:hover {
+  color: rgb(228, 228, 228);
+  background-color: rgb(66, 74, 65);
+}
+
+.display-panel-highlight:hover {
+  background-color: white;
+  color: rgb(81, 91, 80);
 }

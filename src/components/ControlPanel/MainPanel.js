@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Knob from '../Knob/knob'
-import Dropdown from '../Dropdown/Dropdown'
 import Presets from '../Presets/Presets'
 import { panelMode } from '../Audio/constants'
 import '../../styles/components/MainPanel.css'
@@ -11,18 +10,9 @@ export default function MainPanel({
   play,
   isPlaying,
   calculateBpm,
-  displayedBpm,
-  nodeSequenceLength,
-  setSequenceAndNodeStatus,
   updateFilterFrequency,
   updateFilterQ,
-  nodes,
-  toggleDefaultKeys,
-  presets,
-  setPresets,
-  setNodes,
   setPanelDisplayMode,
-  nodeEditor,
   setNodeEditor
 }) {
 
@@ -31,10 +21,20 @@ export default function MainPanel({
     setNodeEditor(null)
   }
 
+  function activateSavePreset() {
+    setPanelDisplayMode(panelMode.savePreset)
+    setNodeEditor(null)
+  }
+
+  function activateLoadPreset() {
+    setPanelDisplayMode(panelMode.loadPreset)
+    setNodeEditor(null)
+  }
+
   return (
     <div className='global-controls'>
-      {!isPlaying && <button className='control-button' onClick={() => playSequence()}><Play size={36} /></button>}
-      {isPlaying && <button className='control-button' onClick={() => play(false)}><Stop size={36} /></button>}
+      {!isPlaying && <button className='play-or-stop-button play-button control-button' onClick={() => playSequence()}><Play size={36} /></button>}
+      {isPlaying && <button className='play-or-stop-button stop-button control-button' onClick={() => play(false)}><Stop size={36} /></button>}
 
       <div className='bmp-knob-container'>
         <Knob
@@ -63,16 +63,20 @@ export default function MainPanel({
         />
       </div>
 
-      <button 
-        className='control-button'
-        onClick={activateSteps}>Steps</button>
+      <div className='steps-container'>
+        <label className='main-panel-label' htmlFor='steps-button'>Steps</label>
+        <div className='presets-buttons-container steps-container'>
+          <button
+            id='steps-button'
+            className='control-button steps-button'
+            onClick={activateSteps}>Steps
+          </button>
+        </div>
+      </div>
 
       <Presets
-        nodes={nodes}
-        toggleDefaultKeys={toggleDefaultKeys}
-        presets={presets}
-        setPresets={setPresets}
-        setNodes={setNodes}
+        activateSavePreset={activateSavePreset}
+        activateLoadPreset={activateLoadPreset}
       />
     </div>
   )

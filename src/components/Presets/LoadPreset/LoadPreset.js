@@ -8,11 +8,9 @@ export default function LoadPreset({
   presets,
   setPresets
 }) {
-  const [isMenuShowing, setIsMenuShowing] = useState(false)
   const [isConfirmationShowing, setIsConfirmationShowing] = useState(false)
   const [presetToLoad, setPresetToLoad] = useState(null)
   const [nameOfPreset, setNameOfPreset] = useState(null)
-  const toggleShowMenu = () => setIsMenuShowing(!isMenuShowing)
 
   useEffect(() => {
     const storedPresets = localStorage.getItem(memoryFieldPresets)
@@ -34,7 +32,6 @@ export default function LoadPreset({
   function loadPreset(nodes) {
     if (nodes) {
       setNodes(nodes)
-      toggleShowMenu()
       setIsConfirmationShowing(false)
     }
   }
@@ -61,14 +58,12 @@ export default function LoadPreset({
 
   return (
     <div className='load-preset'>
-      <button onClick={toggleShowMenu}>Load</button>
-      {isMenuShowing && <LoadPresetMenu
+      <LoadPresetMenu
         presetItems={presetItems}
-        toggleShowMenu={toggleShowMenu}
         isConfirmationShowing={isConfirmationShowing}
         setupConfirmation={setupConfirmation}
         confirmLoad={confirmLoad}
-      />}
+      />
     </div>
   )
 }

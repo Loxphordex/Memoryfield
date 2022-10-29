@@ -9,7 +9,7 @@ export default function SampleSelect({
 }) {
 
   function displaySampleSelection() {
-    return samples.map(s => <li className={`sample-selection ${highlight(s.name)}`}
+    return samples.map(s => <li className={`sample-selection display-panel-list-item-highlight ${highlight(s.name)}`}
       key={s.name}
       onClick={() => selectSample(s)}>
         {s.name}
