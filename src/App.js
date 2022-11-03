@@ -26,7 +26,7 @@ function App() {
   const [nodeEditor, setNodeEditor] = useState(null)
   const [nodes, setNodes] = useState(null)
   const [nodeSequenceLength, setNodeSequenceLength] = useState(8)
-  const [speed, setSpeed] = useState(150)
+  const [tempo, setTempo] = useState(150)
   const [displayedBpm, setDisplayedBpm] = useState(150)
   const [outputLevel] = useState(0.2)
   const [ctx, setCtx] = useState(null)
@@ -48,6 +48,7 @@ function App() {
   const [isKeyHandlerSet, setIsKeyHandlerSet] = useState(false)
 
   useEffect(() => {
+    console.log(filter)
     setUpSignalPath()
     const handleKeydownEvents = function(event) {
       if (event) {
@@ -73,7 +74,7 @@ function App() {
       window.removeEventListener('keydown', handleKeydownEvents)
     }
   }, [activeNode,
-      speed,
+      tempo,
       isPlaying,
       nodes,
       AudioContext,
@@ -103,7 +104,7 @@ function App() {
       let nextNode = activeNode + 1
       setActiveNode(nextNode)
     }
-  }, isPlaying ? speed : null)
+  }, isPlaying ? tempo : null)
 
   function startAudioContext() {
     if (!ctx) {
@@ -117,7 +118,7 @@ function App() {
     const millisecondsPerBeat = Math.floor((60000 / bpm))
     const beatsIn44Time = Math.floor((millisecondsPerBeat / 4))
 
-    setSpeed(beatsIn44Time)
+    setTempo(beatsIn44Time)
     setDisplayedBpm(bpm)
   }
 
@@ -139,8 +140,8 @@ function App() {
         osc.start()
   
         filter.type = 'lowpass'
-        filter.frequency.value = filterValues.frequency
-        filter.Q.value = filterValues.q
+        filter.frequency.value = 4000
+        filter.Q.value = 10
         filter.connect(volume)
         volume.connect(ctx.destination)
 
@@ -178,6 +179,7 @@ function App() {
           toggleDefaultKeys={toggleDefaultKeys}
           ctx={ctx}
           filter={filter}
+          tempo={tempo}
           panelDisplayMode={panelDisplayMode}
           setPanelDisplayMode={setPanelDisplayMode}
         />

@@ -5,7 +5,9 @@ import { memoryFieldPresets } from '../../../constants/storageConstants'
 export default function SavePreset({
   nodes,
   toggleDefaultKeys,
-  setPresets
+  setPresets,
+  filter,
+  tempo
 }) {
   const [presetName, setPresetName] = useState('')
 
@@ -22,10 +24,14 @@ export default function SavePreset({
     const existingPresets = localStorage.getItem(memoryFieldPresets)
     if (existingPresets) {
       const unwrappedPresets = JSON.parse(existingPresets)
-      unwrappedPresets[name] = nodes
+      unwrappedPresets[name] = { 
+        'frequency': filter.frequency.value,
+        'q': filter.Q.value,
+        tempo, 
+        nodes }
       localStorage.setItem(memoryFieldPresets, JSON.stringify(unwrappedPresets))
     } else {
-      localStorage.setItem(memoryFieldPresets, JSON.stringify({[name]: nodes}))
+      localStorage.setItem(memoryFieldPresets, JSON.stringify({[name]: {'frequency': filter.frequency.value, 'q': filter.Q.value, tempo, nodes}}))
     }
     setPresets(JSON.parse(localStorage.getItem(memoryFieldPresets)))
   }

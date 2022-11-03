@@ -27,6 +27,8 @@ export default function ControlPanel({
   toggleDefaultKeys,
   ctx,
   filter,
+  filterValues,
+  tempo,
   panelDisplayMode,
   setPanelDisplayMode,
 }) {
@@ -156,6 +158,9 @@ export default function ControlPanel({
           nodes={nodes}
           toggleDefaultKeys={toggleDefaultKeys}
           setPresets={setPresets}
+          filter={filter}
+          filterValues={filterValues}
+          tempo={tempo}
         />
       )
     }

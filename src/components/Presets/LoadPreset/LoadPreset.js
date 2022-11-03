@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import LoadPresetMenu from './LoadPresetMenu'
+import { samples } from '../../Audio/constants'
 import { memoryFieldPresets } from '../../../constants/storageConstants'
 import '../../../styles/components/LoadPreset.css'
 
@@ -31,6 +32,13 @@ export default function LoadPreset({
 
   function loadPreset(nodes) {
     if (nodes) {
+      for (let i = 0; i < nodes.length; i++) {
+        const current = nodes[i]
+        if (current.sample && current.sample.name) {
+          current.sample = samples.find(x => x.name === current.sample.name)
+        }
+      }
+
       setNodes(nodes)
       setIsConfirmationShowing(false)
     }
