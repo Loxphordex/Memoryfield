@@ -26,15 +26,14 @@ function App() {
   const [nodeEditor, setNodeEditor] = useState(null)
   const [nodes, setNodes] = useState(null)
   const [nodeSequenceLength, setNodeSequenceLength] = useState(8)
-  const [tempo, setTempo] = useState(150)
-  const [displayedBpm, setDisplayedBpm] = useState(150)
+  const [tempo, setTempo] = useState(null)
+  const [displayedBpm, setDisplayedBpm] = useState(100)
   const [outputLevel] = useState(0.2)
   const [ctx, setCtx] = useState(null)
 
   const [volume, setVolume] = useState(null)
   const [osc, setOsc] = useState(null)
   const [filter, setFilter] = useState(null)
-  const [filterValues, setFilterValues] = useState({ frequency: 4000, q: 10 })
   const [isSignalSetUp, setIsSignalSetUp] = useState(false)
   const [isOscStarted, setIsOscStarted] = useState(false)
   const [panelDisplayMode, setPanelDisplayMode] = useState(null)
@@ -48,7 +47,6 @@ function App() {
   const [isKeyHandlerSet, setIsKeyHandlerSet] = useState(false)
 
   useEffect(() => {
-    console.log(filter)
     setUpSignalPath()
     const handleKeydownEvents = function(event) {
       if (event) {
@@ -60,15 +58,20 @@ function App() {
         }
       }
     }
+
     if (!defaultKeys && !isKeyHandlerSet) {
       window.addEventListener('keydown', handleKeydownEvents)
       setIsKeyHandlerSet(true)
     }
+
     if (defaultKeys && isKeyHandlerSet) {
       window.removeEventListener('keydown', handleKeydownEvents)
       setIsKeyHandlerSet(false)
     }
+
     if (nodes === null) setNodes(getInitialSequence(16, nodeSequenceLength))
+
+    if (!tempo && displayedBpm) calculateBpm(displayedBpm)
 
     return () => {
       window.removeEventListener('keydown', handleKeydownEvents)
@@ -170,6 +173,8 @@ function App() {
           isPlaying={isPlaying}
           play={setPlaying}
           calculateBpm={calculateBpm}
+          displayedBpm={displayedBpm}
+          setDisplayedBpm={setDisplayedBpm}
           nodes={nodes}
           setNodes={setNodes}
           nodeSequenceLength={nodeSequenceLength}

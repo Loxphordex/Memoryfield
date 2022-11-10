@@ -18,6 +18,8 @@ export default function ControlPanel({
   isPlaying,
   play, 
   calculateBpm,
+  displayedBpm,
+  setDisplayedBpm,
   nodes,
   nodeSequenceLength,
   setNodeSequenceLength,
@@ -27,7 +29,6 @@ export default function ControlPanel({
   toggleDefaultKeys,
   ctx,
   filter,
-  filterValues,
   tempo,
   panelDisplayMode,
   setPanelDisplayMode,
@@ -159,8 +160,9 @@ export default function ControlPanel({
           toggleDefaultKeys={toggleDefaultKeys}
           setPresets={setPresets}
           filter={filter}
-          filterValues={filterValues}
-          tempo={tempo}
+          displayedBpm={displayedBpm}
+          nodeSequenceLength={nodeSequenceLength}
+          setPanelDisplayMode={setPanelDisplayMode}
         />
       )
     }
@@ -171,6 +173,10 @@ export default function ControlPanel({
           setNodes={setNodes}
           presets={presets}
           setPresets={setPresets}
+          filter={filter}
+          calculateBpm={calculateBpm}
+          setPanelDisplayMode={setPanelDisplayMode}
+          setNodeSequenceLength={setNodeSequenceLength}
         />
       )
     }

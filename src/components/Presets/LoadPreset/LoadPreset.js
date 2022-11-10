@@ -7,7 +7,11 @@ import '../../../styles/components/LoadPreset.css'
 export default function LoadPreset({
   setNodes,
   presets,
-  setPresets
+  setPresets,
+  filter,
+  calculateBpm,
+  setPanelDisplayMode,
+  setNodeSequenceLength
 }) {
   const [isConfirmationShowing, setIsConfirmationShowing] = useState(false)
   const [presetToLoad, setPresetToLoad] = useState(null)
@@ -30,7 +34,7 @@ export default function LoadPreset({
     return items
   }
 
-  function loadPreset(nodes) {
+  function loadNodes(nodes) {
     if (nodes) {
       for (let i = 0; i < nodes.length; i++) {
         const current = nodes[i]
@@ -40,8 +44,24 @@ export default function LoadPreset({
       }
 
       setNodes(nodes)
-      setIsConfirmationShowing(false)
     }
+  }
+
+  function loadFilter(filterPreset) {
+    filter.frequency.value = filterPreset.frequency
+    filter.Q.value = filterPreset.q
+  }
+
+  function loadPreset(preset) {
+    // set nodes, tempo, steps, and filter
+    loadNodes(preset.nodes)
+    calculateBpm(preset.displayedBpm)
+    setNodeSequenceLength(preset.nodeSequenceLength)
+    loadFilter(preset.filter)
+
+    // close preset confirmation and return to default control panel view
+    setIsConfirmationShowing(false)
+    setPanelDisplayMode(null)
   }
 
   function confirmLoad() {

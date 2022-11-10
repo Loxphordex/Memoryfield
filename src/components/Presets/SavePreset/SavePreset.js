@@ -7,7 +7,9 @@ export default function SavePreset({
   toggleDefaultKeys,
   setPresets,
   filter,
-  tempo
+  displayedBpm,
+  nodeSequenceLength,
+  setPanelDisplayMode
 }) {
   const [presetName, setPresetName] = useState('')
 
@@ -21,19 +23,27 @@ export default function SavePreset({
   }
 
   function save(name) {
-    const existingPresets = localStorage.getItem(memoryFieldPresets)
-    if (existingPresets) {
-      const unwrappedPresets = JSON.parse(existingPresets)
-      unwrappedPresets[name] = { 
+    const newPreset = {
+      filter: {
         'frequency': filter.frequency.value,
         'q': filter.Q.value,
-        tempo, 
-        nodes }
-      localStorage.setItem(memoryFieldPresets, JSON.stringify(unwrappedPresets))
-    } else {
-      localStorage.setItem(memoryFieldPresets, JSON.stringify({[name]: {'frequency': filter.frequency.value, 'q': filter.Q.value, tempo, nodes}}))
+      },
+      displayedBpm, 
+      nodes,
+      nodeSequenceLength
     }
+    const existingPresets = localStorage.getItem(memoryFieldPresets)
+    let unwrappedPresets
+    
+    existingPresets
+      ? unwrappedPresets = JSON.parse(existingPresets)
+      : unwrappedPresets = {}
+
+    unwrappedPresets[name] = newPreset
+    localStorage.setItem(memoryFieldPresets, JSON.stringify(unwrappedPresets))
+    
     setPresets(JSON.parse(localStorage.getItem(memoryFieldPresets)))
+    setPanelDisplayMode(null)
   }
 
   function toggleInputActive() {
