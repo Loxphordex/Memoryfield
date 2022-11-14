@@ -1,26 +1,16 @@
 import React from 'react'
-import SavePreset from './SavePreset/SavePreset'
-import LoadPreset from './LoadPreset/LoadPreset'
 
 export default function Presets({
-  nodes,
-  toggleDefaultKeys,
-  presets,
-  setPresets,
-  setNodes
+  activateSavePreset,
+  activateLoadPreset
 }) {
   return (
     <div className='presets-container'>
-      <SavePreset
-        nodes={nodes}
-        toggleDefaultKeys={toggleDefaultKeys}
-        setPresets={setPresets}
-      />
-      <LoadPreset
-        setNodes={setNodes}
-        presets={presets}
-        setPresets={setPresets}
-      />
+      <span className='main-panel-label no-select'>Presets</span>
+      <div className='presets-buttons-container'>
+        <button onClick={activateSavePreset} className='control-button'>Save</button>
+        <button onClick={activateLoadPreset} className='control-button'>Load</button>
+      </div>
     </div>
   )
 }

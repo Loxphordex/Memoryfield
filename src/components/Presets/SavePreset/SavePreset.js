@@ -5,10 +5,13 @@ import { memoryFieldPresets } from '../../../constants/storageConstants'
 export default function SavePreset({
   nodes,
   toggleDefaultKeys,
-  setPresets
+  setPresets,
+  filter,
+  displayedBpm,
+  nodeSequenceLength,
+  setPanelDisplayMode
 }) {
   const [presetName, setPresetName] = useState('')
-  const [saveInputActive, setSaveInputActive] = useState(false)
 
   function saveNodes() {
     if (presetName) {
@@ -20,27 +23,37 @@ export default function SavePreset({
   }
 
   function save(name) {
-    const existingPresets = localStorage.getItem(memoryFieldPresets)
-    if (existingPresets) {
-      const unwrappedPresets = JSON.parse(existingPresets)
-      unwrappedPresets[name] = nodes
-      localStorage.setItem(memoryFieldPresets, JSON.stringify(unwrappedPresets))
-    } else {
-      localStorage.setItem(memoryFieldPresets, JSON.stringify({[name]: nodes}))
+    const newPreset = {
+      filter: {
+        'frequency': filter.frequency.value,
+        'q': filter.Q.value,
+      },
+      displayedBpm, 
+      nodes,
+      nodeSequenceLength
     }
+    const existingPresets = localStorage.getItem(memoryFieldPresets)
+    let unwrappedPresets
+    
+    existingPresets
+      ? unwrappedPresets = JSON.parse(existingPresets)
+      : unwrappedPresets = {}
+
+    unwrappedPresets[name] = newPreset
+    localStorage.setItem(memoryFieldPresets, JSON.stringify(unwrappedPresets))
+    
     setPresets(JSON.parse(localStorage.getItem(memoryFieldPresets)))
+    setPanelDisplayMode(null)
   }
 
   function toggleInputActive() {
     setPresetName(null)
     toggleDefaultKeys()
-    setSaveInputActive(!saveInputActive)
   }
 
   return (
     <SaveControl
       toggleInputActive={toggleInputActive}
-      saveInputActive={saveInputActive}
       setPresetName={setPresetName}
       saveNodes={saveNodes}
     />

@@ -2,19 +2,20 @@ import React from 'react'
 
 export default function LoadPresetMenu({
   presetItems,
-  toggleShowMenu,
   isConfirmationShowing,
   setupConfirmation,
   confirmLoad
 }) {
   return (
     <div className='load-preset-menu'>
-      <ul className='preset-list'>
+      <label className='preset-label' htmlFor='load-preset-list'>Load Preset</label>
+      <ul id='load-preset-list' className='preset-list sequence-list'>
         {presetItems && setupConfirmation && presetItems().map(name => {
           return (
             <li
               key={name}
               id={name}
+              className='preset-list-item display-panel-list-item-highlight'
               onClick={() => setupConfirmation(name)}
             >{name}
             </li>
@@ -22,7 +23,6 @@ export default function LoadPresetMenu({
         })}
       </ul>
       {isConfirmationShowing && confirmLoad()}
-      <button onClick={toggleShowMenu}>Cancel</button>
     </div>
   )
 }

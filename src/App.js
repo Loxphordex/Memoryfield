@@ -26,24 +26,24 @@ function App() {
   const [nodeEditor, setNodeEditor] = useState(null)
   const [nodes, setNodes] = useState(null)
   const [nodeSequenceLength, setNodeSequenceLength] = useState(8)
-  const [speed, setSpeed] = useState(150)
-  const [displayedBpm, setDisplayedBpm] = useState(150)
+  const [tempo, setTempo] = useState(null)
+  const [displayedBpm, setDisplayedBpm] = useState(100)
   const [outputLevel] = useState(0.2)
   const [ctx, setCtx] = useState(null)
 
   const [volume, setVolume] = useState(null)
   const [osc, setOsc] = useState(null)
   const [filter, setFilter] = useState(null)
-  const [filterValues, setFilterValues] = useState({ frequency: 4000, q: 10 })
+  const [defaultFilterValues, setDefaultFilterValues] = useState({ frequency: 4000, q: 5 })
   const [isSignalSetUp, setIsSignalSetUp] = useState(false)
   const [isOscStarted, setIsOscStarted] = useState(false)
+  const [panelDisplayMode, setPanelDisplayMode] = useState(null)
 
   const isPlayingRef = useRef(isPlaying)
   const setPlaying = (status) => {
     isPlayingRef.current = status
     setIsPlaying(status)
   }
-  const [presets, setPresets] = useState(null)
   const [defaultKeys, setDefaultKeys] = useState(false)
   const [isKeyHandlerSet, setIsKeyHandlerSet] = useState(false)
 
@@ -59,21 +59,26 @@ function App() {
         }
       }
     }
+
     if (!defaultKeys && !isKeyHandlerSet) {
       window.addEventListener('keydown', handleKeydownEvents)
       setIsKeyHandlerSet(true)
     }
+
     if (defaultKeys && isKeyHandlerSet) {
       window.removeEventListener('keydown', handleKeydownEvents)
       setIsKeyHandlerSet(false)
     }
+
     if (nodes === null) setNodes(getInitialSequence(16, nodeSequenceLength))
+
+    if (!tempo && displayedBpm) calculateBpm(displayedBpm)
 
     return () => {
       window.removeEventListener('keydown', handleKeydownEvents)
     }
   }, [activeNode,
-      speed,
+      tempo,
       isPlaying,
       nodes,
       AudioContext,
@@ -103,7 +108,7 @@ function App() {
       let nextNode = activeNode + 1
       setActiveNode(nextNode)
     }
-  }, isPlaying ? speed : null)
+  }, isPlaying ? tempo : null)
 
   function startAudioContext() {
     if (!ctx) {
@@ -117,7 +122,7 @@ function App() {
     const millisecondsPerBeat = Math.floor((60000 / bpm))
     const beatsIn44Time = Math.floor((millisecondsPerBeat / 4))
 
-    setSpeed(beatsIn44Time)
+    setTempo(beatsIn44Time)
     setDisplayedBpm(bpm)
   }
 
@@ -139,8 +144,8 @@ function App() {
         osc.start()
   
         filter.type = 'lowpass'
-        filter.frequency.value = filterValues.frequency
-        filter.Q.value = filterValues.q
+        filter.frequency.value = defaultFilterValues.frequency
+        filter.Q.value = defaultFilterValues.q
         filter.connect(volume)
         volume.connect(ctx.destination)
 
@@ -166,10 +171,10 @@ function App() {
           startAudioContext={startAudioContext}
         />
         <ControlPanel
-          displayedBpm={displayedBpm}
           isPlaying={isPlaying}
           play={setPlaying}
           calculateBpm={calculateBpm}
+          displayedBpm={displayedBpm}
           nodes={nodes}
           setNodes={setNodes}
           nodeSequenceLength={nodeSequenceLength}
@@ -177,12 +182,12 @@ function App() {
           nodeEditor={nodeEditor}
           setNodeEditor={setNodeEditor}
           toggleDefaultKeys={toggleDefaultKeys}
-          presets={presets}
-          setPresets={setPresets}
           ctx={ctx}
           filter={filter}
-          setFilter={setFilter}
-          setFilterValues={setFilterValues}
+          panelDisplayMode={panelDisplayMode}
+          setPanelDisplayMode={setPanelDisplayMode}
+          defaultFilterValues={defaultFilterValues}
+          setDefaultFilterValues={setDefaultFilterValues}
         />
         <MemoryField
           nodes={nodes}
@@ -190,6 +195,7 @@ function App() {
           nodeEditor={nodeEditor}
           setActiveNode={setActiveNode}
           setNodeEditor={setNodeEditor}
+          setPanelDisplayMode={setPanelDisplayMode}
           ctx={ctx}
         />
       </section>
