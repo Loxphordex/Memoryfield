@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Knob from '../Knob/knob'
-import Dropdown from '../Dropdown/Dropdown'
 import Presets from '../Presets/Presets'
+import { panelMode } from '../Audio/constants'
 import '../../styles/components/MainPanel.css'
 import { Play, Stop } from 'phosphor-react'
 
@@ -10,50 +10,52 @@ export default function MainPanel({
   play,
   isPlaying,
   calculateBpm,
-  displayedBpm,
-  nodeSequenceLength,
-  setSequenceAndNodeStatus,
   updateFilterFrequency,
   updateFilterQ,
-  nodes,
-  toggleDefaultKeys,
-  presets,
-  setPresets,
-  setNodes
+  setPanelDisplayMode,
+  setNodeEditor,
+  displayedBpm,
+  defaultFilterValues,
 }) {
 
-  const [stepToggle, setStepToggle] = useState(false)
+  const [defaultFrequency, setDefaultFrequency] = useState(null)
+  const [defaultQ, setDefaultQ] = useState(null)
 
-  function steps() {
-    if (stepToggle) {
-      const stepOptions = [8, 9, 10, 11, 12, 13, 14, 15, 16]
-      return stepOptions.map((i) => {
-        return <li 
-          key={`step-option-${i}`}
-          className='custom-dropdown-option'
-          onClick={() => setSequenceAndCloseToggle(i)}
-          >{i}
-        </li>
-      })
-    }
+  useEffect(() => {
+    setupDefaultFilterValues()
+  }, [defaultFilterValues])
 
-    return <></>
+  function activateSteps() {
+    setPanelDisplayMode(panelMode.steps)
+    setNodeEditor(null)
   }
 
-  function setSequenceAndCloseToggle(seq) {
-    setSequenceAndNodeStatus(seq)
-    setStepToggle(false)
+  function activateSavePreset() {
+    setPanelDisplayMode(panelMode.savePreset)
+    setNodeEditor(null)
+  }
+
+  function activateLoadPreset() {
+    setPanelDisplayMode(panelMode.loadPreset)
+    setNodeEditor(null)
+  }
+
+  function setupDefaultFilterValues() {
+    if (defaultFilterValues && defaultFilterValues.frequency && defaultFilterValues.q) {
+      setDefaultFrequency(defaultFilterValues.frequency)
+      setDefaultQ(defaultFilterValues.q)
+    }
   }
 
   return (
     <div className='global-controls'>
-      {!isPlaying && <button className='control-button' onClick={() => playSequence()}><Play size={36} /></button>}
-      {isPlaying && <button className='control-button' onClick={() => play(false)}><Stop size={36} /></button>}
+      {!isPlaying && <button className='play-or-stop-button play-button control-button' onClick={() => playSequence()}><Play size={36} /></button>}
+      {isPlaying && <button className='play-or-stop-button stop-button control-button' onClick={() => play(false)}><Stop size={36} /></button>}
 
       <div className='bmp-knob-container'>
         <Knob
           units='tempo'
-          defaultValue={150}
+          defaultValue={displayedBpm}
           maxValue={300}
           valueCallback={calculateBpm}
         />
@@ -62,7 +64,7 @@ export default function MainPanel({
       <div className='global-filter-container'>
         <Knob
           units='frequency'
-          defaultValue={4000}
+          defaultValue={defaultFrequency}
           maxValue={6000}
           valueCallback={updateFilterFrequency}
         />
@@ -71,37 +73,26 @@ export default function MainPanel({
       <div className='global-q-container'>
         <Knob
           units='q'
-          defaultValue={1}
+          defaultValue={defaultQ}
           maxValue={35}
           valueCallback={updateFilterQ}
         />
       </div>
 
-      {/* <div className='sequence-length-container'>
-        <label htmlFor='steps-dropdown' className='global-label sequence-length-container-label'>Steps</label>
-        <button className='steps-dropdown' id='steps-dropdown' onClick={() => setStepToggle(!stepToggle)}>{nodeSequenceLength}</button>
-        <div className='custom-drop-down-container'>
-          <ul className='steps-dropdown-content custom-drop-down'>
-            {steps()}
-          </ul>
+      <div className='steps-container'>
+        <label className='main-panel-label' htmlFor='steps-button'>Steps</label>
+        <div className='presets-buttons-container steps-container'>
+          <button
+            id='steps-button'
+            className='control-button steps-button'
+            onClick={activateSteps}>Steps
+          </button>
         </div>
-      </div> */}
-
-      <Dropdown
-        menuLabel='Steps'
-        dropdownId='steps-dropdown'
-        toggle={stepToggle}
-        setToggle={setStepToggle}
-        buttonContent={nodeSequenceLength}
-        createMenuContent={steps}
-      />
+      </div>
 
       <Presets
-        nodes={nodes}
-        toggleDefaultKeys={toggleDefaultKeys}
-        presets={presets}
-        setPresets={setPresets}
-        setNodes={setNodes}
+        activateSavePreset={activateSavePreset}
+        activateLoadPreset={activateLoadPreset}
       />
     </div>
   )

@@ -7,7 +7,8 @@ export default function MemoryField({
   setActiveNode,
   nodeEditor,
   setNodeEditor,
-  ctx
+  ctx,
+  setPanelDisplayMode
 }) {
   if (ctx) {
     return (
@@ -29,6 +30,7 @@ export default function MemoryField({
                 setNodeEditor={setNodeEditor}
                 key={node.playOrder}
                 wave={node.wave}
+                setPanelDisplayMode={setPanelDisplayMode}
               />
             );
           })}
