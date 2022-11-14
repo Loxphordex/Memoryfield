@@ -11,7 +11,9 @@ export default function LoadPreset({
   filter,
   calculateBpm,
   setPanelDisplayMode,
-  setNodeSequenceLength
+  setNodeSequenceLength,
+  defaultFilterValues,
+  setDefaultFilterValues
 }) {
   const [isConfirmationShowing, setIsConfirmationShowing] = useState(false)
   const [presetToLoad, setPresetToLoad] = useState(null)
@@ -48,8 +50,27 @@ export default function LoadPreset({
   }
 
   function loadFilter(filterPreset) {
-    filter.frequency.value = filterPreset.frequency
-    filter.Q.value = filterPreset.q
+    // if the user loads a preset with the same filter values as the previous preset
+    // then we need to set the state twice in order to move the knobs
+    if (defaultFilterValues.frequency === filterPreset.frequency || defaultFilterValues.q === filterPreset.q) {
+      resetFilter(filterPreset.frequency + 0.1, filterPreset.q + 0.1)
+      setTimeout(() => {
+        resetFilter(filterPreset.frequency, filterPreset.q)
+      }, 1);
+    }
+    else {
+      resetFilter(filterPreset.frequency, filterPreset.q)
+    }
+  }
+
+  function resetFilter(freq, q) {
+    filter.frequency.value = freq
+    filter.Q.value = q
+    console.log('filter second reset')
+    setDefaultFilterValues({
+      frequency: freq,
+      q: q
+    })
   }
 
   function loadPreset(preset) {

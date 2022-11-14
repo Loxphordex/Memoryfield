@@ -19,7 +19,6 @@ export default function ControlPanel({
   play, 
   calculateBpm,
   displayedBpm,
-  setDisplayedBpm,
   nodes,
   nodeSequenceLength,
   setNodeSequenceLength,
@@ -29,9 +28,10 @@ export default function ControlPanel({
   toggleDefaultKeys,
   ctx,
   filter,
-  tempo,
   panelDisplayMode,
   setPanelDisplayMode,
+  defaultFilterValues,
+  setDefaultFilterValues
 }) {
   const [selectedNode, setSelectedNode] = useState(null)
   const [presets, setPresets] = useState(null)
@@ -177,6 +177,8 @@ export default function ControlPanel({
           calculateBpm={calculateBpm}
           setPanelDisplayMode={setPanelDisplayMode}
           setNodeSequenceLength={setNodeSequenceLength}
+          defaultFilterValues={defaultFilterValues}
+          setDefaultFilterValues={setDefaultFilterValues}
         />
       )
     }
@@ -194,6 +196,8 @@ export default function ControlPanel({
           updateFilterQ={updateFilterQ}
           setPanelDisplayMode={setPanelDisplayMode}
           setNodeEditor={setNodeEditor}
+          displayedBpm={displayedBpm}
+          defaultFilterValues={defaultFilterValues}
         />
         <div className='selected-node-control-display'>
           {/* <NoteControls 

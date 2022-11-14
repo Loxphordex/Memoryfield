@@ -34,6 +34,7 @@ function App() {
   const [volume, setVolume] = useState(null)
   const [osc, setOsc] = useState(null)
   const [filter, setFilter] = useState(null)
+  const [defaultFilterValues, setDefaultFilterValues] = useState({ frequency: 4000, q: 5 })
   const [isSignalSetUp, setIsSignalSetUp] = useState(false)
   const [isOscStarted, setIsOscStarted] = useState(false)
   const [panelDisplayMode, setPanelDisplayMode] = useState(null)
@@ -143,8 +144,8 @@ function App() {
         osc.start()
   
         filter.type = 'lowpass'
-        filter.frequency.value = 4000
-        filter.Q.value = 10
+        filter.frequency.value = defaultFilterValues.frequency
+        filter.Q.value = defaultFilterValues.q
         filter.connect(volume)
         volume.connect(ctx.destination)
 
@@ -174,7 +175,6 @@ function App() {
           play={setPlaying}
           calculateBpm={calculateBpm}
           displayedBpm={displayedBpm}
-          setDisplayedBpm={setDisplayedBpm}
           nodes={nodes}
           setNodes={setNodes}
           nodeSequenceLength={nodeSequenceLength}
@@ -184,9 +184,10 @@ function App() {
           toggleDefaultKeys={toggleDefaultKeys}
           ctx={ctx}
           filter={filter}
-          tempo={tempo}
           panelDisplayMode={panelDisplayMode}
           setPanelDisplayMode={setPanelDisplayMode}
+          defaultFilterValues={defaultFilterValues}
+          setDefaultFilterValues={setDefaultFilterValues}
         />
         <MemoryField
           nodes={nodes}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Knob from '../Knob/knob'
 import Presets from '../Presets/Presets'
 import { panelMode } from '../Audio/constants'
@@ -13,8 +13,17 @@ export default function MainPanel({
   updateFilterFrequency,
   updateFilterQ,
   setPanelDisplayMode,
-  setNodeEditor
+  setNodeEditor,
+  displayedBpm,
+  defaultFilterValues,
 }) {
+
+  const [defaultFrequency, setDefaultFrequency] = useState(null)
+  const [defaultQ, setDefaultQ] = useState(null)
+
+  useEffect(() => {
+    setupDefaultFilterValues()
+  }, [defaultFilterValues])
 
   function activateSteps() {
     setPanelDisplayMode(panelMode.steps)
@@ -31,6 +40,13 @@ export default function MainPanel({
     setNodeEditor(null)
   }
 
+  function setupDefaultFilterValues() {
+    if (defaultFilterValues && defaultFilterValues.frequency && defaultFilterValues.q) {
+      setDefaultFrequency(defaultFilterValues.frequency)
+      setDefaultQ(defaultFilterValues.q)
+    }
+  }
+
   return (
     <div className='global-controls'>
       {!isPlaying && <button className='play-or-stop-button play-button control-button' onClick={() => playSequence()}><Play size={36} /></button>}
@@ -39,7 +55,7 @@ export default function MainPanel({
       <div className='bmp-knob-container'>
         <Knob
           units='tempo'
-          defaultValue={150}
+          defaultValue={displayedBpm}
           maxValue={300}
           valueCallback={calculateBpm}
         />
@@ -48,7 +64,7 @@ export default function MainPanel({
       <div className='global-filter-container'>
         <Knob
           units='frequency'
-          defaultValue={4000}
+          defaultValue={defaultFrequency}
           maxValue={6000}
           valueCallback={updateFilterFrequency}
         />
@@ -57,7 +73,7 @@ export default function MainPanel({
       <div className='global-q-container'>
         <Knob
           units='q'
-          defaultValue={1}
+          defaultValue={defaultQ}
           maxValue={35}
           valueCallback={updateFilterQ}
         />

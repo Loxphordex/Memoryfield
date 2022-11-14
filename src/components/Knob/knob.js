@@ -1,5 +1,6 @@
 import React, {useState, useEffect, createRef} from 'react'
 import detectMobile from '../../helpers/detectMobile'
+import { usePrevious } from '../../helpers/hooks'
 import '../../styles/buttons/buttons.css'
 
 export default function Knob({
@@ -9,8 +10,8 @@ export default function Knob({
   valueCallback
 }) {
   const volumeKnob = createRef()
-  const [knobValue, setKnobValue] = useState(defaultValue || 0)
-  const [rotationStyles, setRotationStyles] = useState({ transform: `rotate(${defaultValue || 0}deg)` })
+  const [knobValue, setKnobValue] = useState(defaultValue)
+  const [rotationStyles, setRotationStyles] = useState({ transform: `rotate(0deg)` })
 
   let
     mouseX,
@@ -28,14 +29,20 @@ export default function Knob({
 
   useEffect(() => {
     main()
-  }, [volumeKnob])
+  }, [volumeKnob, defaultValue])
 
   const main = () => {
     if (!boundingRectangle) {
       boundingRectangle = volumeKnob.current.getBoundingClientRect()
       document.addEventListener(getMouseUp(), onMouseUp)
     }
+
+    if (previousDefaultValue != defaultValue) {
+      setInitialAngle()
+    }
   }
+
+  const previousDefaultValue = usePrevious(defaultValue)
 
   const getMouseUp = () => {
     return detectMobile() == 'desktop' ? 'mouseup' : 'touchend'
@@ -86,6 +93,13 @@ export default function Knob({
       setRotationStyles({ transform: `rotate(${finalAngleInDegrees}deg)`})
       // audio.volume = knobValue / 100
     }
+  }
+
+  const setInitialAngle = () => {
+      const initialValuePercentage = defaultValue / maxValue
+      const initialAngle = 270 * initialValuePercentage
+      setRotationStyles({ transform: `rotate(${initialAngle}deg)`})
+      setKnobValue(defaultValue)
   }
 
   return (
