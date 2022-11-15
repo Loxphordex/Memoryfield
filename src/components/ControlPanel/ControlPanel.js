@@ -103,7 +103,7 @@ export default function ControlPanel({
 
   function selectSample(sample) {
     selectedNode.sample = sample
-    selectedNode.color = setNodeColor(sample.name)
+    selectedNode.color = setNodeColor(sample.name.replace(/\s+/g, ''))
     nodes.splice(selectedNode.playOrder, 1, selectedNode)
     const newNodes = [...nodes]
     setNodes(newNodes)
