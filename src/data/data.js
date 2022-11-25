@@ -15,9 +15,12 @@ export const colors = [
 
 export const sampleColors = {
   none: 'default',
-  kick: 'red',
-  snare: 'green',
-  hat: 'teal'
+  BounceKick: 'red',
+  DeepKick: 'blue',
+  Snare: 'green',
+  DigitalClap: 'pink',
+  ClosedHat: 'teal',
+  OpenHat: 'purple'
 }
 
 export function createDefaultNode(order, nodeSequenceLength) {

@@ -65,7 +65,7 @@ export default function MainPanel({
         <Knob
           units='frequency'
           defaultValue={defaultFrequency}
-          maxValue={6000}
+          maxValue={8000}
           valueCallback={updateFilterFrequency}
         />
       </div>

@@ -34,7 +34,7 @@ function App() {
   const [volume, setVolume] = useState(null)
   const [osc, setOsc] = useState(null)
   const [filter, setFilter] = useState(null)
-  const [defaultFilterValues, setDefaultFilterValues] = useState({ frequency: 4000, q: 5 })
+  const [defaultFilterValues, setDefaultFilterValues] = useState({ frequency: 4000, q: 1 })
   const [isSignalSetUp, setIsSignalSetUp] = useState(false)
   const [isOscStarted, setIsOscStarted] = useState(false)
   const [panelDisplayMode, setPanelDisplayMode] = useState(null)
