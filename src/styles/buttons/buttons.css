@@ -106,16 +106,3 @@ p {
   max-width: 36em;
   margin: 1em auto;
 }
-a {
-  color: #aaa;
-  text-decoration: none;
-  border-bottom: 1px solid #444;
-  -webkit-transition: color 0.2s ease-in;
-  -moz-transition: color 0.2s ease-in;
-  -o-transition: color 0.2s ease-in;
-  transition: color 0.2s ease-in;
-}
-a:hover,
-a:focus {
-  color: #eee;
-}

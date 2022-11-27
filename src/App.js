@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import MemoryField from './components/MemoryField/MemoryField'
 import ControlPanel from './components/ControlPanel/ControlPanel'
 import Footer from './components/Footer/Footer'
-import StartButton from './components/StartButton/StartButton'
+import StartMenu from './components/StartMenu/StartMenu'
 import { samples } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
@@ -34,7 +34,7 @@ function App() {
   const [volume, setVolume] = useState(null)
   const [osc, setOsc] = useState(null)
   const [filter, setFilter] = useState(null)
-  const [defaultFilterValues, setDefaultFilterValues] = useState({ frequency: 4000, q: 5 })
+  const [defaultFilterValues, setDefaultFilterValues] = useState({ frequency: 4000, q: 1 })
   const [isSignalSetUp, setIsSignalSetUp] = useState(false)
   const [isOscStarted, setIsOscStarted] = useState(false)
   const [panelDisplayMode, setPanelDisplayMode] = useState(null)
@@ -163,13 +163,17 @@ function App() {
     }
   }
 
+  if (!ctx) {
+    return (
+      <StartMenu
+        startAudioContext={startAudioContext}
+      />
+    )
+  }
+
   return (
     <div className='App'>
       <section className='app-container'>
-        <StartButton
-          ctx={ctx}
-          startAudioContext={startAudioContext}
-        />
         <ControlPanel
           isPlaying={isPlaying}
           play={setPlaying}
