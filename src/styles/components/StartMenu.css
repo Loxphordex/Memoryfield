@@ -1,0 +1,58 @@
+.start-menu-background {
+  min-width: 250px;
+  max-width: 300px;
+  max-height: 200px;
+  background-color: rgb(46, 46, 46);
+  border-radius: 3px;
+  box-shadow: -4px 5px 16px 4px rgb(75 75 89);
+  margin: 30vh auto;
+  padding: 14px;
+}
+
+.start-menu-background h1 {
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 2.1em;
+}
+
+.start-menu-background h2 {
+  font-weight: normal;
+  font-size: 1.2em;
+  margin: 0 auto;
+  color: rgb(133 149 149);
+}
+
+.start-menu-version {
+  color: rgb(133 149 149);
+  font-size: 0.9em;
+} 
+
+.start-menu-github-link {
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  max-width: 50px;
+  margin: 0 auto;
+  color: rgb(133 149 149);
+}
+
+.start-menu-background i {
+  cursor: pointer;
+  font-size: 3em;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.start-button-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.start-button {
+  margin: 0 auto;
+  width: 200px;
+  background-color: rgb(241, 241, 241);
+  border: none;
+  font-size: 1em;
+}

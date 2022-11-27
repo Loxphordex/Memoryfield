@@ -14,6 +14,10 @@ code {
     monospace;
 }
 
+a {
+  color: rgb(241, 241, 241);
+}
+
 @media only screen and (min-width: 768px) {
   .App {
     height: 80vh;
