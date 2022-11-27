@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import MemoryField from './components/MemoryField/MemoryField'
 import ControlPanel from './components/ControlPanel/ControlPanel'
 import Footer from './components/Footer/Footer'
-import StartButton from './components/StartButton/StartButton'
+import StartMenu from './components/StartMenu/StartMenu'
 import { samples } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
@@ -163,13 +163,17 @@ function App() {
     }
   }
 
+  if (!ctx) {
+    return (
+      <StartMenu
+        startAudioContext={startAudioContext}
+      />
+    )
+  }
+
   return (
     <div className='App'>
       <section className='app-container'>
-        <StartButton
-          ctx={ctx}
-          startAudioContext={startAudioContext}
-        />
         <ControlPanel
           isPlaying={isPlaying}
           play={setPlaying}
