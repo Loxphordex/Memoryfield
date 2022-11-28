@@ -1,4 +1,20 @@
 .preset-list {
   list-style: none;
   padding-inline-start: 0px;
+  overflow-y: scroll;
+  max-height: 16em;
+  scrollbar-width: 3em;
+}
+
+.preset-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.preset-list::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.preset-list::-webkit-scrollbar-thumb {
+  background-color: rgb(104, 118, 102);
+  border-radius: 20px;
 }

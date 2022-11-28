@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import SaveControl from './SaveControl'
-import { memoryFieldPresets } from '../../../constants/storageConstants' 
+import { memoryFieldPresets } from '../../../constants/storageConstants'
+import { panelMode } from '../../Audio/constants'
 
 export default function SavePreset({
   nodes,
@@ -49,6 +50,7 @@ export default function SavePreset({
   function toggleInputActive() {
     setPresetName(null)
     toggleDefaultKeys()
+    setPanelDisplayMode(panelMode.node)
   }
 
   return (
