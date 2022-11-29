@@ -85,13 +85,20 @@ export default function LoadPreset({
     setPanelDisplayMode(null)
   }
 
+  function deletePreset() {
+    delete presets[nameOfPreset]
+    localStorage.setItem(memoryFieldPresets, JSON.stringify(presets))
+    setPresets(presets)
+    setIsConfirmationShowing(false)
+  }
+
   function confirmLoad() {
     if (presetToLoad && nameOfPreset) {
       return (
         <div className='confirm-load'>
-          <h3>{`Load ${nameOfPreset}?`}</h3>
-          <button className='display-panel-button' onClick={() => loadPreset(presetToLoad)}>Yes</button>
-          <button className='display-panel-button' onClick={() => setIsConfirmationShowing(false)}>No</button>
+          <h3>{nameOfPreset}</h3>
+          <button className='display-panel-button' onClick={() => loadPreset(presetToLoad)}>Load</button>
+          <button className='display-panel-button' onClick={deletePreset}>Delete</button>
         </div>
       )
     }
