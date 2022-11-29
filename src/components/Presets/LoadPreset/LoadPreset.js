@@ -64,9 +64,9 @@ export default function LoadPreset({
   }
 
   function resetFilter(freq, q) {
+    q = Math.floor(q)
     filter.frequency.value = freq
     filter.Q.value = q
-    console.log('filter second reset')
     setDefaultFilterValues({
       frequency: freq,
       q: q
@@ -85,13 +85,20 @@ export default function LoadPreset({
     setPanelDisplayMode(null)
   }
 
+  function deletePreset() {
+    delete presets[nameOfPreset]
+    localStorage.setItem(memoryFieldPresets, JSON.stringify(presets))
+    setPresets(presets)
+    setIsConfirmationShowing(false)
+  }
+
   function confirmLoad() {
     if (presetToLoad && nameOfPreset) {
       return (
         <div className='confirm-load'>
-          <h3>{`Load ${nameOfPreset}?`}</h3>
-          <button onClick={() => loadPreset(presetToLoad)}>Yes</button>
-          <button onClick={() => setIsConfirmationShowing(false)}>No</button>
+          <h3>{nameOfPreset}</h3>
+          <button className='display-panel-button' onClick={() => loadPreset(presetToLoad)}>Load</button>
+          <button className='display-panel-button' onClick={deletePreset}>Delete</button>
         </div>
       )
     }
