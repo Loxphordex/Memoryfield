@@ -57,3 +57,25 @@
 .steps-container {
   min-width: 0px;
 }
+
+.bpm-knob-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.tempo-lock-container {
+  position: absolute;
+  margin: 0 auto;
+  margin-top: 4px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  width: 100%;
+  z-index: 200;
+  color: rgb(197, 54, 54);
+}
+
+.tempo-knob-overlay-disabled * {
+  pointer-events: none;
+}
