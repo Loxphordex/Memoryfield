@@ -1,6 +1,5 @@
 import { notes } from './notes'
 import { waveforms } from '../components/Audio/constants'
-import { samples } from '../components/Audio/constants'
 
 // All possible colors
 export const colors = [
@@ -57,7 +56,6 @@ function initialNode(order, nodeSequenceLength) {
     playOrder: order,
     active: checkIfActive(order, nodeSequenceLength),
     note: notes[36],
-    wave: waveforms[0],
-    sample: samples[0]
+    wave: waveforms[0]
   }
 }

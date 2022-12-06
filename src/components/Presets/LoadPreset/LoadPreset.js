@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import LoadPresetMenu from './LoadPresetMenu'
-import { samples } from '../../Audio/constants'
 import { memoryFieldPresets } from '../../../constants/storageConstants'
 import '../../../styles/components/LoadPreset.css'
 
@@ -13,7 +12,8 @@ export default function LoadPreset({
   setPanelDisplayMode,
   setNodeSequenceLength,
   defaultFilterValues,
-  setDefaultFilterValues
+  setDefaultFilterValues,
+  samples
 }) {
   const [isConfirmationShowing, setIsConfirmationShowing] = useState(false)
   const [presetToLoad, setPresetToLoad] = useState(null)

@@ -31,7 +31,8 @@ export default function ControlPanel({
   panelDisplayMode,
   setPanelDisplayMode,
   defaultFilterValues,
-  setDefaultFilterValues
+  setDefaultFilterValues,
+  samples
 }) {
   const [selectedNode, setSelectedNode] = useState(null)
   const [presets, setPresets] = useState(null)
@@ -140,6 +141,7 @@ export default function ControlPanel({
           nodeEditor={nodeEditor}
           selectedNode={selectedNode}
           nodes={nodes}
+          samples={samples}
         />
       )
     }
@@ -179,6 +181,7 @@ export default function ControlPanel({
           setNodeSequenceLength={setNodeSequenceLength}
           defaultFilterValues={defaultFilterValues}
           setDefaultFilterValues={setDefaultFilterValues}
+          samples={samples}
         />
       )
     }

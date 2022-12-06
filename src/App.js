@@ -3,7 +3,8 @@ import MemoryField from './components/MemoryField/MemoryField'
 import ControlPanel from './components/ControlPanel/ControlPanel'
 import Footer from './components/Footer/Footer'
 import StartMenu from './components/StartMenu/StartMenu'
-import { samples } from './components/Audio/constants'
+import { getAudioSamples } from './components/Audio/audioSamples'
+import { filterTypes } from './components/Audio/constants'
 import playSound from './components/Audio/playSound'
 import { keyShortcuts } from './constants/keyShortcuts'
 import { getInitialSequence } from './data/sequenceDetails'
@@ -29,14 +30,15 @@ function App() {
   const [tempo, setTempo] = useState(null)
   const [displayedBpm, setDisplayedBpm] = useState(100)
   const [outputLevel] = useState(0.2)
+  const [samples, setSamples] = useState([])
   const [ctx, setCtx] = useState(null)
 
   const [volume, setVolume] = useState(null)
   const [osc, setOsc] = useState(null)
   const [filter, setFilter] = useState(null)
   const [defaultFilterValues, setDefaultFilterValues] = useState({ frequency: 4000, q: 1 })
-  const [isSignalSetUp, setIsSignalSetUp] = useState(false)
-  const [isOscStarted, setIsOscStarted] = useState(false)
+  const [isPathCreated, setIsPathCreated] = useState(false)
+  const [isPathSetup, setIsPathSetup] = useState(false)
   const [panelDisplayMode, setPanelDisplayMode] = useState(null)
 
   const isPlayingRef = useRef(isPlaying)
@@ -86,7 +88,7 @@ function App() {
       outputLevel,
       filter,
       volume,
-      osc,
+      // osc,
       nodeSequenceLength,
       defaultKeys,
       isKeyHandlerSet])
@@ -131,34 +133,26 @@ function App() {
   }
 
   // Set up signal path
-  function setUpSignalPath() {
+  async function setUpSignalPath() {
     if (ctx) {
-      if (isSignalSetUp === false) {
-        setOsc(ctx.createOscillator())
+      if (isPathCreated === false) {
+        const sampleSetup = await getAudioSamples(ctx)
+        setSamples(sampleSetup)
+        // setOsc(ctx.createOscillator())
         setFilter(ctx.createBiquadFilter())
         setVolume(ctx.createGain())
-        setIsSignalSetUp(true)
+        setIsPathCreated(true)
       }
       
-      if (isOscStarted === false && osc && isSignalSetUp === true) {
-        osc.start()
+      if (isPathSetup === false && isPathCreated === true) {
+        // osc.start()
   
-        filter.type = 'lowpass'
+        filter.type = filterTypes.lowpass
         filter.frequency.value = defaultFilterValues.frequency
         filter.Q.value = defaultFilterValues.q
         filter.connect(volume)
         volume.connect(ctx.destination)
-
-        for (let i = 0; i < samples.length; i++) {
-          if (samples[i].audio) {
-            for (let j = 0; j < samples[i].audio.length; j++) {
-              const src = ctx.createMediaElementSource(samples[i].audio[j])
-              src.connect(filter)
-            }
-          }
-        }
-
-        setIsOscStarted(true)
+        setIsPathSetup(true)
       }
     }
   }
@@ -192,6 +186,7 @@ function App() {
           setPanelDisplayMode={setPanelDisplayMode}
           defaultFilterValues={defaultFilterValues}
           setDefaultFilterValues={setDefaultFilterValues}
+          samples={samples}
         />
         <MemoryField
           nodes={nodes}
