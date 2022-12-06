@@ -3,7 +3,7 @@ import Knob from '../Knob/knob'
 import Presets from '../Presets/Presets'
 import { panelMode } from '../Audio/constants'
 import '../../styles/components/MainPanel.css'
-import { Play, Stop } from 'phosphor-react'
+import { Play, Stop, LockSimple } from 'phosphor-react'
 
 export default function MainPanel({
   playSequence,
@@ -52,13 +52,20 @@ export default function MainPanel({
       {!isPlaying && <button className='play-or-stop-button play-button control-button' onClick={() => playSequence()}><Play size={36} /></button>}
       {isPlaying && <button className='play-or-stop-button stop-button control-button' onClick={() => play(false)}><Stop size={36} /></button>}
 
-      <div className='bmp-knob-container'>
-        <Knob
-          units='tempo'
-          defaultValue={displayedBpm}
-          maxValue={300}
-          valueCallback={calculateBpm}
-        />
+      <div className='bpm-knob-container'>
+        { isPlaying && 
+          <div className='tempo-lock-container'>
+            <LockSimple size={28} />
+          </div>
+        }
+        <div className={`tempo-knob-overlay ${isPlaying ? 'tempo-knob-overlay-disabled' : ''}`}>
+          <Knob
+            units='tempo'
+            defaultValue={displayedBpm}
+            maxValue={300}
+            valueCallback={calculateBpm}
+          />
+        </div>
       </div>
 
       <div className='global-filter-container'>
