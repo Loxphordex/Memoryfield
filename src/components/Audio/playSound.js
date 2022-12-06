@@ -19,6 +19,7 @@ export default async function playSound(ctx, filter, osc, volume, nodes, activeN
 
       const source = ctx.createBufferSource()
       source.buffer = currentNode.sample.audio
+      source.connect(filter)
       filter.connect(volume)
       volume.connect(ctx.destination)
 
