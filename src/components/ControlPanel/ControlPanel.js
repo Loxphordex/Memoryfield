@@ -32,7 +32,9 @@ export default function ControlPanel({
   setPanelDisplayMode,
   defaultFilterValues,
   setDefaultFilterValues,
-  samples
+  samples,
+  pitch,
+  setPitch
 }) {
   const [selectedNode, setSelectedNode] = useState(null)
   const [presets, setPresets] = useState(null)
@@ -201,6 +203,8 @@ export default function ControlPanel({
           setNodeEditor={setNodeEditor}
           displayedBpm={displayedBpm}
           defaultFilterValues={defaultFilterValues}
+          pitch={pitch}
+          setPitch={setPitch}
         />
         <div className='selected-node-control-display'>
           {/* <NoteControls 

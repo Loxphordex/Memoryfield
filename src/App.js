@@ -36,6 +36,7 @@ function App() {
   const [volume, setVolume] = useState(null)
   const [osc, setOsc] = useState(null)
   const [filter, setFilter] = useState(null)
+  const [pitch, setPitch] = useState(1)
   const [defaultFilterValues, setDefaultFilterValues] = useState({ frequency: 4000, q: 1 })
   const [isPathCreated, setIsPathCreated] = useState(false)
   const [isPathSetup, setIsPathSetup] = useState(false)
@@ -97,7 +98,7 @@ function App() {
     if (!isPlaying) setActiveNode(-1)
 
     if (activeNode >= 0 && nodes != null && isPlaying) {
-      playSound(ctx, filter, osc, volume, nodes, activeNode)
+      playSound(ctx, filter, pitch, osc, volume, nodes, activeNode)
     }
 
     if (activeNode >= nodeSequenceLength - 1) {
@@ -136,8 +137,6 @@ function App() {
   async function setUpSignalPath() {
     if (ctx) {
       if (isPathCreated === false) {
-        const sampleSetup = await getAudioSamples(ctx)
-        setSamples(sampleSetup)
         // setOsc(ctx.createOscillator())
         setFilter(ctx.createBiquadFilter())
         setVolume(ctx.createGain())
@@ -150,8 +149,8 @@ function App() {
         filter.type = filterTypes.lowpass
         filter.frequency.value = defaultFilterValues.frequency
         filter.Q.value = defaultFilterValues.q
-        filter.connect(volume)
-        volume.connect(ctx.destination)
+        const sampleSetup = await getAudioSamples(ctx)
+        setSamples(sampleSetup)
         setIsPathSetup(true)
       }
     }
@@ -187,6 +186,8 @@ function App() {
           defaultFilterValues={defaultFilterValues}
           setDefaultFilterValues={setDefaultFilterValues}
           samples={samples}
+          pitch={pitch}
+          setPitch={setPitch}
         />
         <MemoryField
           nodes={nodes}

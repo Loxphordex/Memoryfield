@@ -16,6 +16,8 @@ export default function MainPanel({
   setNodeEditor,
   displayedBpm,
   defaultFilterValues,
+  pitch,
+  setPitch
 }) {
 
   const [defaultFrequency, setDefaultFrequency] = useState(null)
@@ -64,6 +66,7 @@ export default function MainPanel({
             defaultValue={displayedBpm}
             maxValue={300}
             valueCallback={calculateBpm}
+            usingDecimals={false}
           />
         </div>
       </div>
@@ -74,6 +77,7 @@ export default function MainPanel({
           defaultValue={defaultFrequency}
           maxValue={8000}
           valueCallback={updateFilterFrequency}
+          usingDecimals={false}
         />
       </div>
 
@@ -83,6 +87,17 @@ export default function MainPanel({
           defaultValue={defaultQ}
           maxValue={35}
           valueCallback={updateFilterQ}
+          usingDecimals={true}
+        />
+      </div>
+
+      <div className='pitch-container'>
+        <Knob
+          units='pitch'
+          defaultValue={1}
+          maxValue={5}
+          valueCallback={setPitch}
+          usingDecimals={true}
         />
       </div>
 

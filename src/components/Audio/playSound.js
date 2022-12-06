@@ -1,4 +1,4 @@
-export default async function playSound(ctx, filter, osc, volume, nodes, activeNode) {
+export default async function playSound(ctx, filter, pitch, osc, volume, nodes, activeNode) {
   if (ctx) {
     let now = ctx.currentTime
     let currentNode = nodes[activeNode]
@@ -7,40 +7,13 @@ export default async function playSound(ctx, filter, osc, volume, nodes, activeN
     let end = now + currentNode.endtime
 
     if (currentNode?.sample?.audio) {
-      // let aud = currentNode.sample.audio[currentNode.sample.index]
-      // let duration = aud.duration * 1000 
-      // convert seconds to milliseconds
-
-      // pitch shifting
-
-      // const res = await fetch(kick)
-      // const buf = await res.arrayBuffer()
-      // const kickData = await ctx.decodeAudioData(buf)
-
       const source = ctx.createBufferSource()
       source.buffer = currentNode.sample.audio
+      source.playbackRate.value = pitch
       source.connect(filter)
       filter.connect(volume)
       volume.connect(ctx.destination)
-
       source.start(now)
-
-      //aud.play()
-
-      // cycle through an array of 8 audio files to avoid cutting off audio after each step
-      // currentNode.sample.index === 7
-      //   ? currentNode.sample.index = 0
-      //   : currentNode.sample.index++
-
-      // delete aud variable to clear memory
-      // setTimeout(() => {
-      //   aud = null
-      // }, duration);
-      
-
-      // setTimeout(() => {
-      //   aud = null
-      // }, 100)
     }
 
     // osc.type = wave
