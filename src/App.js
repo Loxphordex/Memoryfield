@@ -46,6 +46,7 @@ function App() {
   const setPlaying = (status) => {
     isPlayingRef.current = status
     setIsPlaying(status)
+    if (status === false) setActiveNode(-1)
   }
   const [defaultKeys, setDefaultKeys] = useState(false)
   const [isKeyHandlerSet, setIsKeyHandlerSet] = useState(false)
@@ -95,8 +96,6 @@ function App() {
       isKeyHandlerSet])
 
   useInterval(() => {
-    if (!isPlaying) setActiveNode(-1)
-
     if (activeNode >= 0 && nodes != null && isPlaying) {
       playSound(ctx, filter, pitch, osc, volume, nodes, activeNode)
     }
