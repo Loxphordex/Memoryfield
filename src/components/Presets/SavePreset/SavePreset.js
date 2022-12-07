@@ -10,7 +10,8 @@ export default function SavePreset({
   filter,
   displayedBpm,
   nodeSequenceLength,
-  setPanelDisplayMode
+  setPanelDisplayMode,
+  pitch
 }) {
   const [presetName, setPresetName] = useState('')
 
@@ -27,11 +28,12 @@ export default function SavePreset({
     const newPreset = {
       filter: {
         'frequency': filter.frequency.value,
-        'q': filter.Q.value,
+        'q': roundValue(filter.Q.value),
       },
       displayedBpm, 
       nodes,
-      nodeSequenceLength
+      nodeSequenceLength,
+      pitch
     }
     const existingPresets = localStorage.getItem(memoryFieldPresets)
     let unwrappedPresets
@@ -51,6 +53,12 @@ export default function SavePreset({
     setPresetName(null)
     toggleDefaultKeys()
     setPanelDisplayMode(panelMode.node)
+  }
+
+  function roundValue(val) {
+    if (String(val).length > 5) {
+      return Math.round(val * 100) / 100
+    }
   }
 
   return (

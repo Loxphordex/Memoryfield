@@ -3,7 +3,7 @@ import Knob from '../Knob/knob'
 import Presets from '../Presets/Presets'
 import { panelMode } from '../Audio/constants'
 import '../../styles/components/MainPanel.css'
-import { Play, Stop } from 'phosphor-react'
+import { Play, Stop, LockSimple } from 'phosphor-react'
 
 export default function MainPanel({
   playSequence,
@@ -16,13 +16,16 @@ export default function MainPanel({
   setNodeEditor,
   displayedBpm,
   defaultFilterValues,
+  pitch,
+  setPitch
 }) {
 
   const [defaultFrequency, setDefaultFrequency] = useState(null)
   const [defaultQ, setDefaultQ] = useState(null)
+  const [defaultPitch, setDefaultPitch] = useState(null)
 
   useEffect(() => {
-    setupDefaultFilterValues()
+    setupDefaultDefaultValues()
   }, [defaultFilterValues])
 
   function activateSteps() {
@@ -40,10 +43,11 @@ export default function MainPanel({
     setNodeEditor(null)
   }
 
-  function setupDefaultFilterValues() {
+  function setupDefaultDefaultValues() {
     if (defaultFilterValues && defaultFilterValues.frequency && defaultFilterValues.q) {
       setDefaultFrequency(defaultFilterValues.frequency)
       setDefaultQ(defaultFilterValues.q)
+      setDefaultPitch(pitch)
     }
   }
 
@@ -52,13 +56,21 @@ export default function MainPanel({
       {!isPlaying && <button className='play-or-stop-button play-button control-button' onClick={() => playSequence()}><Play size={36} /></button>}
       {isPlaying && <button className='play-or-stop-button stop-button control-button' onClick={() => play(false)}><Stop size={36} /></button>}
 
-      <div className='bmp-knob-container'>
-        <Knob
-          units='tempo'
-          defaultValue={displayedBpm}
-          maxValue={300}
-          valueCallback={calculateBpm}
-        />
+      <div className='bpm-knob-container'>
+        { isPlaying && 
+          <div className='tempo-lock-container'>
+            <LockSimple size={28} />
+          </div>
+        }
+        <div className={`tempo-knob-overlay ${isPlaying ? 'tempo-knob-overlay-disabled' : ''}`}>
+          <Knob
+            units='tempo'
+            defaultValue={displayedBpm}
+            maxValue={300}
+            valueCallback={calculateBpm}
+            usingDecimals={false}
+          />
+        </div>
       </div>
 
       <div className='global-filter-container'>
@@ -67,6 +79,7 @@ export default function MainPanel({
           defaultValue={defaultFrequency}
           maxValue={8000}
           valueCallback={updateFilterFrequency}
+          usingDecimals={false}
         />
       </div>
 
@@ -76,6 +89,17 @@ export default function MainPanel({
           defaultValue={defaultQ}
           maxValue={35}
           valueCallback={updateFilterQ}
+          usingDecimals={true}
+        />
+      </div>
+
+      <div className='pitch-container'>
+        <Knob
+          units='pitch'
+          defaultValue={defaultPitch}
+          maxValue={5}
+          valueCallback={setPitch}
+          usingDecimals={true}
         />
       </div>
 

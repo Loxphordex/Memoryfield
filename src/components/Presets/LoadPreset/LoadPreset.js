@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import LoadPresetMenu from './LoadPresetMenu'
-import { samples } from '../../Audio/constants'
 import { memoryFieldPresets } from '../../../constants/storageConstants'
 import '../../../styles/components/LoadPreset.css'
 
@@ -13,7 +12,9 @@ export default function LoadPreset({
   setPanelDisplayMode,
   setNodeSequenceLength,
   defaultFilterValues,
-  setDefaultFilterValues
+  setDefaultFilterValues,
+  samples,
+  setPitch
 }) {
   const [isConfirmationShowing, setIsConfirmationShowing] = useState(false)
   const [presetToLoad, setPresetToLoad] = useState(null)
@@ -64,7 +65,6 @@ export default function LoadPreset({
   }
 
   function resetFilter(freq, q) {
-    q = Math.floor(q)
     filter.frequency.value = freq
     filter.Q.value = q
     setDefaultFilterValues({
@@ -79,6 +79,7 @@ export default function LoadPreset({
     calculateBpm(preset.displayedBpm)
     setNodeSequenceLength(preset.nodeSequenceLength)
     loadFilter(preset.filter)
+    setPitch(preset.pitch)
 
     // close preset confirmation and return to default control panel view
     setIsConfirmationShowing(false)

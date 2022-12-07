@@ -1,11 +1,11 @@
 import React from 'react'
-import { samples } from '../Audio/constants'
 
 export default function SampleSelect({
   selectSample,
   nodeEditor,
   selectedNode,
-  nodes
+  nodes,
+  samples
 }) {
 
   function displaySampleSelection() {
