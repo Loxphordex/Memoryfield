@@ -7,7 +7,8 @@ export default function Knob({
   units,
   defaultValue,
   maxValue,
-  valueCallback
+  valueCallback,
+  usingDecimals
 }) {
   const volumeKnob = createRef()
   const [knobValue, setKnobValue] = useState(defaultValue)
@@ -88,8 +89,10 @@ export default function Knob({
     if (finalAngleInDegrees >= 0 && finalAngleInDegrees <= 270) {
       let ang = Math.floor(finalAngleInDegrees / (270 / 100))
       let actualVal = (ang / 100) * maxValue
+      if (actualVal === 0) actualVal = 0.1
+      const displayedValue = convertToString(Math.round(actualVal * 100) / 100)
       valueCallback(actualVal)
-      setKnobValue(Math.floor(actualVal))
+      setKnobValue(displayedValue)
       setRotationStyles({ transform: `rotate(${finalAngleInDegrees}deg)`})
       // audio.volume = knobValue / 100
     }
@@ -98,8 +101,24 @@ export default function Knob({
   const setInitialAngle = () => {
       const initialValuePercentage = defaultValue / maxValue
       const initialAngle = 270 * initialValuePercentage
+      const displayedValue = convertToString(Math.round(defaultValue * 100) / 100)
       setRotationStyles({ transform: `rotate(${initialAngle}deg)`})
-      setKnobValue(defaultValue)
+      setKnobValue(displayedValue)
+  }
+
+  const convertToString = (val) => {
+    if (!usingDecimals) return val
+    const str = val.toString()
+    const arr = str.split('.')
+    if (arr.length > 1) {
+      const last = arr[arr.length - 1]
+      if (last.length === 2) return str
+      if (last.length === 1) {
+        return arr.join('.') + '0'
+      }
+    }
+
+    if (arr.length === 1) return arr[0] + '.00'
   }
 
   return (

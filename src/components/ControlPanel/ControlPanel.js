@@ -31,7 +31,10 @@ export default function ControlPanel({
   panelDisplayMode,
   setPanelDisplayMode,
   defaultFilterValues,
-  setDefaultFilterValues
+  setDefaultFilterValues,
+  samples,
+  pitch,
+  setPitch
 }) {
   const [selectedNode, setSelectedNode] = useState(null)
   const [presets, setPresets] = useState(null)
@@ -140,6 +143,7 @@ export default function ControlPanel({
           nodeEditor={nodeEditor}
           selectedNode={selectedNode}
           nodes={nodes}
+          samples={samples}
         />
       )
     }
@@ -163,6 +167,7 @@ export default function ControlPanel({
           displayedBpm={displayedBpm}
           nodeSequenceLength={nodeSequenceLength}
           setPanelDisplayMode={setPanelDisplayMode}
+          pitch={pitch}
         />
       )
     }
@@ -179,6 +184,8 @@ export default function ControlPanel({
           setNodeSequenceLength={setNodeSequenceLength}
           defaultFilterValues={defaultFilterValues}
           setDefaultFilterValues={setDefaultFilterValues}
+          samples={samples}
+          setPitch={setPitch}
         />
       )
     }
@@ -198,6 +205,8 @@ export default function ControlPanel({
           setNodeEditor={setNodeEditor}
           displayedBpm={displayedBpm}
           defaultFilterValues={defaultFilterValues}
+          pitch={pitch}
+          setPitch={setPitch}
         />
         <div className='selected-node-control-display'>
           {/* <NoteControls 
