@@ -101,8 +101,9 @@ export default function Knob({
   const setInitialAngle = () => {
       const initialValuePercentage = defaultValue / maxValue
       const initialAngle = 270 * initialValuePercentage
+      const displayedValue = convertToString(Math.round(defaultValue * 100) / 100)
       setRotationStyles({ transform: `rotate(${initialAngle}deg)`})
-      usingDecimals ? setKnobValue(defaultValue + '.00') : setKnobValue(defaultValue)
+      setKnobValue(displayedValue)
   }
 
   const convertToString = (val) => {

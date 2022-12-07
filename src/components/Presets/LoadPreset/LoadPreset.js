@@ -13,7 +13,8 @@ export default function LoadPreset({
   setNodeSequenceLength,
   defaultFilterValues,
   setDefaultFilterValues,
-  samples
+  samples,
+  setPitch
 }) {
   const [isConfirmationShowing, setIsConfirmationShowing] = useState(false)
   const [presetToLoad, setPresetToLoad] = useState(null)
@@ -64,7 +65,6 @@ export default function LoadPreset({
   }
 
   function resetFilter(freq, q) {
-    q = Math.floor(q)
     filter.frequency.value = freq
     filter.Q.value = q
     setDefaultFilterValues({
@@ -79,6 +79,7 @@ export default function LoadPreset({
     calculateBpm(preset.displayedBpm)
     setNodeSequenceLength(preset.nodeSequenceLength)
     loadFilter(preset.filter)
+    setPitch(preset.pitch)
 
     // close preset confirmation and return to default control panel view
     setIsConfirmationShowing(false)

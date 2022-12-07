@@ -167,6 +167,7 @@ export default function ControlPanel({
           displayedBpm={displayedBpm}
           nodeSequenceLength={nodeSequenceLength}
           setPanelDisplayMode={setPanelDisplayMode}
+          pitch={pitch}
         />
       )
     }
@@ -184,6 +185,7 @@ export default function ControlPanel({
           defaultFilterValues={defaultFilterValues}
           setDefaultFilterValues={setDefaultFilterValues}
           samples={samples}
+          setPitch={setPitch}
         />
       )
     }
