@@ -1,9 +1,11 @@
 import React from 'react'
+import HomeButton from '../../HomeButton/HomeButton'
 
 export default function SaveControl({
   toggleInputActive,
   setPresetName,
-  saveNodes
+  saveNodes,
+  setPanelDisplayMode
 }) {
 
   function enterKeyToSave(e) {
@@ -15,6 +17,7 @@ export default function SaveControl({
   return (
     <div className='save-control'>
       <div className='preset-name-input'>
+        <HomeButton setPanelDisplayMode={setPanelDisplayMode} />
         <label className='display-panel-label' htmlFor='save-preset-name'>Save Preset</label>
         <input
           className='display-panel-input'

@@ -148,6 +148,7 @@ export default function ControlPanel({
         <SequenceLengthSelect
           nodeSequenceLength={nodeSequenceLength}
           setSequenceAndNodeStatus={setSequenceAndNodeStatus}
+          setPanelDisplayMode={setPanelDisplayMode}
         />
       )
     }

@@ -123,6 +123,7 @@ export default function LoadPreset({
         isConfirmationShowing={isConfirmationShowing}
         setupConfirmation={setupConfirmation}
         confirmLoad={confirmLoad}
+        setPanelDisplayMode={setPanelDisplayMode}
       />
     </div>
   )
