@@ -14,7 +14,8 @@
     "react-howler": "^5.2.0",
     "react-nexusui": "^0.1.7",
     "react-scripts": "^5.0.1",
-    "tone": "^13.8.25"
+    "tone": "^13.8.25",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "react-scripts start",

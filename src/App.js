@@ -31,6 +31,7 @@ function App() {
   const [displayedBpm, setDisplayedBpm] = useState(100)
   const [outputLevel] = useState(0.2)
   const [samples, setSamples] = useState([])
+  const [selectedSample, setSelectedSample] = useState(null)
   const [ctx, setCtx] = useState(null)
 
   const [volume, setVolume] = useState(null)
@@ -185,17 +186,17 @@ function App() {
           defaultFilterValues={defaultFilterValues}
           setDefaultFilterValues={setDefaultFilterValues}
           samples={samples}
+          selectedSample={selectedSample}
+          setSelectedSample={setSelectedSample}
           pitch={pitch}
           setPitch={setPitch}
         />
         <MemoryField
           nodes={nodes}
+          setNodes={setNodes}
           activeNode={activeNode}
-          nodeEditor={nodeEditor}
-          setActiveNode={setActiveNode}
-          setNodeEditor={setNodeEditor}
-          setPanelDisplayMode={setPanelDisplayMode}
           ctx={ctx}
+          selectedSample={selectedSample}
         />
       </section>
       <Footer />

@@ -8,14 +8,7 @@
     background-color: rgb(133 149 149);
     border-radius: 3px;
     transition: all 50ms;
-}
-
-.memory-node-sine {
     border-radius: 50%;
-}
-
-.memory-node-triangle {
-    border-radius: 3px 3px 100% 3px;
 }
 
 .node-is-active-false {

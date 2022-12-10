@@ -1,46 +1,81 @@
-import React from 'react'
-import { panelMode } from '../Audio/constants'
+import React, { useState, useEffect } from 'react'
 
 export default function MemoryNode({
-  shape,
+  nodes,
+  setNodes,
   playOrder,
-  color,
-  active,
-  activeNode,
-  nodeEditor,
-  setNodeEditor,
-  wave,
-  setPanelDisplayMode
+  isInSequence,
+  currentNodePlayingIndex,
+  selectedSample,
+  sampleColors
 }) {
-  function toggleNodeEditor() {
-    if (nodeEditor === playOrder) {
-      setNodeEditor(null)
-      setPanelDisplayMode(null)
-    } else {
-      setNodeEditor(playOrder)
-      setPanelDisplayMode(panelMode.node)
+  // "Activated" means "is the current sample selected for this node"
+  const [isNodeActivated, setIsNodeActivated] = useState(false)
+  const [color, setColor] = useState('not-playing-default')
+
+  useEffect(() => {
+    if (selectedSample
+        && !!nodes[playOrder].samples
+        && nodes[playOrder].samples.find(i => i.name === selectedSample.name)) {
+      setIsNodeActivated(true)
+      setColor(`not-playing-${sampleColors[selectedSample.name.replace(/\s/g, '')]}`)
+    }
+
+    else {
+      setIsNodeActivated(false)
+      setColor('not-playing-default')
+    }
+  }, [selectedSample])
+
+  useEffect(() => {
+    if (!isNodeActivated) {
+      if (currentNodePlayingIndex === playOrder) {
+        setColor(sampleColors.playDefault)
+      }
+  
+      else {
+        setColor('not-playing-default')
+      }
+    }
+
+    else if (isNodeActivated) {
+      if (currentNodePlayingIndex === playOrder) {
+        setColor(sampleColors[selectedSample.name.replace(/\s/g, '')])
+      }
+
+      else {
+        setColor(`not-playing-${sampleColors[selectedSample.name.replace(/\s/g, '')]}`)
+      }
+    }
+  }, [currentNodePlayingIndex, isNodeActivated])
+
+  function handleSampleSelection() {
+    if (selectedSample && isInSequence) {
+
+      // if node is not already selected for current step, add it to the array containing the nodes for the current step
+      if (!isNodeActivated) {
+        nodes[playOrder].samples.push(selectedSample)
+        setIsNodeActivated(true)
+        setColor(`not-playing-${sampleColors[selectedSample.name.replace(/\s/g, '')]}`)
+        setNodes([...nodes])
+      }
+  
+      // if node is already selected for current step, unselect it
+      else {
+        nodes[playOrder].samples.splice(nodes[playOrder].samples.indexOf(selectedSample), 1)
+        setIsNodeActivated(false)
+        setNodes([...nodes])
+        setColor('not-playing-default')
+      }
     }
   }
+
   return (
     <div
-      key={playOrder}
-      onClick={() => toggleNodeEditor()}
-      className={`memory-node memory-node-${wave} node-is-active-${active} 
-        ${nodeIsActive(
-          activeNode,
-          playOrder,
-          color
-        )}
-      ${editing(playOrder, nodeEditor)}`}
-      id={playOrder}
+      key={`node-${playOrder}`}
+      onClick={handleSampleSelection}
+      className={`memory-node node-is-active-${isInSequence} ${color}`}
+      id={`memory-node-${playOrder}`}
     />
   );
-}
-
-function nodeIsActive(activeNode, playOrder, color) {
-  return activeNode === playOrder ? color : `not-playing-${color}`;
-}
-
-function editing(playOrder, nodeEditor) {
-  return playOrder === nodeEditor ? "editing" : "";
 }

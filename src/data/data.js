@@ -13,7 +13,7 @@ export const colors = [
 ]
 
 export const sampleColors = {
-  none: 'default',
+  playDefault: 'default',
   BounceKick: 'red',
   DeepKick: 'blue',
   Snare: 'green',
@@ -49,13 +49,8 @@ export function generateInitialSequence(nodeCount, nodeSequenceLength) {
 
 function initialNode(order, nodeSequenceLength) {
   return {
-    color: 'default',
-    filterFrequency: 1200,
-    filterQ: 0,
-    endtime: 0.1,
     playOrder: order,
     active: checkIfActive(order, nodeSequenceLength),
-    note: notes[36],
-    wave: waveforms[0]
+    samples: []
   }
 }

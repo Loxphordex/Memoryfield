@@ -1,14 +1,13 @@
 import React from "react";
 import MemoryNode from '../MemoryNode/MemoryNode'
+import { sampleColors } from "../../data/data";
 
 export default function MemoryField({
   nodes,
+  setNodes,
   activeNode,
-  setActiveNode,
-  nodeEditor,
-  setNodeEditor,
   ctx,
-  setPanelDisplayMode
+  selectedSample
 }) {
   if (ctx) {
     return (
@@ -17,20 +16,16 @@ export default function MemoryField({
           {nodes && nodes.map(node => {
             return (
               <MemoryNode
-                shape={node.shape}
+                nodes={nodes}
+                setNodes={setNodes}
                 playOrder={node.playOrder}
                 position={node.position}
                 color={node.color}
-                texture={node.texture}
-                sound={node.sound}
-                active={node.active}
-                activeNode={activeNode}
-                setActiveNode={setActiveNode}
-                nodeEditor={nodeEditor}
-                setNodeEditor={setNodeEditor}
+                isInSequence={node.active}
+                currentNodePlayingIndex={activeNode}
                 key={node.playOrder}
-                wave={node.wave}
-                setPanelDisplayMode={setPanelDisplayMode}
+                selectedSample={selectedSample}
+                sampleColors={sampleColors}
               />
             );
           })}
