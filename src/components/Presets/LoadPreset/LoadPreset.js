@@ -41,8 +41,11 @@ export default function LoadPreset({
     if (nodes) {
       for (let i = 0; i < nodes.length; i++) {
         const current = nodes[i]
-        if (current.sample && current.sample.name) {
-          current.sample = samples.find(x => x.name === current.sample.name)
+        
+        if (current.samples) {
+          for (let j = 0; j < current.samples.length; j++) {
+            current.samples[j] = samples.find(x => x.name === current.samples[j].name)
+          }
         }
       }
 

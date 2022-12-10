@@ -8,37 +8,28 @@ import OpenHat from '../../samples/OpenHat.wav'
 export async function getAudioSamples(ctx) {
   return [
     {
-      name: 'none',
-      audio: null
-    },
-    {
       name: 'Bounce Kick',
-      index: 0,
       audio: await createAudioBuffer(BounceKick, ctx)
     },
     {
       name: 'Deep Kick',
-      index: 0,
       audio: await createAudioBuffer(DeepKick, ctx)
     },
     {
       name: 'Snare',
-      index: 0,
+
       audio: await createAudioBuffer(Snare, ctx)
     },
     {
       name: 'Digital Clap',
-      index: 0,
       audio: await createAudioBuffer(DigitalClap, ctx)
     },
     {
       name: 'Closed Hat',
-      index: 0,
       audio: await createAudioBuffer(ClosedHat, ctx)
     },
     {
-      name: 'OpenHat',
-      index: 0,
+      name: 'Open Hat',
       audio: await createAudioBuffer(OpenHat, ctx)
     }
   ]

@@ -33,6 +33,8 @@ export default function ControlPanel({
   defaultFilterValues,
   setDefaultFilterValues,
   samples,
+  selectedSample,
+  setSelectedSample,
   pitch,
   setPitch
 }) {
@@ -104,14 +106,6 @@ export default function ControlPanel({
     setNodes(newNodes)
   }
 
-  function selectSample(sample) {
-    selectedNode.sample = sample
-    selectedNode.color = setNodeColor(sample.name.replace(/\s+/g, ''))
-    nodes.splice(selectedNode.playOrder, 1, selectedNode)
-    const newNodes = [...nodes]
-    setNodes(newNodes)
-  }
-
   function setNodeColor(sample) {
     return sampleColors[sample]
   }
@@ -136,14 +130,15 @@ export default function ControlPanel({
   }
 
   function RenderDisplayPanel() {
-    if (panelDisplayMode === panelMode.node) {
+    if (!panelDisplayMode || panelDisplayMode === panelMode.node) {
       return (
         <SampleSelect
-          selectSample={selectSample}
           nodeEditor={nodeEditor}
           selectedNode={selectedNode}
           nodes={nodes}
           samples={samples}
+          selectedSample={selectedSample}
+          setSelectedSample={setSelectedSample}
         />
       )
     }
