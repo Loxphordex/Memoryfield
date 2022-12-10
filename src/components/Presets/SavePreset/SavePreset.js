@@ -66,6 +66,7 @@ export default function SavePreset({
       toggleInputActive={toggleInputActive}
       setPresetName={setPresetName}
       saveNodes={saveNodes}
+      setPanelDisplayMode={setPanelDisplayMode}
     />
   )
 }
