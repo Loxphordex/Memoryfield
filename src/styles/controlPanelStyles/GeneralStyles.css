@@ -8,4 +8,31 @@
   pointer-events: none;
 }
 
+.panel-display-header {
+  font-size: 1.1em;
+  padding: 0 20px 5px 20px;
+}
+
+.panel-display-header .home-button {
+  display: inline-block;
+  width: 10%;
+}
+
+.panel-display-header .home-button svg:hover {
+  background-color: rgb(66, 74, 65);
+}
+
+.panel-display-header label {
+  display: inline-block;
+  width: 80%;
+  padding-top: 0;
+  margin-bottom: 5px;
+  text-align: center;
+  font-weight: normal;
+}
+
+.panel-display-header label::after {
+  width: 10%;
+}
+
 
