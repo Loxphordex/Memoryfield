@@ -33,8 +33,10 @@ export default function SequenceLengthSelect({
 
   return (
     <div className='sequence-length-display-container'>
-      <HomeButton setPanelDisplayMode={setPanelDisplayMode} />
-      <label htmlFor='sequence-list'>Steps</label>
+      <h2 className='panel-display-header'>
+        <HomeButton setPanelDisplayMode={setPanelDisplayMode} />
+        <label htmlFor='sequence-list'>Steps</label>
+      </h2>
       <ul id='sequence-list' className='sequence-length-display display-panel-list'>
         {steps()}
       </ul>

@@ -1,11 +1,3 @@
-.load-preset-menu {
-  display: flex;
-  justify-content: space-between;
-}
-
-.load-preset-list-container {
-  width: 50%;
-}
 
 .preset-list {
   list-style: none;
