@@ -12,8 +12,10 @@ export default function LoadPresetMenu({
   return (
     <div className='load-preset-menu'>
       <div className='load-preset-list-container'>
-        <HomeButton setPanelDisplayMode={setPanelDisplayMode} />
-        <label className='display-panel-label' htmlFor='load-preset-list'>Load Preset</label>
+        <h2 className='panel-display-header'>
+          <HomeButton setPanelDisplayMode={setPanelDisplayMode} />
+          <label className='display-panel-label' htmlFor='load-preset-list'>Load Preset</label>
+        </h2>
         <ul id='load-preset-list' className='preset-list sequence-list'>
           {presetItems && setupConfirmation && presetItems().map(name => {
             return (
