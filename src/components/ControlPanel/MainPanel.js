@@ -56,51 +56,53 @@ export default function MainPanel({
       {!isPlaying && <button className='play-or-stop-button play-button control-button' onClick={() => playSequence()}><Play size={36} /></button>}
       {isPlaying && <button className='play-or-stop-button stop-button control-button' onClick={() => play(false)}><Stop size={36} /></button>}
 
-      <div className='bpm-knob-container'>
-        { isPlaying && 
-          <div className='tempo-lock-container'>
-            <LockSimple size={28} />
+      <div className='knobs-container'>
+        <div className='bpm-knob-container'>
+          { isPlaying && 
+            <div className='tempo-lock-container'>
+              <LockSimple size={28} />
+            </div>
+          }
+          <div className={`tempo-knob-overlay ${isPlaying ? 'tempo-knob-overlay-disabled' : ''}`}>
+            <Knob
+              units='tempo'
+              defaultValue={displayedBpm}
+              maxValue={300}
+              valueCallback={calculateBpm}
+              usingDecimals={false}
+            />
           </div>
-        }
-        <div className={`tempo-knob-overlay ${isPlaying ? 'tempo-knob-overlay-disabled' : ''}`}>
+        </div>
+
+        <div className='pitch-container'>
           <Knob
-            units='tempo'
-            defaultValue={displayedBpm}
-            maxValue={300}
-            valueCallback={calculateBpm}
+            units='pitch'
+            defaultValue={defaultPitch}
+            maxValue={5}
+            valueCallback={setPitch}
+            usingDecimals={true}
+          />
+        </div>
+
+        <div className='global-filter-container'>
+          <Knob
+            units='frequency'
+            defaultValue={defaultFrequency}
+            maxValue={8000}
+            valueCallback={updateFilterFrequency}
             usingDecimals={false}
           />
         </div>
-      </div>
 
-      <div className='global-filter-container'>
-        <Knob
-          units='frequency'
-          defaultValue={defaultFrequency}
-          maxValue={8000}
-          valueCallback={updateFilterFrequency}
-          usingDecimals={false}
-        />
-      </div>
-
-      <div className='global-q-container'>
-        <Knob
-          units='q'
-          defaultValue={defaultQ}
-          maxValue={35}
-          valueCallback={updateFilterQ}
-          usingDecimals={true}
-        />
-      </div>
-
-      <div className='pitch-container'>
-        <Knob
-          units='pitch'
-          defaultValue={defaultPitch}
-          maxValue={5}
-          valueCallback={setPitch}
-          usingDecimals={true}
-        />
+        <div className='global-q-container'>
+          <Knob
+            units='q'
+            defaultValue={defaultQ}
+            maxValue={35}
+            valueCallback={updateFilterQ}
+            usingDecimals={true}
+          />
+        </div>
       </div>
 
       <div className='steps-container'>

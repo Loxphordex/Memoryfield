@@ -16,3 +16,11 @@
     transition: all 170ms;
     background-color: rgb(57, 66, 66);
 }
+
+@media only screen and (max-width: 576px) {
+    .memory-node {
+        width: 1em;
+        height: 1em;
+        margin: 0.4em auto;
+    }
+}

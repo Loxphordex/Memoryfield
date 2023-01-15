@@ -24,6 +24,7 @@
   margin: 0;
   padding: 0 6px;
   font-family: "Varela Round", sans-serif;
+  border-width: 0;
 }
 
 .sequence-length-container {
@@ -76,6 +77,50 @@
   color: rgb(197, 54, 54);
 }
 
+.knobs-container {
+  display: flex;
+}
+
 .tempo-knob-overlay-disabled * {
   pointer-events: none;
+}
+
+@media only screen and (max-width: 576px) {
+  .global-controls {
+    flex-flow: wrap-reverse;
+    justify-content: space-between;
+    margin-top: 5%;
+  }
+
+  .play-or-stop-button {
+    display: block;
+    width: 100%;
+    /* margin-left: 40%;
+    margin-right: 40%; */
+    margin-bottom: 6px;
+  }
+
+  .knobs-container {
+    flex-flow: wrap;
+    justify-content: space-between;
+    margin: 12% 0;
+    margin-right: 5%;
+    width: 100%;
+  }
+
+  .control-button {
+    font-size: 1em;
+  }
+
+  .presets-buttons-container {
+    min-width: 150px;
+  }
+
+  .steps-container {
+    min-width: 70px;
+  }
+
+  .main-panel-label {
+    text-align: left;
+  }
 }
