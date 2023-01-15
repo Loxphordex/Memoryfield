@@ -137,3 +137,26 @@
   justify-content: center;
   align-items: center;
 }
+
+@media only screen and (max-width: 576px) {
+  .selected-node-control-display {
+    display: flex;
+    font-size: 0.8em;
+    min-height: 17em;
+    padding: 1em;
+  }
+
+  .save-control,
+  .load-preset {
+    width: 100%;
+  }
+
+  .display-panel-list {
+    flex-flow: wrap;
+    justify-content: center;
+  }
+
+  .display-panel-input {
+    font-size: 1.7em;
+  }
+}
