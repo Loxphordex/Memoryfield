@@ -25,3 +25,10 @@ a {
     align-items: center;
   }
 }
+
+@media only screen and (max-width: 576px) {
+  .App {
+    overflow-y: hidden;
+    max-height: 100vh;
+  }
+}
