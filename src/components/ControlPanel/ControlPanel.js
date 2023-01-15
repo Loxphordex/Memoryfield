@@ -76,6 +76,7 @@ export default function ControlPanel({
   }
 
   function playSequence() {
+    ctx.resume()
     if (nodes) {
       play(true)
     }
