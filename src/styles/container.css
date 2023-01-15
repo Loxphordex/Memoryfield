@@ -16,3 +16,13 @@
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
 }
+
+@media only screen and (max-width: 576px) {
+  .app-container {
+    max-width: 576px;
+    margin: 0;
+    border-radius: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+}

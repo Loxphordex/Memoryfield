@@ -76,6 +76,32 @@
   color: rgb(197, 54, 54);
 }
 
+.knobs-container {
+  display: flex;
+}
+
 .tempo-knob-overlay-disabled * {
   pointer-events: none;
+}
+
+@media only screen and (max-width: 576px) {
+  .global-controls {
+    flex-flow: wrap-reverse;
+  }
+
+  .play-or-stop-button {
+    display: block;
+    width: 100%;
+    /* margin-left: 40%;
+    margin-right: 40%; */
+    margin-bottom: 6px;
+  }
+
+  .knobs-container {
+    flex-flow: wrap;
+    justify-content: space-between;
+    margin: 0.8em 0;
+    margin-right: 5%;
+    width: 100%;
+  }
 }
