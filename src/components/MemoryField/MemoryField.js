@@ -13,7 +13,7 @@ export default function MemoryField({
     return (
       <section className='field-container'>
         <section className="memory-field">
-          {nodes && nodes.map(node => {
+          {nodes && nodes.map((node, index) => {
             return (
               <MemoryNode
                 nodes={nodes}
@@ -26,6 +26,7 @@ export default function MemoryField({
                 key={node.playOrder}
                 selectedSample={selectedSample}
                 sampleColors={sampleColors}
+                index={index}
               />
             );
           })}

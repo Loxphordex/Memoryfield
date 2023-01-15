@@ -7,7 +7,8 @@ export default function MemoryNode({
   isInSequence,
   currentNodePlayingIndex,
   selectedSample,
-  sampleColors
+  sampleColors,
+  index
 }) {
   // "Activated" means "is the current sample selected for this node"
   const [isNodeActivated, setIsNodeActivated] = useState(false)
@@ -70,11 +71,18 @@ export default function MemoryNode({
     }
   }
 
+  function getRow() {
+    let rowNum
+    rowNum = Math.floor((index + 4) / 4)
+
+    return `node-row-${rowNum}`
+  }
+
   return (
     <div
       key={`node-${playOrder}`}
       onClick={handleSampleSelection}
-      className={`memory-node node-is-active-${isInSequence} ${color}`}
+      className={`memory-node node-is-active-${isInSequence} ${color} ${getRow()}`}
       id={`memory-node-${playOrder}`}
     />
   );
