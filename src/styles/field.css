@@ -15,7 +15,7 @@
 
 @media only screen and (max-width: 576px) {
     .memory-field {
-        margin: 0 4em;
+        margin: 0 3em;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr;
