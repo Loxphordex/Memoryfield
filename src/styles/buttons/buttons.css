@@ -107,6 +107,16 @@ p {
   margin: 1em auto;
 }
 
+.control-panel-day .max,
+.control-panel-day .knob-label {
+  color: rgb(34, 35, 34);
+}
+
+.control-panel-day .knob-surround {
+  border: solid 0.25em rgb(129 119 129);
+  background-color: rgb(255, 254, 254);
+}
+
 @media only screen and (max-width: 576px) {
   .knob-surround {
     margin: 0;

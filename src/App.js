@@ -42,6 +42,7 @@ function App() {
   const [isPathCreated, setIsPathCreated] = useState(false)
   const [isPathSetup, setIsPathSetup] = useState(false)
   const [panelDisplayMode, setPanelDisplayMode] = useState(null)
+  const [dayMode, setDayMode] = useState(false)
 
   const isPlayingRef = useRef(isPlaying)
   const setPlaying = (status) => {
@@ -166,7 +167,7 @@ function App() {
 
   return (
     <div className='App'>
-      <section className='app-container'>
+      <section className={`app-container ${dayMode ? 'app-container-day' : ''}`}>
         <ControlPanel
           isPlaying={isPlaying}
           play={setPlaying}
@@ -190,6 +191,7 @@ function App() {
           setSelectedSample={setSelectedSample}
           pitch={pitch}
           setPitch={setPitch}
+          dayMode={dayMode}
         />
         <MemoryField
           nodes={nodes}
@@ -199,7 +201,10 @@ function App() {
           selectedSample={selectedSample}
         />
       </section>
-      <Footer />
+      <Footer 
+        dayMode={dayMode}
+        setDayMode={setDayMode}
+      />
     </div>
   )
 }

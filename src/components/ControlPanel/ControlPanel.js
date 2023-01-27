@@ -13,6 +13,7 @@ import LoadPreset from '../Presets/LoadPreset/LoadPreset'
 import { sampleColors } from "../../data/data";
 import '../../styles/controlPanelStyles/DisplayPanel.css'
 import '../../styles/controlPanelStyles/GeneralStyles.css'
+import '../../styles/dayMode/controlPanelDayMode.css'
 
 export default function ControlPanel({ 
   isPlaying,
@@ -36,7 +37,8 @@ export default function ControlPanel({
   selectedSample,
   setSelectedSample,
   pitch,
-  setPitch
+  setPitch,
+  dayMode
 }) {
   const [selectedNode, setSelectedNode] = useState(null)
   const [presets, setPresets] = useState(null)
@@ -190,7 +192,7 @@ export default function ControlPanel({
 
   if (ctx) {
     return (
-      <section className='control-panel'>
+      <section className={`control-panel ${dayMode ? 'control-panel-day' : ''}`}>
         <MainPanel 
           playSequence={playSequence}
           play={play}
