@@ -1,0 +1,44 @@
+.control-panel {
+  background-color: rgb(27, 26, 26);
+}
+
+.control-panel-day {
+  background-color: white;
+  color: rgb(64, 68, 63);
+}
+
+.control-panel-day .selected-node-control-display {
+  background-color: rgb(200 225 197);
+  color: rgb(64, 68, 63);
+}
+
+.control-panel-day .knob {
+  background-color: white;
+}
+
+.control-panel-day .sample-selection:hover {
+  background-color: rgb(64, 68, 63);
+  color: rgb(200 225 197);
+}
+
+.control-panel-day .play-or-stop-button {
+  background-color: white;
+  box-shadow: none;
+  color: rgb(64, 68, 63);
+}
+
+.control-panel-day .play-or-stop-button:hover {
+  background-color: #f8f8f8;
+}
+
+.control-panel-day .main-panel-label {
+  color: rgb(64, 68, 63);
+}
+
+.control-panel-day .presets-container .control-button,
+.control-panel-day .steps-container .control-button {
+  box-shadow: none;
+  background-color: #f8f8f8;
+  color: rgb(64, 68, 63);
+  padding: 10px 4px;
+}

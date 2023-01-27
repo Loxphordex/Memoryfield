@@ -53,6 +53,7 @@
 .play-or-stop-button {
   align-self: center;
   margin-bottom: 10px;
+  padding-top: 2px;
 }
 
 .steps-container {
