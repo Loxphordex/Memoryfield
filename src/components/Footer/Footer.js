@@ -8,10 +8,16 @@ export default function Footer({
 }) {
   return (
     <div className='footer'>
-      <a href='https://github.com/Loxphordex/Memoryfield' target='_blank' rel='noopener noreferrer'>GitHub</a>
-      <button className='day-mode-toggle' onClick={() => setDayMode(!dayMode)}>
-        { dayMode ? <Sun size={32} /> : <Moon size={32} /> }
-      </button>
+      <div className='footer-icon-hub'>
+        <button className='day-mode-toggle' onClick={() => setDayMode(!dayMode)}>
+          { dayMode ? <Sun size={32} /> : <Moon size={32} /> }
+        </button>
+        <div className='footer-github-link'>
+          <a href='https://github.com/Loxphordex/Memoryfield' target='_blank' rel='noopener noreferrer'>
+            <i className='devicon-github-original-wordmark'></i>
+          </a>
+        </div>
+      </div>
     </div>
   )
 }

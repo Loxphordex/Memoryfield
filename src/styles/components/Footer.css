@@ -9,8 +9,30 @@
   text-decoration: none;
 }
 
-@media only screen and (max-width: 576px) {
+.footer-icon-hub {
+  display: flex;
+}
+
+.footer-github-link {
+  font-size: 2em;
+  padding: 1px 6px;
+}
+
+.footer-github-link:hover {
+  background-color: rgb(182, 182, 186);
+}
+
+.day-mode-toggle {
+  border: none;
+  background-color: rgb(200 199 204);
+}
+
+.day-mode-toggle:hover {
+  background-color: rgb(182, 182, 186);
+}
+
+/* @media only screen and (max-width: 576px) {
   .footer {
     display: none;
   }
-}
+} */
