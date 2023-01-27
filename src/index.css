@@ -31,4 +31,12 @@ a {
     overflow-y: hidden;
     max-height: 90vh;
   }
+
+  html, body {
+    overflow-x: hidden;
+  }
+
+  body {
+    position: relative;
+  }
 }
