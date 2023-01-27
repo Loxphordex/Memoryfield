@@ -17,6 +17,98 @@
     background-color: rgb(57, 66, 66);
 }
 
+.app-container-day .memory-node {
+    background-color: rgb(200 199 204);
+    box-shadow: -3px 3px 9px 0px rgb(128 128 147);
+}
+
+.app-container-day .node-is-active-false {
+    background-color: rgb(57, 66, 66);
+}
+
+.app-container-day .default {
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 19px 5px rgb(255, 255, 255);
+}
+
+.app-container-day .red {
+    border: 1px solid rgb(218, 69, 76);
+    background-color: rgb(218, 69, 76);
+    box-shadow: 0px 0px 19px 5px rgb(218, 69, 76);
+}
+
+.app-container-day .green {
+    border: 1px solid rgb(0, 226, 139);
+    background-color: rgb(0, 226, 139);
+    box-shadow: 0px 0px 19px 5px rgb(2, 241, 150);
+}
+
+.app-container-day .purple {
+    border: 1px solid rgb(162, 88, 223);
+    background-color: rgb(162, 88, 223);
+    box-shadow: 0px 0px 19px 5px rgb(162, 88, 223);
+}
+
+.app-container-day .orange {
+    border: 1px solid rgb(252, 176, 14);
+    background-color: rgb(252, 176, 14);
+    box-shadow: 0px 0px 19px 5px rgb(252, 176, 14);
+}
+
+.app-container-day .pink {
+    border: 1px solid rgb(255, 95, 175);
+    background-color: rgb(255, 95, 175);
+    box-shadow: 0px 0px 19px 5px rgb(255, 95, 175);
+}
+
+.app-container-day .teal {
+    border: 1px solid rgb(0, 255, 255);
+    background-color: rgb(0, 255, 255);
+    box-shadow: 0px 0px 19px 5px rgb(0, 255, 255);
+}
+
+.app-container-day .blue {
+    border: 1px solid rgb(86, 123, 224);
+    background-color: rgb(86, 123, 224);
+    box-shadow: 0px 0px 19px 5px rgb(86, 123, 224);
+}
+
+.app-container-day .not-playing-red {
+    border: 1px solid rgb(187, 47, 77);
+    background-color: rgb(187, 47, 77);
+}
+
+.app-container-day .not-playing-blue {
+    border: 1px solid rgb(60, 102, 217);
+    background-color: rgb(60, 102, 217);
+}
+
+.app-container-day .not-playing-green {
+    border: 1px solid rgb(57 142 109);
+    background-color: rgb(57 142 109);
+}
+
+.app-container-day .not-playing-teal {
+    border: 1px solid rgb(6, 157, 157);
+    background-color: rgb(6, 157, 157);
+}
+
+.app-container-day .not-playing-pink {
+    border: 1px solid rgb(240, 121, 180);
+    background-color: rgb(240, 121, 180);
+}
+
+.app-container-day .not-playing-purple {
+    border: 1px solid rgb(95, 61, 149);
+    background-color: rgb(95, 61, 149);
+}
+
+.app-container-day .editing {
+    border: 1px solid white;
+}
+
+
 @media only screen and (max-width: 576px) {
     .memory-node {
         width: 1.3em;

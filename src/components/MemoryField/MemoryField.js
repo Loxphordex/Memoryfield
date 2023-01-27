@@ -1,6 +1,6 @@
 import React from "react";
 import MemoryNode from '../MemoryNode/MemoryNode'
-import { sampleColors } from "../../data/data";
+import { sampleColors } from "../../data/data"
 
 export default function MemoryField({
   nodes,

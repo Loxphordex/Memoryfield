@@ -7,6 +7,11 @@
     box-shadow: -4px 5px 16px 4px rgb(75 75 89);
 }
 
+.app-container-day {
+  background-color: #f8f8f8;
+  box-shadow: -4px 5px 16px 4px rgb(177 177 185);
+}
+
 .no-select {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
